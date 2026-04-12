@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elizabeth & Daksh — Wedding Celebration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #E8963F;
+  --deep-red: #9E2A2B;
+  --burgundy: #6B1D2A;
+  --gold: #C9A84C;
+  --gold-light: #E8D5A3;
+  --cream: #FDF8F0;
+  --ivory: #FAF5EB;
+  --charcoal: #2C2C2C;
+  --warm-gray: #6B6560;
+  --blush: #F2DDD5;
+  --sage: #8B9E7E;
+  --midnight: #1A1A2E;
+  --plum: #5C3557;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  color: var(--charcoal);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex; justify-content: center; align-items: center;
+  transition: all 0.5s ease;
+  background: transparent;
+}
+nav.scrolled {
+  background: rgba(253, 248, 240, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 30px rgba(0,0,0,0.08);
+}
+nav ul {
+  display: flex; gap: 2rem; list-style: none; align-items: center;
+}
+nav a {
+  text-decoration: none;
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  transition: color 0.3s, opacity 0.3s;
+  opacity: 0.9;
+}
+nav a:hover { opacity: 1; color: var(--gold-light); }
+nav.scrolled a { color: var(--charcoal); }
+nav.scrolled a:hover { color: var(--deep-red); }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 4px !important;
+}
+
+/* ─── HAMBURGER (mobile) ─── */
+.hamburger {
+  display: none; cursor: pointer; flex-direction: column;
+  gap: 5px; z-index: 1001; background: none; border: none; padding: 5px;
+}
+.hamburger span {
+  width: 28px; height: 2px; background: var(--cream);
+  transition: all 0.3s;
+}
+nav.scrolled .hamburger span { background: var(--charcoal); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--midnight) 0%, var(--burgundy) 40%, var(--deep-red) 70%, var(--saffron) 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(232,150,63,0.1) 0%, transparent 50%);
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+/* Floating mandala decoration */
+.mandala-ring {
+  position: absolute;
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 50%;
+  animation: spin 60s linear infinite;
+}
+.mandala-ring:nth-child(1) { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.mandala-ring:nth-child(2) { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-direction: reverse; animation-duration: 45s; border-style: dashed; }
+.mandala-ring:nth-child(3) { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 80s; }
+
+@keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+.hero-content {
+  position: relative; z-index: 2;
+  animation: fadeUp 1.2s ease-out;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-pre {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.hero h1 .ampersand {
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.7em;
+  display: inline-block;
+  margin: 0 0.2em;
+  vertical-align: baseline;
+}
+
+.hero-date {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  margin-top: 2rem;
+  opacity: 0.9;
+}
+.hero-date .separator {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  vertical-align: middle;
+  margin: 0 1rem;
+  opacity: 0.5;
+}
+
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+.hero-scroll span {
+  display: block; width: 20px; height: 34px;
+  border: 2px solid rgba(201,168,76,0.5);
+  border-radius: 12px;
+  position: relative;
+}
+.hero-scroll span::before {
+  content: '';
+  position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+  width: 3px; height: 8px; background: var(--gold);
+  border-radius: 2px;
+  animation: scrollDot 2s infinite;
+}
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+@keyframes scrollDot { 0% { opacity: 1; top: 6px; } 100% { opacity: 0; top: 18px; } }
+
+/* ─── SECTIONS ─── */
+section { padding: 6rem 2rem; }
+
+.section-label {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  text-align: center;
+  color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--warm-gray);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* ─── WELCOME / INTRO ─── */
+.welcome {
+  background: var(--ivory);
+  text-align: center;
+  position: relative;
+}
+.welcome-text {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--charcoal);
+  font-style: italic;
+}
+.ornament {
+  display: block;
+  margin: 2rem auto;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+/* ─── CELEBRATIONS (2 parts) ─── */
+.celebrations { background: var(--cream); }
+
+.celebration-part {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+}
+.celebration-header {
+  padding: 2.5rem 3rem;
+  background: linear-gradient(135deg, var(--midnight) 0%, var(--burgundy) 100%);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.celebration-header::after {
+  content: '';
+  position: absolute; right: -30px; top: -30px;
+  width: 150px; height: 150px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 50%;
+}
+.celebration-header h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+.celebration-header .cel-meta {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--gold-light);
+  font-weight: 300;
+}
+
+.celebration-header.american {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #3a3a3a 100%);
+}
+
+/* ─── TIMELINE ─── */
+.timeline {
+  padding: 2rem 2rem 2rem 3rem;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 3rem; top: 2rem; bottom: 2rem;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold-light), var(--blush));
+}
+
+.timeline-event {
+  position: relative;
+  padding: 0 0 2.5rem 2.5rem;
+}
+.timeline-event:last-child { padding-bottom: 0; }
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  left: -6px; top: 6px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--gold-light);
+}
+
+.event-time {
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 0.3rem;
+}
+.event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.4rem;
+}
+.event-desc {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+}
+
+/* ─── CLOTHING GUIDE ─── */
+.clothing { background: var(--ivory); }
+
+.outfit-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.outfit-card {
+  background: white;
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.outfit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.outfit-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  opacity: 0.5;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.outfit-event {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.3rem;
+}
+.outfit-day {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 1rem;
+}
+.outfit-detail {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: var(--warm-gray);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+.outfit-detail strong {
+  color: var(--charcoal);
+  font-weight: 500;
+}
+.outfit-tag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+.tag-indian { background: #FFF3E0; color: var(--saffron); }
+.tag-western { background: #F3E5F5; color: var(--plum); }
+.tag-casual { background: #E8F5E9; color: var(--sage); }
+
+/* ─── TRAVEL ─── */
+.travel { background: var(--cream); }
+
+.info-cards {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+.info-card {
+  background: white;
+  border-radius: 14px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.info-card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.info-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.8rem;
+}
+.info-card p, .info-card li {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.92rem;
+  color: var(--warm-gray);
+  line-height: 1.7;
+}
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+.info-card li { padding: 0.3rem 0; }
+.info-card li::before {
+  content: '→ ';
+  color: var(--gold);
+}
+
+/* ─── THINGS TO DO ─── */
+.things-to-do { background: var(--ivory); }
+
+/* ─── REGISTRY ─── */
+.registry {
+  background: linear-gradient(135deg, var(--midnight) 0%, var(--burgundy) 50%, var(--plum) 100%);
+  text-align: center;
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.registry::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9A84C' fill-opacity='0.05'%3E%3Cpath d='M20 0L40 20L20 40L0 20z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.registry .section-label { color: var(--gold-light); }
+.registry .section-title { color: var(--cream); }
+.registry .section-subtitle { color: rgba(250,245,235,0.7); }
+
+.registry-message {
+  position: relative; z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: rgba(250,245,235,0.9);
+  line-height: 1.8;
+  padding: 2rem;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+}
+
+/* ─── RSVP ─── */
+.rsvp { background: var(--cream); text-align: center; }
+
+.rsvp-form {
+  max-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.form-group { text-align: left; }
+.form-group label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 1px solid #e0dbd4;
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  background: white;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkbox-group {
+  display: flex; flex-wrap: wrap; gap: 0.8rem;
+  margin-top: 0.3rem;
+}
+.checkbox-group label {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; letter-spacing: 0; text-transform: none;
+  font-weight: 300; color: var(--warm-gray); cursor: pointer;
+}
+.checkbox-group input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--deep-red);
+}
+
+.btn-submit {
+  padding: 1.1rem 3rem;
+  background: linear-gradient(135deg, var(--deep-red), var(--burgundy));
+  color: var(--cream);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-top: 0.5rem;
+}
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(158,42,43,0.3);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--charcoal);
+  color: rgba(250,245,235,0.5);
+  text-align: center;
+  padding: 3rem 2rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+footer .footer-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--gold-light);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+/* ─── ANIMATIONS ─── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav ul { 
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(26,26,46,0.97);
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+  nav ul.open { display: flex; }
+  nav ul.open a { color: var(--cream) !important; font-size: 1rem; }
+  .hamburger { display: flex; }
+
+  section { padding: 4rem 1.5rem; }
+  .celebration-header { padding: 2rem; }
+  .timeline { padding: 1.5rem 1.5rem 1.5rem 2rem; }
+  .timeline::before { left: 2rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .outfit-grid { grid-template-columns: 1fr; }
+  .info-cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul>
+    <li><a href="#welcome">Welcome</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#clothing">What to Wear</a></li>
+    <li><a class="nav-logo" href="#hero">E &amp; D</a></li>
+    <li><a href="#travel">Travel</a></li>
+    <li><a href="#registry">Registry</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="mandala-ring"></div>
+  <div class="mandala-ring"></div>
+  <div class="mandala-ring"></div>
+  <div class="hero-content">
+    <p class="hero-pre">Together with their families</p>
+    <h1>Elizabeth <span class="ampersand">&amp;</span> Daksh</h1>
+    <p class="hero-date">
+      November 2026 <span class="separator"></span> February 2027
+    </p>
+  </div>
+  <a href="#welcome" class="hero-scroll"><span></span></a>
+</section>
+
+<!-- ═══════════ WELCOME ═══════════ -->
+<section class="welcome" id="welcome">
+  <div class="fade-in">
+    <p class="section-label">Our Celebration</p>
+    <h2 class="section-title">Two Cultures, One Love</h2>
+    <span class="ornament"></span>
+    <p class="welcome-text">
+      We're so excited to celebrate our love with the people who mean the most to us.
+      Our wedding will be a fusion of two worlds — a Western ceremony in the United States
+      and traditional Indian celebrations in India. We can't wait to share both of these
+      beautiful traditions with you.
+    </p>
+    <span class="ornament"></span>
+  </div>
+</section>
+
+<!-- ═══════════ EVENTS ═══════════ -->
+<section class="celebrations" id="events">
+  <p class="section-label fade-in">The Celebrations</p>
+  <h2 class="section-title fade-in">Our Wedding Events</h2>
+  <p class="section-subtitle fade-in">A joyful journey across continents, cultures, and ceremonies</p>
+
+  <!-- American Wedding -->
+  <div class="celebration-part fade-in">
+    <div class="celebration-header american">
+      <h3>The American Celebration</h3>
+      <p class="cel-meta">NOVEMBER 2026 · UNITED STATES · DETAILS COMING SOON</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-event">
+        <p class="event-time">Date &amp; Venue TBA</p>
+        <p class="event-name">Ceremony &amp; Reception</p>
+        <p class="event-desc">Our Western celebration will bring together family and friends for an elegant ceremony followed by dinner, dancing, and festivities. Full details — including date, venue, and dress code — will be shared soon. Stay tuned!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indian Wedding — Day 1 -->
+  <div class="celebration-part fade-in">
+    <div class="celebration-header">
+      <h3>The Indian Celebration — Day 1</h3>
+      <p class="cel-meta">FEBRUARY 23, 2027 · INDIA</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-event">
+        <p class="event-time">11:00 AM – 1:00 PM</p>
+        <p class="event-name">Haldi Ceremony</p>
+        <p class="event-desc">A vibrant, joyful ritual where turmeric paste is applied to the bride and groom for blessings of prosperity and beauty. Wear yellow — and nothing too precious, as things will get colorful! A bath follows the ceremony.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">1:00 PM – 3:30 PM</p>
+        <p class="event-name">Welcome Lunch</p>
+        <p class="event-desc">A relaxed welcome lunch for arriving guests. Hotel check-in begins at 2:00 PM. Casual attire is perfectly fine.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">3:30 PM – 6:00 PM</p>
+        <p class="event-name">Rest &amp; Refresh</p>
+        <p class="event-desc">Free time to settle in, freshen up, and get ready for the evening festivities.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">6:00 PM – 10:00 PM</p>
+        <p class="event-name">Cocktails &amp; Dinner</p>
+        <p class="event-desc">An elegant evening of cocktails and dinner under the stars. Western or Indian formal attire — think stunning and festive. Outdoor music ends at 10 PM due to forest area regulations.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">10:00 PM Onward</p>
+        <p class="event-name">Sangeet &amp; After-Party</p>
+        <p class="event-desc">The party moves indoors! The Sangeet is a night of music, dance performances, and celebration. Get ready to dance the night away.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indian Wedding — Day 2 -->
+  <div class="celebration-part fade-in">
+    <div class="celebration-header">
+      <h3>The Indian Celebration — Day 2</h3>
+      <p class="cel-meta">FEBRUARY 24, 2027 · INDIA</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-event">
+        <p class="event-time">12:00 PM – 2:00 PM</p>
+        <p class="event-name">Pheras &amp; Jai Mala</p>
+        <p class="event-desc">The wedding ceremony — the sacred pheras (circling the holy fire) and jai mala (exchange of garlands). A beautiful blend of ritual and emotion. Formal Indian or Western attire.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">2:00 PM – 3:30 PM</p>
+        <p class="event-name">Lunch &amp; Cocktails</p>
+        <p class="event-desc">A celebratory lunch following the ceremony, complete with cocktails and plenty of joy.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">2:30 PM – 4:00 PM</p>
+        <p class="event-name">Rest &amp; Change</p>
+        <p class="event-desc">Time to rest and change into your evening outfit for the reception.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">4:00 PM – 5:00 PM</p>
+        <p class="event-name">Sera Bandi &amp; Baraat Assembly</p>
+        <p class="event-desc">The groom's procession prepares to begin! The Sera Bandi (turban-tying ceremony) takes place, and guests gather for the grand baraat.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">5:00 PM – 6:30 PM</p>
+        <p class="event-name">Baraat</p>
+        <p class="event-desc">The groom's grand procession with music, dancing, and celebration. Timed with the golden hour as the sun sets around 6 PM — pure magic.</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">6:30 PM – 10:00 PM</p>
+        <p class="event-name">Reception &amp; Dinner</p>
+        <p class="event-desc">The grand reception and dinner celebration. Indian or Western formal attire welcome — dress to impress!</p>
+      </div>
+      <div class="timeline-event">
+        <p class="event-time">Post Dinner</p>
+        <p class="event-name">After-Party</p>
+        <p class="event-desc">For the night owls — the celebrations continue in comfortable clothes. Come as you are and let's keep the party going!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CLOTHING GUIDE ═══════════ -->
+<section class="clothing" id="clothing">
+  <p class="section-label fade-in">Style Guide</p>
+  <h2 class="section-title fade-in">What to Wear</h2>
+  <p class="section-subtitle fade-in">Five outfits across two unforgettable days. Here's your guide to dressing for each celebration.</p>
+
+  <div class="outfit-grid">
+    <div class="outfit-card fade-in">
+      <div class="outfit-number">01</div>
+      <div class="outfit-event">Haldi Ceremony</div>
+      <div class="outfit-day">Day 1 · Morning</div>
+      <p class="outfit-detail"><strong>Men:</strong> Yellow kurta pajama — keep it simple and fun.</p>
+      <p class="outfit-detail"><strong>Women:</strong> Anything yellow! A salwar kameez, ghagra choli, or any festive yellow outfit.</p>
+      <p class="outfit-detail"><strong>Note:</strong> Turmeric stains everything — don't wear anything you're too attached to!</p>
+      <span class="outfit-tag tag-indian">Indian · Casual</span>
+    </div>
+
+    <div class="outfit-card fade-in">
+      <div class="outfit-number">02</div>
+      <div class="outfit-event">Cocktails &amp; Dinner</div>
+      <div class="outfit-day">Day 1 · Evening</div>
+      <p class="outfit-detail"><strong>Men:</strong> Western or Indian formal. Jodhpuri suits, blazers, or classic suits all work beautifully.</p>
+      <p class="outfit-detail"><strong>Women:</strong> Lehenga, gown, or cocktail dress — this is your moment to shine. It will be cool in the evening, so plan a wrap or shawl.</p>
+      <span class="outfit-tag tag-western">Formal · Western or Indian</span>
+    </div>
+
+    <div class="outfit-card fade-in">
+      <div class="outfit-number">03</div>
+      <div class="outfit-event">Pheras &amp; Jai Mala</div>
+      <div class="outfit-day">Day 2 · Ceremony</div>
+      <p class="outfit-detail"><strong>Men:</strong> Formal Indian (sherwani, kurta) or Western suit — keeping in mind international guests.</p>
+      <p class="outfit-detail"><strong>Women:</strong> Formal saree, lehenga, or elegant Western dress. Rich, vibrant colors are encouraged.</p>
+      <span class="outfit-tag tag-indian">Formal · Indian or Western</span>
+    </div>
+
+    <div class="outfit-card fade-in">
+      <div class="outfit-number">04</div>
+      <div class="outfit-event">Reception &amp; Dinner</div>
+      <div class="outfit-day">Day 2 · Evening</div>
+      <p class="outfit-detail"><strong>Men &amp; Women:</strong> Indian or Western formal — this is the grand finale celebration. Think glamorous and festive.</p>
+      <p class="outfit-detail">With international guests joining, both styles are warmly welcomed.</p>
+      <span class="outfit-tag tag-western">Formal · Glamorous</span>
+    </div>
+
+    <div class="outfit-card fade-in">
+      <div class="outfit-number">05</div>
+      <div class="outfit-event">After-Party</div>
+      <div class="outfit-day">Day 2 · Late Night</div>
+      <p class="outfit-detail">Change into something comfortable — jeans, kurta, whatever lets you dance freely!</p>
+      <p class="outfit-detail">The party continues for those who want to keep celebrating.</p>
+      <span class="outfit-tag tag-casual">Casual · Comfy</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRAVEL & ACCOMMODATION ═══════════ -->
+<section class="travel" id="travel">
+  <p class="section-label fade-in">Getting There</p>
+  <h2 class="section-title fade-in">Travel &amp; Accommodation</h2>
+  <p class="section-subtitle fade-in">Everything you need to plan your journey to celebrate with us</p>
+
+  <div class="info-cards">
+    <div class="info-card fade-in">
+      <div class="info-card-icon">✈️</div>
+      <h4>Flights &amp; Transportation</h4>
+      <p>Details about the nearest airports, recommended airlines, and ground transportation will be shared soon. We're working on arranging shuttles and group transport options for guests.</p>
+    </div>
+    <div class="info-card fade-in">
+      <div class="info-card-icon">🏨</div>
+      <h4>Where to Stay</h4>
+      <p>Accommodation details and hotel block information are coming soon. The Indian wedding venue offers on-site rooms — check-in begins at 2:00 PM on February 23rd.</p>
+    </div>
+    <div class="info-card fade-in">
+      <div class="info-card-icon">🌡️</div>
+      <h4>Weather &amp; Climate</h4>
+      <p>February in India brings pleasant weather: temperatures range from 9°C to 23°C (48°F to 73°F). Evenings can be cool, so bring a light jacket or shawl. Sunrise is around 6:45 AM and sunset at 6:00 PM.</p>
+    </div>
+    <div class="info-card fade-in">
+      <div class="info-card-icon">📋</div>
+      <h4>Helpful Tips</h4>
+      <ul>
+        <li>Indian visa may be required — check well in advance</li>
+        <li>Comfortable shoes for outdoor events</li>
+        <li>Sunscreen and sunglasses for daytime celebrations</li>
+        <li>A warm layer for cool evenings</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ THINGS TO DO ═══════════ -->
+<section class="things-to-do" id="explore">
+  <p class="section-label fade-in">While You're Here</p>
+  <h2 class="section-title fade-in">Things to Do</h2>
+  <p class="section-subtitle fade-in">Make the most of your trip! We'll be sharing our favorite local spots and experiences soon.</p>
+
+  <div class="info-cards">
+    <div class="info-card fade-in">
+      <div class="info-card-icon">🏛️</div>
+      <h4>Sightseeing</h4>
+      <p>Recommendations for must-see landmarks, temples, and cultural sites near the venue will be added here. India has an incredible wealth of history and beauty to explore.</p>
+    </div>
+    <div class="info-card fade-in">
+      <div class="info-card-icon">🍽️</div>
+      <h4>Food &amp; Dining</h4>
+      <p>Our favorite restaurants and street food spots will be listed here. Get ready for an unforgettable culinary journey!</p>
+    </div>
+    <div class="info-card fade-in">
+      <div class="info-card-icon">🛍️</div>
+      <h4>Shopping &amp; Experiences</h4>
+      <p>Markets, artisan shops, and unique experiences — from spice bazaars to fabric stores — will be recommended for guests wanting to explore local culture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ REGISTRY ═══════════ -->
+<section class="registry" id="registry">
+  <div class="fade-in">
+    <p class="section-label">Gifts</p>
+    <h2 class="section-title">Registry</h2>
+    <p class="section-subtitle">Your presence is the greatest gift of all</p>
+    <div class="registry-message">
+      Your love and presence at our celebration means the world to us. In lieu of traditional gifts, 
+      if you wish to honor us with a gift, we would be grateful for a contribution 
+      towards our future together. Details on how to contribute will be shared here soon.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RSVP ═══════════ -->
+<section class="rsvp" id="rsvp">
+  <p class="section-label fade-in">Respond</p>
+  <h2 class="section-title fade-in">RSVP</h2>
+  <p class="section-subtitle fade-in">We'd love to know if you can join us! Please let us know which celebrations you'll be attending.</p>
+
+  <div class="rsvp-form fade-in">
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" placeholder="Your first name">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" placeholder="Your last name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label>Which celebrations will you attend?</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox"> American Wedding (Nov 2026)</label>
+        <label><input type="checkbox"> Indian Celebration — Day 1 (Feb 23)</label>
+        <label><input type="checkbox"> Indian Celebration — Day 2 (Feb 24)</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Number of Guests (including yourself)</label>
+      <select>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5+</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Dietary Restrictions or Notes</label>
+      <textarea placeholder="Any dietary needs, allergies, or messages for the couple..."></textarea>
+    </div>
+    <button class="btn-submit" onclick="handleRSVP()">Send RSVP</button>
+    <p id="rsvp-confirmation" style="display:none; margin-top:1rem; color:var(--sage); font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-style:italic;">
+      Thank you! We can't wait to celebrate with you. 💛
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <p class="footer-names">Elizabeth &amp; Daksh</p>
+  <p>November 2026 &amp; February 2027</p>
+  <p style="margin-top:0.5rem; opacity:0.4;">Made with love</p>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.querySelector('nav ul').classList.remove('open');
+  });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// RSVP handler (placeholder)
+function handleRSVP() {
+  document.getElementById('rsvp-confirmation').style.display = 'block';
+  document.querySelector('.btn-submit').textContent = 'RSVP Sent!';
+  document.querySelector('.btn-submit').style.background = 'linear-gradient(135deg, #8B9E7E, #6B8E5E)';
+}
+</script>
+</body>
+</html>
