@@ -264,6 +264,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .form-row { grid-template-columns:1fr; } .outfit-card { flex-basis:100%; min-width:0; } .attire-figure { height:380px; } .info-cards, .accom-periods { grid-template-columns:1fr; }
   #travel .info-card + .info-card { border-left:none; border-top:2px solid var(--gold-faint); }
   .gate-name-fields { grid-template-columns:1fr; }
+  body { background-size: cover; background-repeat: no-repeat; background-position: center top; background-attachment: scroll; }
   .nav-crest { height:86px; max-width:190px; }
   .hero-content { padding:3rem 0.4rem; } .hero-content::before { inset:-1rem; }
   .hero h1 { white-space:normal; }
@@ -686,7 +687,21 @@ function attemptLogin() {
   });
   var nav = document.getElementById('nav');
   window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 80); });
-  document.querySelectorAll('nav a').forEach(function(l){ l.addEventListener('click', function(){ document.querySelector('nav ul').classList.remove('open'); }); });
+  (function(){
+    var navUl = document.querySelector('nav ul');
+    var hamburger = document.querySelector('.hamburger');
+    var crest = document.querySelector('.nav-crest');
+    function swapCrest(open){
+      if(!crest) return;
+      crest.src = open ? 'assets/ed-crest-light.png' : 'assets/ed-crest.png';
+    }
+    hamburger.addEventListener('click', function(){
+      navUl.classList.toggle('open');
+      swapCrest(navUl.classList.contains('open'));
+    });
+    hamburger.removeAttribute('onclick');
+    document.querySelectorAll('nav a').forEach(function(l){ l.addEventListener('click', function(){ navUl.classList.remove('open'); swapCrest(false); }); });
+  })();
   var obs = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.fade-in').forEach(function(el){ obs.observe(el); });
   initEventsCarousel();
