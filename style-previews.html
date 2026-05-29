@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Website Style Previews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; }
+body { margin:0; padding:42px clamp(18px,5vw,54px) 68px; color:#18344b; background:#f7f3ea; font-family:"DM Sans",Arial,sans-serif; }
+.intro { max-width:980px; margin:0 auto 34px; text-align:center; }
+.intro h1 { margin:0 0 10px; font-family:"Instrument Serif",serif; font-weight:400; font-size:clamp(42px,6vw,62px); }
+.intro p { max-width:670px; margin:auto; font-size:16px; line-height:1.65; color:#625e55; }
+.option { max-width:1100px; margin:28px auto 44px; }
+.option-head { display:flex; align-items:baseline; justify-content:space-between; gap:18px; margin:0 4px 14px; }
+.option-head h2 { margin:0; font-size:21px; font-weight:500; letter-spacing:-0.02em; }
+.option-head p { margin:0; color:#6c665c; font-size:14px; }
+.canvas { display:grid; grid-template-columns:1.05fr 0.95fr; overflow:hidden; min-height:420px; }
+.hero { position:relative; display:flex; flex-direction:column; justify-content:center; text-align:center; padding:50px 40px; }
+.hero .eyebrow { text-transform:uppercase; letter-spacing:0.27em; font-size:11px; margin-bottom:20px; }
+.hero h3 { font-weight:400; line-height:0.98; margin:0; }
+.hero .line { width:62px; margin:23px auto 17px; }
+.hero .date { font-size:15px; line-height:1.65; }
+.panel { padding:36px 32px; display:flex; flex-direction:column; justify-content:center; }
+.panel-label { font-size:11px; text-transform:uppercase; letter-spacing:.25em; margin-bottom:14px; }
+.event { display:grid; grid-template-columns:75px 58px 1fr; align-items:center; gap:12px; padding:14px 0; }
+.event + .event { border-top:1px solid; }
+.time { text-transform:uppercase; font-size:11px; letter-spacing:.12em; }
+.sprite { display:block; width:52px; height:52px; background:url("assets/icons/itinerary-icons-celebratory-transparent.png") no-repeat; background-size:400% 400%; }
+.sangeet { background-position:100% 33.333%; }
+.baraat { background-position:66.666% 66.666%; }
+.name { font-size:22px; line-height:1.1; margin-bottom:4px; }
+.details { font-size:13px; line-height:1.45; }
+.button { display:inline-block; align-self:flex-start; margin-top:18px; padding:12px 19px; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
+
+/* Direction 1 */
+.one .canvas { border-radius:30px; background:#fffaf0; border:1px solid #e7d4a3; box-shadow:0 13px 35px rgba(26,48,58,.08); }
+.one .hero { background:radial-gradient(circle at 50% 52%, #fffdf5 0 40%, #f7eed9 80%); }
+.one .hero::before, .one .hero::after { content:""; position:absolute; width:90px; height:90px; border:1px solid #dcad56; opacity:.4; border-radius:52% 48% 62% 38%; }
+.one .hero::before { left:30px; top:30px; transform:rotate(-18deg); }
+.one .hero::after { bottom:30px; right:30px; transform:rotate(22deg); }
+.one h3 { font-family:"Fraunces",serif; font-size:58px; color:#123c55; }
+.one .eyebrow { color:#cd744f; }
+.one .line { height:3px; background:#dd8958; border-radius:9px; }
+.one .date { color:#5c665e; }
+.one .panel { background:#fff9ef; border-left:1px solid #e7d4a3; }
+.one .panel-label { color:#c26746; }
+.one .event + .event { border-color:#ecdab2; }
+.one .time { color:#c26746; }
+.one .name { font-family:"Fraunces",serif; color:#123c55; }
+.one .details { color:#5c665e; }
+.one .button { border-radius:999px; background:#123c55; color:#fff6e8; }
+
+/* Direction 2 */
+.two .canvas { border-radius:16px; background:#fffdf6; border:1px solid #ced9c0; box-shadow:0 18px 38px rgba(44,72,47,.08); }
+.two .hero { background:#f3f4de; border-right:1px solid #ced9c0; }
+.two .hero::after { content:""; position:absolute; inset:18px; border:1px dashed rgba(214,128,73,.48); border-radius:140px 140px 18px 18px; pointer-events:none; }
+.two h3 { font-family:"Instrument Serif",serif; font-size:67px; color:#174f4a; }
+.two .eyebrow { color:#d06845; }
+.two .line { height:1px; background:#de884f; }
+.two .date { color:#4c6860; }
+.two .panel { background:#fffcf2; }
+.two .panel-label { color:#d06845; }
+.two .event + .event { border-color:#d9e2cb; }
+.two .time { color:#d06845; }
+.two .name { font-family:"Instrument Serif",serif; font-size:25px; color:#174f4a; }
+.two .details { color:#566b63; }
+.two .button { color:#174f4a; border:1px solid #d06845; border-radius:7px; background:#fff6e7; }
+
+/* Direction 3 */
+.three .canvas { border-radius:22px; background:#122f49; box-shadow:0 16px 44px rgba(12,28,44,.19); }
+.three .hero { background:linear-gradient(140deg,#102b46,#174764); }
+.three h3 { font-family:"Playfair Display",serif; font-size:56px; color:#fff5dc; }
+.three .eyebrow { color:#e8a24f; }
+.three .line { height:1px; background:linear-gradient(90deg,transparent,#eea653,transparent); }
+.three .date { color:#e9ddc2; }
+.three .panel { background:#fff7e9; border-radius:22px 0 0 22px; margin:16px 16px 16px 0; }
+.three .panel-label { color:#d46e3d; }
+.three .event + .event { border-color:#ead3a1; }
+.three .time { color:#c76439; }
+.three .name { font-family:"Playfair Display",serif; color:#11344c; }
+.three .details { color:#615a4f; }
+.three .button { border-radius:999px; background:#e1743d; color:#fffaf0; }
+
+@media (max-width:760px) {
+  .canvas { grid-template-columns:1fr; }
+  .panel { border-left:0 !important; border-top:1px solid #e7d4a3; }
+  .three .panel { margin:0 14px 14px; border-radius:0 0 16px 16px; }
+  .hero h3 { font-size:50px; }
+}
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>Regal, with a little more joy</h1>
+  <p>Three light-touch directions using the same wedding content and icon style. Each retains the refined navy-and-gold foundation while loosening the formal, historical feeling.</p>
+</header>
+
+<section class="option one">
+  <div class="option-head"><h2>Option 1: Modern Marigold</h2><p>Warm coral accent, softer cards, fresher serif type</p></div>
+  <div class="canvas">
+    <div class="hero">
+      <div class="eyebrow">Elizabeth &amp; Daksh</div>
+      <h3>We are<br>getting married</h3>
+      <div class="line"></div>
+      <div class="date">February 22 - 24, 2027<br>Riverview Retreat, Corbett</div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">The Main Event</div>
+      <div class="event"><span class="time">3:30 PM</span><span class="sprite sangeet"></span><div><div class="name">Sangeet</div><div class="details">Music, dancing, and dinner beneath the trees.</div></div></div>
+      <div class="event"><span class="time">5:00 PM</span><span class="sprite baraat"></span><div><div class="name">Baraat</div><div class="details">Our golden hour procession begins.</div></div></div>
+      <span class="button">View Itinerary</span>
+    </div>
+  </div>
+</section>
+
+<section class="option two">
+  <div class="option-head"><h2>Option 2: Garden Celebration</h2><p>Sage, marigold and curved frames for a playful outdoor mood</p></div>
+  <div class="canvas">
+    <div class="hero">
+      <div class="eyebrow">A Joyful Journey</div>
+      <h3>Elizabeth<br>&amp; Daksh</h3>
+      <div class="line"></div>
+      <div class="date">Together with our families<br>we invite you to celebrate</div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">Wedding Weekend</div>
+      <div class="event"><span class="time">3:30 PM</span><span class="sprite sangeet"></span><div><div class="name">Sangeet</div><div class="details">An evening of song, color, and dancing.</div></div></div>
+      <div class="event"><span class="time">5:00 PM</span><span class="sprite baraat"></span><div><div class="name">Baraat</div><div class="details">Meet us for the sunset procession.</div></div></div>
+      <span class="button">Explore Events</span>
+    </div>
+  </div>
+</section>
+
+<section class="option three">
+  <div class="option-head"><h2>Option 3: Moonlit Palace Party</h2><p>Deeper navy, brighter spice color, still polished and regal</p></div>
+  <div class="canvas">
+    <div class="hero">
+      <div class="eyebrow">The Wedding Celebration</div>
+      <h3>Elizabeth<br>&amp; Daksh</h3>
+      <div class="line"></div>
+      <div class="date">February 22 - 24, 2027<br>An unforgettable weekend awaits</div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">Celebrate With Us</div>
+      <div class="event"><span class="time">3:30 PM</span><span class="sprite sangeet"></span><div><div class="name">Sangeet</div><div class="details">A night of music and revelry.</div></div></div>
+      <div class="event"><span class="time">5:00 PM</span><span class="sprite baraat"></span><div><div class="name">Baraat</div><div class="details">Our procession into sunset.</div></div></div>
+      <span class="button">See the Weekend</span>
+    </div>
+  </div>
+</section>
+</body>
+</html>

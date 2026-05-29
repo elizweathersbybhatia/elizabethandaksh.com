@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -m http.server 8755)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8755/index.html)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(pkill -f \"http.server 8755\")",
+      "Bash(python3 -c 'import struct *)",
+      "Bash(pip install *)",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL OK'\\)\")",
+      "Bash(cp dress-code-couples-personalized-transparent-clean.png dress-code-couples-personalized-transparent-clean.original.png)",
+      "Bash(cp /tmp/sheet_attempt2.png dress-code-couples-personalized-transparent-clean.png)",
+      "Bash(python3 -c \"import rembg; print\\('rembg ok'\\)\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL ok'\\)\")",
+      "Bash(python3 -c \"from PIL import Image; print\\('final_attire:', Image.open\\('final_attire.png'\\).size\\)\")",
+      "Bash(python3)",
+      "Bash(curl -sL -o /dev/null -w \"final_url: %{url_effective}\\\\nhttp_code: %{http_code}\\\\n\" \"https://script.google.com/macros/s/AKfycbxL8Gkdb-X30HjaZriMlBVJZxUW7twMAPhFyBM3KIkTP_HLNI7C0bMQcM2d7-yUVp6g/exec\")",
+      "Bash(curl -sL \"https://script.google.com/macros/s/AKfycbxL8Gkdb-X30HjaZriMlBVJZxUW7twMAPhFyBM3KIkTP_HLNI7C0bMQcM2d7-yUVp6g/exec\")",
+      "Bash(curl -sL --post301 --post302 --post303 -X POST \"https://script.google.com/macros/s/AKfycbxL8Gkdb-X30HjaZriMlBVJZxUW7twMAPhFyBM3KIkTP_HLNI7C0bMQcM2d7-yUVp6g/exec\" -H \"Content-Type: application/x-www-form-urlencoded\" --data-urlencode \"firstName=CurlTest2\" --data-urlencode \"lastName=Verify\" --data-urlencode \"email=curl2@example.com\" --data-urlencode \"guests=1\" --data-urlencode \"notes=TEST ROW 2 - delete me\" --data-urlencode \"access=Limited \\(2 days\\)\")"
+    ]
+  }
+}
