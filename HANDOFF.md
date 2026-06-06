@@ -1,6 +1,6 @@
 # Wedding Website — Handoff / Progress Log
 
-**Project folder:** `/Users/elizabethweathersby/Downloads/wedding-website`
+**Project folder:** `/Users/daksh.bhatia/Desktop/elizabethandaksh.com`
 **Main file:** `index.html` (single-file site — all HTML, CSS in `<style>`, and JS in `<script>` live here; ~660 lines but ~1.6MB because a background texture + icon sprite sheets are embedded as base64).
 
 > **To resume in a new chat, paste this:**
@@ -11,10 +11,11 @@
 ## How to preview the site
 - Static site, no build step. Serve the folder and open `index.html`.
   - e.g. `python3 -m http.server 8756` from the project folder, then open `http://localhost:8756`.
-- **Password gate:** the site is name-gated. Log in with a name from `GUEST_LIST` in the `<script>`:
-  - **Full access (sees all 3 days incl. Christian ceremony):** First `Daksh`, Last `Bhatia`
-  - **Limited access (2 days, no Christian day):** First `Elizabeth`, Last `Weathersby`
-- `GUEST_LIST` entries: `{ firstName, lastName, fullAccess, maxGuests, allowChildren }`. Only 2 placeholder entries exist — **real guest list still needs to be added before launch.**
+- **Password gate:** the site is name-gated through the Apps Script API. Guest
+  records come from the private `Login_Master` and `Household_Master` Google
+  Sheet tabs; no guest list is embedded in `index.html`.
+- **Access:** `both` guests see Monday, Tuesday, and Wednesday. `india` guests
+  see Tuesday and Wednesday only.
 
 ---
 
@@ -51,8 +52,12 @@
 Individual transparent PNGs at `assets/attire/attire-{christian,haldi,sangeet,wedding,baraat}.png`. Source is `final_attire.png` (1536×1024). Old sprite sheet files remain as backup. See item 14 above for crop details.
 
 ### B. Pre-launch essentials (not started)
-- **Real guest list** in `GUEST_LIST` (currently 2 placeholders).
-- **RSVP backend = Google Sheet via Apps Script Web App.** `handleRSVP()` now POSTs (fetch, `mode:'no-cors'`, form-urlencoded) all fields + access tier to `RSVP_ENDPOINT` (a `var` near the top of the `<script>`, currently EMPTY). Apps Script code is in `rsvp-google-apps-script.gs`. SETUP REMAINING: create a Google Sheet → Extensions ▸ Apps Script → paste the .gs → Deploy ▸ New deployment ▸ Web app, "Execute as: Me", "Who has access: Anyone" → copy the `/exec` URL → paste it into `RSVP_ENDPOINT`. With the endpoint empty the form still shows the confirmation but records nothing. (Note: `no-cors` means we can't read the response, so confirmation is shown optimistically on a resolved fetch.)
+- **Guest login + household RSVP backend implemented locally.** The public site no longer contains a `GUEST_LIST`. Login uses the Apps Script endpoint, which privately reads `Login_Master` and `Household_Master` from the attached Google Sheet. Named household members have unique logins and individual accepted status. Unnamed adults require first and last names; children require first name, last name, and age. Responses are stored one row per household and can be updated to add unused seats. See `RSVP_SETUP.md`.
+- **Local guest preview enabled.** `local-guest-data.js` contains the 224 generated
+  logins for local testing and is ignored by Git. Local RSVP edits use browser
+  `localStorage`; production continues to use Apps Script and Google Sheets.
+- **Deployment still required.** Import the workbook's `Login_Master` and `Household_Master` tabs into the RSVP Google Sheet, replace the deployed Apps Script with `rsvp-google-apps-script.gs`, and publish a new Web App version. Until that is done, the live endpoint still runs the prior API and the new login will not work.
+- **Guest workbook privacy.** `wedding_website_guest_master_final.xlsx` remains local but is now ignored and staged for removal from future Git commits. The older committed copy still exists in Git history unless history is separately rewritten.
 - Registry details, shop links (currently `href="#"`), and contact details are placeholders.
 
 ---
