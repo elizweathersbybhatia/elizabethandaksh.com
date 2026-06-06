@@ -232,7 +232,7 @@ function rsvpFromRow(sheet, row) {
 }
 
 function readObjects(sheetName) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+  var sheet = findOrNameMasterSheet(sheetName);
   if (!sheet) throw new Error('Missing required sheet: ' + sheetName);
   var values = sheet.getDataRange().getDisplayValues();
   if (values.length < 2) return [];
@@ -244,6 +244,29 @@ function readObjects(sheetName) {
     for (var i = 0; i < headers.length; i++) item[headers[i]] = row[i];
     return item;
   });
+}
+
+function findOrNameMasterSheet(sheetName) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var exact = ss.getSheetByName(sheetName);
+  if (exact) return exact;
+
+  var requiredHeaders = sheetName === LOGIN_SHEET
+    ? ['guest_id', 'household_id', 'first_name', 'last_name']
+    : ['household_id', 'primary_guest', 'total_guests', 'login_count'];
+  var sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    var sheet = sheets[i];
+    if (sheet.getLastColumn() < requiredHeaders.length || sheet.getLastRow() < 1) continue;
+    var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0]
+      .map(function(value) { return text(value).trim(); });
+    var matches = requiredHeaders.every(function(header) { return headers.indexOf(header) !== -1; });
+    if (matches) {
+      sheet.setName(sheetName);
+      return sheet;
+    }
+  }
+  return null;
 }
 
 function cleanGuests(items, includeAge) {
