@@ -1129,11 +1129,10 @@ setupCountryCodes();
     }
     requestAnimationFrame(tick);
   }
-  marquee.addEventListener('wheel', function() { pauseAuto(1800); }, { passive: true });
+  marquee.addEventListener('wheel', function() { pauseAuto(1400); }, { passive: true });
   marquee.addEventListener('touchstart', function() { pauseAuto(0); }, { passive: true });
-  marquee.addEventListener('touchend', function() { pauseAuto(1800); }, { passive: true });
-  marquee.addEventListener('mouseenter', function() { pauseAuto(0); });
-  marquee.addEventListener('mouseleave', function() { if (!dragging) pauseAuto(500); });
+  marquee.addEventListener('touchend', function() { pauseAuto(1400); }, { passive: true });
+  marquee.addEventListener('touchcancel', function() { pauseAuto(1400); }, { passive: true });
   marquee.addEventListener('mousedown', function(e) {
     dragging = true; marquee.classList.add('dragging');
     startX = e.pageX; startScroll = marquee.scrollLeft;
@@ -1145,7 +1144,11 @@ setupCountryCodes();
   });
   window.addEventListener('mouseup', function() {
     if (!dragging) return;
-    dragging = false; marquee.classList.remove('dragging'); pauseAuto(1800);
+    dragging = false; marquee.classList.remove('dragging'); pauseAuto(1400);
+  });
+  window.addEventListener('blur', function() {
+    if (!dragging) return;
+    dragging = false; marquee.classList.remove('dragging'); pauseAuto(1400);
   });
   marquee.addEventListener('dragstart', function(e) { e.preventDefault(); });
   requestAnimationFrame(tick);
