@@ -1113,14 +1113,14 @@ setupCountryCodes();
   if (!marquee || !track) return;
   marquee.removeAttribute('aria-hidden');
   var paused = false, resumeTimer = null, dragging = false, startX = 0, startScroll = 0;
-  var SPEED = 0.5;
+  var SPEED = 1.1;
   function pauseAuto(resumeDelay) {
     paused = true;
     clearTimeout(resumeTimer);
     if (resumeDelay) resumeTimer = setTimeout(function() { paused = false; }, resumeDelay);
   }
   function tick() {
-    if (!paused && marquee.offsetParent !== null) {
+    if (!paused) {
       var half = track.scrollWidth / 2;
       if (half > 0) {
         marquee.scrollLeft += SPEED;
