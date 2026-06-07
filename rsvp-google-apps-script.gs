@@ -15,6 +15,13 @@ var LOGIN_SHEET = 'Login_Master';
 var HOUSEHOLD_SHEET = 'Household_Master';
 var RSVP_SHEET = 'Household_RSVPs';
 var TOKEN_DAYS = 30;
+var RSVP_HEADERS = [
+  'Updated At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
+  'Guest Group', 'Subgroup', 'Email', 'Phone Country', 'Phone Number',
+  'Accepted Guest IDs JSON', 'Accepted Named Guests', 'Additional Adults JSON',
+  'Additional Adult Names', 'Children JSON', 'Child Names and Ages',
+  'Notes', 'Invite Scope'
+];
 
 function doGet(e) {
   var p = (e && e.parameter) ? e.parameter : {};
@@ -132,18 +139,40 @@ function saveRsvp(p) {
     throw new Error('This RSVP exceeds the household invitation size.');
   }
 
-  var values = [
-    new Date(),
-    auth.householdId,
-    auth.guestId,
-    text(p.email),
-    text(p.phone),
-    JSON.stringify(accepted),
-    JSON.stringify(additionalAdults),
-    JSON.stringify(children),
-    text(p.notes),
-    text(household.invite_scope)
-  ];
+  var namesById = {};
+  for (var k = 0; k < members.length; k++) namesById[members[k].guestId] = members[k].fullName;
+  var submittedByName = namesById[auth.guestId] || '';
+  var acceptedNames = accepted.map(function(id) { return namesById[id] || id; });
+  var additionalAdultNames = additionalAdults.map(function(guest) {
+    return guest.firstName + ' ' + guest.lastName;
+  });
+  var childNamesAndAges = children.map(function(child) {
+    return child.firstName + ' ' + child.lastName + ' (age ' + child.age + ')';
+  });
+  var valuesByHeader = {
+    'Updated At': new Date(),
+    'Household ID': auth.householdId,
+    'Submitted By Guest ID': auth.guestId,
+    'Submitted By Name': submittedByName,
+    'Guest Group': text(household.bucket),
+    'Subgroup': text(household.subgroup),
+    'Email': text(p.email),
+    'Phone Country': text(p.phoneCountry),
+    'Phone Number': text(p.phone),
+    'Phone': text(p.phone),
+    'Accepted Guest IDs JSON': JSON.stringify(accepted),
+    'Accepted Named Guests': acceptedNames.join(', '),
+    'Additional Adults JSON': JSON.stringify(additionalAdults),
+    'Additional Adult Names': additionalAdultNames.join(', '),
+    'Children JSON': JSON.stringify(children),
+    'Child Names and Ages': childNamesAndAges.join(', '),
+    'Notes': text(p.notes),
+    'Invite Scope': text(household.invite_scope)
+  };
+  var activeHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var values = activeHeaders.map(function(header) {
+    return Object.prototype.hasOwnProperty.call(valuesByHeader, header) ? valuesByHeader[header] : '';
+  });
   var rowNumber = existingRow || sheet.getLastRow() + 1;
   sheet.getRange(rowNumber, 1).setValue(values[0]);
   var textRange = sheet.getRange(rowNumber, 2, 1, values.length - 1);
@@ -196,19 +225,26 @@ function getOrCreateRsvpSheet() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(RSVP_SHEET) || ss.insertSheet(RSVP_SHEET);
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow([
-      'Updated At', 'Household ID', 'Submitted By Guest ID', 'Email', 'Phone',
-      'Accepted Guest IDs JSON', 'Additional Adults JSON', 'Children JSON',
-      'Notes', 'Invite Scope'
-    ]);
+    sheet.appendRow(RSVP_HEADERS);
     sheet.setFrozenRows(1);
+  } else {
+    var currentHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+    for (var i = 0; i < RSVP_HEADERS.length; i++) {
+      if (currentHeaders.indexOf(RSVP_HEADERS[i]) === -1) {
+        sheet.getRange(1, sheet.getLastColumn() + 1).setValue(RSVP_HEADERS[i]);
+        currentHeaders.push(RSVP_HEADERS[i]);
+      }
+    }
   }
   return sheet;
 }
 
 function findRsvpRow(sheet, householdId) {
   if (sheet.getLastRow() < 2) return 0;
-  var ids = sheet.getRange(2, 2, sheet.getLastRow() - 1, 1).getDisplayValues();
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var householdColumn = headers.indexOf('Household ID') + 1;
+  if (!householdColumn) return 0;
+  var ids = sheet.getRange(2, householdColumn, sheet.getLastRow() - 1, 1).getDisplayValues();
   for (var i = 0; i < ids.length; i++) {
     if (text(ids[i][0]) === text(householdId)) return i + 2;
   }
@@ -216,18 +252,22 @@ function findRsvpRow(sheet, householdId) {
 }
 
 function rsvpFromRow(sheet, row) {
-  var values = sheet.getRange(row, 1, 1, 10).getDisplayValues()[0];
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var values = sheet.getRange(row, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
+  var record = {};
+  for (var i = 0; i < headers.length; i++) record[headers[i]] = values[i];
   return {
-    updatedAt: values[0],
-    householdId: values[1],
-    submittedByGuestId: values[2],
-    email: values[3],
-    phone: values[4],
-    acceptedGuestIds: parseArray(values[5]),
-    additionalAdults: parseArray(values[6]),
-    children: parseArray(values[7]),
-    notes: values[8],
-    inviteScope: values[9]
+    updatedAt: record['Updated At'],
+    householdId: record['Household ID'],
+    submittedByGuestId: record['Submitted By Guest ID'],
+    email: record['Email'],
+    phoneCountry: record['Phone Country'],
+    phone: record['Phone Number'] || record['Phone'],
+    acceptedGuestIds: parseArray(record['Accepted Guest IDs JSON']),
+    additionalAdults: parseArray(record['Additional Adults JSON']),
+    children: parseArray(record['Children JSON']),
+    notes: record['Notes'],
+    inviteScope: record['Invite Scope']
   };
 }
 
