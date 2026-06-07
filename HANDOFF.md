@@ -46,10 +46,22 @@
 
 ---
 
+## DONE (session 3 — 2026-06-07)
+20. **RSVP sheet columns fixed** — `RSVP_HEADERS` reordered to match expected schema. `saveRsvp` `valuesByHeader` aligned to the same order; removed stale `'Phone'` key; added `'Total Number of Guests'` (accepted + adults + children count) and `'Additional Adult Contacts'` (name + email + phone per adult, formatted as readable string).
+21. **Additional adult contact fields** — split `cleanGuests` into `cleanAdults` (stores optional `email`, `phoneCountry`, `phone`) and `cleanChildren`. `index.html`: extracted `COUNTRY_CODES` to top-level; added `buildCountryOptions(selected)` helper (used by both the main phone field and guest-entry selects); `renderGuestFields` for adults now shows email input + country-code select + phone input; `readGuestFields` for adults now reads those three fields. `rsvpFromRow` already returns `additionalAdults` from JSON so contact info round-trips automatically.
+22. **Sangeet photo fixed (locally only)** — 71,766 semi-transparent pixels composited against black background (new_rgb = old_rgb × alpha/255, new_alpha = 255). Backup at `assets/attire/attire-sangeet_2.backup.png`. **NOT pushed** — review locally first, then push separately.
+23. **RSVP changes pushed to main** — commit `3ab68dc`. `rsvp-google-apps-script.gs` still needs to be redeployed as a new Apps Script version for the live endpoint to reflect these changes.
+
 ## NEXT / OUTSTANDING
 
 ### A. Attire illustrations — COMPLETE
 Individual transparent PNGs at `assets/attire/attire-{christian,haldi,sangeet,wedding,baraat}.png`. Source is `final_attire.png` (1536×1024). Old sprite sheet files remain as backup. See item 14 above for crop details.
+
+### A2. Sangeet photo — review then push
+`assets/attire/attire-sangeet_2.png` is fixed locally. Open `index.html` directly in browser to preview. Once confirmed, push: `git add assets/attire/attire-sangeet_2.png && git commit -m "Fix sangeet photo edge pixels" && git push origin main`.
+
+### A3. Redeploy Apps Script
+After updating `rsvp-google-apps-script.gs`, paste the new code into the Apps Script editor and deploy a **new version** (not "Update deployment" on the same version — click "New deployment" or "Manage deployments > New version"). The `/exec` URL stays the same.
 
 ### B. Pre-launch essentials (not started)
 - **Guest login + household RSVP backend implemented locally.** The public site no longer contains a `GUEST_LIST`. Login uses the Apps Script endpoint, which privately reads `Login_Master` and `Household_Master` from the attached Google Sheet. Named household members have unique logins and individual accepted status. Unnamed adults require first and last names; children require first name, last name, and age. Responses are stored one row per household and can be updated to add unused seats. See `RSVP_SETUP.md`.
@@ -78,4 +90,5 @@ Individual transparent PNGs at `assets/attire/attire-{christian,haldi,sangeet,we
 - 2026-05-27 (session 3 cont.): Removed all em dashes (—) from site copy + pop-up modals (18 total incl. one `&mdash;`), rewritten with commas/colons or reworded so it doesn't read AI-generated. En dashes in date/number ranges (e.g. "22nd – 24th", "$$–$$$") intentionally kept.
 - 2026-05-27 (session 3 cont.): Fixed accommodation left-align bug on wide desktop — `#travel .accom-box` had `margin:0` (killed horizontal centering); restored `max-width:var(--content-width); margin:0 auto` so it aligns with the info-cards at all widths. Made travel subsection dividers 2px (thicker). Enlarged itinerary `.tl-icon` 78→108px desktop (60→80px mobile), grid icon column 84→112px, `margin:0 auto` + `align-items:center` keeps all icons uniform size & vertically centered.
 - 2026-05-27 (session 3 cont.): Fixed nav indicator lighting FAQ on login. The active-section IIFE ran once at load while `#main-site` was `display:none` (all sections measured at top=0 → last section "FAQ" selected) and never recomputed after login. Fix: guard `onScroll` so when `scrollY <= 5` (hero/welcome "home" zone) no pill is lit and the E&D crest is home-active; also dispatch a scroll event at end of `attemptLogin`.
+- 2026-06-07 (session 4): Items 20–23 completed. RSVP sheet columns fixed, additional adult contact fields added to form and Apps Script, sangeet photo fixed locally (not pushed). See NEXT/OUTSTANDING for redeploy instructions.
 - 2026-05-27 (session 3): Attire couples re-cropped from new high-res files (3840×2560, couple was centered with ~1000px transparent padding) → tight crop; then normalized so each couple's BODY height matches (measured feet→shoulders excluding raised arms) on a uniform 2179×2126 canvas, feet-aligned, so all 5 render optically the same size. Reduced `.attire-figure` height 380→270px (mobile keeps 380 via media query) to remove ~125px of empty headroom above each width-constrained couple, tightening the inter-row gap. Hero h1 weight 400→600, subtitle/date →500. Tightened #clothing heading→attire gap. Combined #travel into one connected box (info-cards + accom-box share borders, vertical/horizontal divider lines between subsections). Combined #info accordion into one box (items share divider lines, no gaps).
