@@ -17,10 +17,11 @@ var RSVP_SHEET = 'Household_RSVPs';
 var TOKEN_DAYS = 30;
 var RSVP_HEADERS = [
   'Updated At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
-  'Guest Group', 'Subgroup', 'Email', 'Phone Country', 'Phone Number',
-  'Accepted Guest IDs JSON', 'Accepted Named Guests', 'Additional Adults JSON',
-  'Additional Adult Names', 'Children JSON', 'Child Names and Ages',
-  'Notes', 'Invite Scope'
+  'Accepted Named Guests', 'Additional Adult Names', 'Additional Adult Contacts',
+  'Child Names and Ages', 'Total Number of Guests',
+  'Email', 'Phone Country', 'Phone Number', 'Notes', 'Invite Scope',
+  'Guest Group', 'Subgroup',
+  'Accepted Guest IDs JSON', 'Additional Adults JSON', 'Children JSON'
 ];
 
 function doGet(e) {
@@ -115,8 +116,8 @@ function saveRsvp(p) {
   for (var i = 0; i < members.length; i++) memberIds[members[i].guestId] = true;
 
   var accepted = parseArray(p.acceptedGuestIds);
-  var additionalAdults = cleanGuests(parseArray(p.additionalAdults), false);
-  var children = cleanGuests(parseArray(p.children), true);
+  var additionalAdults = cleanAdults(parseArray(p.additionalAdults));
+  var children = cleanChildren(parseArray(p.children));
   var capacities = deriveCapacities(household, members.length);
 
   for (var j = 0; j < accepted.length; j++) {
@@ -146,28 +147,40 @@ function saveRsvp(p) {
   var additionalAdultNames = additionalAdults.map(function(guest) {
     return guest.firstName + ' ' + guest.lastName;
   });
+  var additionalAdultContacts = additionalAdults.map(function(guest) {
+    var parts = [];
+    if (guest.email) parts.push(guest.email);
+    if (guest.phone) {
+      var ph = guest.phoneCountry ? guest.phoneCountry + ' ' + guest.phone : guest.phone;
+      parts.push(ph);
+    }
+    var name = guest.firstName + ' ' + guest.lastName;
+    return name + (parts.length ? ' (' + parts.join(', ') + ')' : '');
+  });
   var childNamesAndAges = children.map(function(child) {
     return child.firstName + ' ' + child.lastName + ' (age ' + child.age + ')';
   });
+  var totalGuests = accepted.length + additionalAdults.length + children.length;
   var valuesByHeader = {
     'Updated At': new Date(),
     'Household ID': auth.householdId,
     'Submitted By Guest ID': auth.guestId,
     'Submitted By Name': submittedByName,
-    'Guest Group': text(household.bucket),
-    'Subgroup': text(household.subgroup),
+    'Accepted Named Guests': acceptedNames.join(', '),
+    'Additional Adult Names': additionalAdultNames.join(', '),
+    'Additional Adult Contacts': additionalAdultContacts.join('; '),
+    'Child Names and Ages': childNamesAndAges.join(', '),
+    'Total Number of Guests': totalGuests,
     'Email': text(p.email),
     'Phone Country': text(p.phoneCountry),
     'Phone Number': text(p.phone),
-    'Phone': text(p.phone),
-    'Accepted Guest IDs JSON': JSON.stringify(accepted),
-    'Accepted Named Guests': acceptedNames.join(', '),
-    'Additional Adults JSON': JSON.stringify(additionalAdults),
-    'Additional Adult Names': additionalAdultNames.join(', '),
-    'Children JSON': JSON.stringify(children),
-    'Child Names and Ages': childNamesAndAges.join(', '),
     'Notes': text(p.notes),
-    'Invite Scope': text(household.invite_scope)
+    'Invite Scope': text(household.invite_scope),
+    'Guest Group': text(household.bucket),
+    'Subgroup': text(household.subgroup),
+    'Accepted Guest IDs JSON': JSON.stringify(accepted),
+    'Additional Adults JSON': JSON.stringify(additionalAdults),
+    'Children JSON': JSON.stringify(children)
   };
   var activeHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
   var values = activeHeaders.map(function(header) {
@@ -309,20 +322,32 @@ function findOrNameMasterSheet(sheetName) {
   return null;
 }
 
-function cleanGuests(items, includeAge) {
+function cleanAdults(items) {
   return items.map(function(item) {
     var guest = {
       firstName: text(item && item.firstName).trim(),
       lastName: text(item && item.lastName).trim()
     };
-    if (!guest.firstName || !guest.lastName) throw new Error('Every guest needs a first and last name.');
-    if (includeAge) {
-      var age = number(item && item.age);
-      if (text(item && item.age).trim() === '' || age < 0 || age > 17) {
-        throw new Error('Every child needs an age from 0 to 17.');
-      }
-      guest.age = age;
+    if (!guest.firstName || !guest.lastName) throw new Error('Every additional adult guest needs a first and last name.');
+    guest.email = text(item && item.email).trim();
+    guest.phoneCountry = text(item && item.phoneCountry).trim();
+    guest.phone = text(item && item.phone).trim();
+    return guest;
+  });
+}
+
+function cleanChildren(items) {
+  return items.map(function(item) {
+    var guest = {
+      firstName: text(item && item.firstName).trim(),
+      lastName: text(item && item.lastName).trim()
+    };
+    if (!guest.firstName || !guest.lastName) throw new Error('Every child guest needs a first and last name.');
+    var age = number(item && item.age);
+    if (text(item && item.age).trim() === '' || age < 0 || age > 17) {
+      throw new Error('Every child needs an age from 0 to 17.');
     }
+    guest.age = age;
     return guest;
   });
 }

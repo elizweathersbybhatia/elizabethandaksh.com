@@ -931,35 +931,37 @@ function renderHouseholdRSVP() {
   updateRSVPSummary();
 }
 
+var COUNTRY_CODES = [
+  ['🇺🇸','United States','+1'], ['🇨🇦','Canada','+1'], ['🇮🇳','India','+91'],
+  ['🇬🇧','United Kingdom','+44'], ['🇭🇰','Hong Kong','+852'], ['🇦🇪','United Arab Emirates','+971'],
+  ['🇦🇺','Australia','+61'], ['🇳🇿','New Zealand','+64'], ['🇸🇬','Singapore','+65'],
+  ['🇫🇷','France','+33'], ['🇩🇪','Germany','+49'], ['🇮🇹','Italy','+39'],
+  ['🇪🇸','Spain','+34'], ['🇵🇹','Portugal','+351'], ['🇳🇱','Netherlands','+31'],
+  ['🇧🇪','Belgium','+32'], ['🇨🇭','Switzerland','+41'], ['🇦🇹','Austria','+43'],
+  ['🇮🇪','Ireland','+353'], ['🇩🇰','Denmark','+45'], ['🇸🇪','Sweden','+46'],
+  ['🇳🇴','Norway','+47'], ['🇫🇮','Finland','+358'], ['🇵🇱','Poland','+48'],
+  ['🇬🇷','Greece','+30'], ['🇹🇷','Turkey','+90'], ['🇮🇱','Israel','+972'],
+  ['🇸🇦','Saudi Arabia','+966'], ['🇶🇦','Qatar','+974'], ['🇰🇼','Kuwait','+965'],
+  ['🇧🇭','Bahrain','+973'], ['🇴🇲','Oman','+968'], ['🇿🇦','South Africa','+27'],
+  ['🇰🇪','Kenya','+254'], ['🇳🇬','Nigeria','+234'], ['🇪🇬','Egypt','+20'],
+  ['🇯🇵','Japan','+81'], ['🇰🇷','South Korea','+82'], ['🇨🇳','China','+86'],
+  ['🇹🇼','Taiwan','+886'], ['🇹🇭','Thailand','+66'], ['🇲🇾','Malaysia','+60'],
+  ['🇮🇩','Indonesia','+62'], ['🇵🇭','Philippines','+63'], ['🇻🇳','Vietnam','+84'],
+  ['🇵🇰','Pakistan','+92'], ['🇧🇩','Bangladesh','+880'], ['🇱🇰','Sri Lanka','+94'],
+  ['🇳🇵','Nepal','+977'], ['🇧🇷','Brazil','+55'], ['🇲🇽','Mexico','+52'],
+  ['🇦🇷','Argentina','+54'], ['🇨🇱','Chile','+56'], ['🇨🇴','Colombia','+57']
+];
+
+function buildCountryOptions(selected) {
+  return COUNTRY_CODES.map(function(c) {
+    var sel = c[2] === selected ? ' selected' : '';
+    return '<option value="' + c[2] + '"' + sel + '>' + c[0] + ' ' + c[1] + ' (' + c[2] + ')</option>';
+  }).join('');
+}
+
 function setupCountryCodes() {
-  var countries = [
-    ['🇺🇸','United States','+1'], ['🇨🇦','Canada','+1'], ['🇮🇳','India','+91'],
-    ['🇬🇧','United Kingdom','+44'], ['🇭🇰','Hong Kong','+852'], ['🇦🇪','United Arab Emirates','+971'],
-    ['🇦🇺','Australia','+61'], ['🇳🇿','New Zealand','+64'], ['🇸🇬','Singapore','+65'],
-    ['🇫🇷','France','+33'], ['🇩🇪','Germany','+49'], ['🇮🇹','Italy','+39'],
-    ['🇪🇸','Spain','+34'], ['🇵🇹','Portugal','+351'], ['🇳🇱','Netherlands','+31'],
-    ['🇧🇪','Belgium','+32'], ['🇨🇭','Switzerland','+41'], ['🇦🇹','Austria','+43'],
-    ['🇮🇪','Ireland','+353'], ['🇩🇰','Denmark','+45'], ['🇸🇪','Sweden','+46'],
-    ['🇳🇴','Norway','+47'], ['🇫🇮','Finland','+358'], ['🇵🇱','Poland','+48'],
-    ['🇬🇷','Greece','+30'], ['🇹🇷','Turkey','+90'], ['🇮🇱','Israel','+972'],
-    ['🇸🇦','Saudi Arabia','+966'], ['🇶🇦','Qatar','+974'], ['🇰🇼','Kuwait','+965'],
-    ['🇧🇭','Bahrain','+973'], ['🇴🇲','Oman','+968'], ['🇿🇦','South Africa','+27'],
-    ['🇰🇪','Kenya','+254'], ['🇳🇬','Nigeria','+234'], ['🇪🇬','Egypt','+20'],
-    ['🇯🇵','Japan','+81'], ['🇰🇷','South Korea','+82'], ['🇨🇳','China','+86'],
-    ['🇹🇼','Taiwan','+886'], ['🇹🇭','Thailand','+66'], ['🇲🇾','Malaysia','+60'],
-    ['🇮🇩','Indonesia','+62'], ['🇵🇭','Philippines','+63'], ['🇻🇳','Vietnam','+84'],
-    ['🇵🇰','Pakistan','+92'], ['🇧🇩','Bangladesh','+880'], ['🇱🇰','Sri Lanka','+94'],
-    ['🇳🇵','Nepal','+977'], ['🇧🇷','Brazil','+55'], ['🇲🇽','Mexico','+52'],
-    ['🇦🇷','Argentina','+54'], ['🇨🇱','Chile','+56'], ['🇨🇴','Colombia','+57']
-  ];
   var select = document.getElementById('rsvp-country-code');
-  select.innerHTML = '';
-  countries.forEach(function(country) {
-    var option = document.createElement('option');
-    option.value = country[2];
-    option.textContent = country[0] + ' ' + country[1] + ' (' + country[2] + ')';
-    select.appendChild(option);
-  });
+  select.innerHTML = buildCountryOptions('+1');
   select.value = '+1';
 }
 
@@ -981,7 +983,16 @@ function readGuestFields(containerId, includeAge) {
       firstName: entry.querySelector('[data-field="firstName"]').value.trim(),
       lastName: entry.querySelector('[data-field="lastName"]').value.trim()
     };
-    if (includeAge) item.age = entry.querySelector('[data-field="age"]').value.trim();
+    if (includeAge) {
+      item.age = entry.querySelector('[data-field="age"]').value.trim();
+    } else {
+      var emailEl = entry.querySelector('[data-field="email"]');
+      var phoneCountryEl = entry.querySelector('[data-field="phoneCountry"]');
+      var phoneEl = entry.querySelector('[data-field="phone"]');
+      item.email = emailEl ? emailEl.value.trim() : '';
+      item.phoneCountry = phoneCountryEl ? phoneCountryEl.value : '';
+      item.phone = phoneEl ? phoneEl.value.trim() : '';
+    }
     return item;
   });
 }
@@ -1005,13 +1016,27 @@ function renderGuestFields(containerId, count, existing, includeAge) {
     var guest = existing[i] || {};
     var entry = document.createElement('div');
     entry.className = 'guest-entry';
-    entry.innerHTML =
+    var html =
       '<p class="guest-entry-title">' + (includeAge ? 'Child ' : 'Additional Guest ') + (i + 1) + '</p>' +
       '<div class="form-row">' +
         '<div><input type="text" data-field="firstName" placeholder="First name" value="' + escapeAttribute(guest.firstName || '') + '"></div>' +
         '<div><input type="text" data-field="lastName" placeholder="Last name" value="' + escapeAttribute(guest.lastName || '') + '"></div>' +
-      '</div>' +
-      (includeAge ? '<div style="margin-top:0.8rem"><input type="number" min="0" max="17" step="1" data-field="age" placeholder="Age" value="' + escapeAttribute(guest.age || '') + '"></div>' : '');
+      '</div>';
+    if (includeAge) {
+      html += '<div style="margin-top:0.8rem"><input type="number" min="0" max="17" step="1" data-field="age" placeholder="Age" value="' + escapeAttribute(guest.age || '') + '"></div>';
+    } else {
+      html +=
+        '<div class="form-group" style="margin-top:0.7rem">' +
+          '<input type="email" data-field="email" placeholder="Email (optional)" value="' + escapeAttribute(guest.email || '') + '">' +
+        '</div>' +
+        '<div class="form-group" style="margin-top:0.6rem">' +
+          '<div class="phone-row">' +
+            '<select data-field="phoneCountry">' + buildCountryOptions(guest.phoneCountry || '+1') + '</select>' +
+            '<input type="tel" data-field="phone" placeholder="Phone (optional)" value="' + escapeAttribute(guest.phone || '') + '">' +
+          '</div>' +
+        '</div>';
+    }
+    entry.innerHTML = html;
     container.appendChild(entry);
   }
 }
