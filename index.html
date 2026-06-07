@@ -93,7 +93,9 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .hero::after { content:''; position:absolute; inset:0 -30% -65% -30%; z-index:-3; pointer-events:none; background:radial-gradient(ellipse 45% 55% at 52% 60%, rgba(255,250,235,0.28) 0%, rgba(255,250,235,0.14) 45%, transparent 85%); }
 .hero-content { animation:fadeUp 1.4s ease-out; position:relative; padding:clamp(2rem,5vw,3.5rem) clamp(1.5rem,8vw,6rem); }
 @keyframes fadeUp { from{opacity:0;transform:translateY(35px)} to{opacity:1;transform:translateY(0)} }
-.hero h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(2.8rem,7vw,6rem); color:var(--navy-deep); line-height:1.1; letter-spacing:clamp(3px,0.5vw,7px); text-transform:uppercase; white-space:nowrap; text-shadow:0 1px 14px rgba(255,253,247,0.95); }
+.hero h1 { display:flex; align-items:center; justify-content:center; gap:clamp(0.35rem,1vw,0.9rem); font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(3rem,7vw,6rem); color:var(--navy-deep); line-height:1; letter-spacing:clamp(1px,0.25vw,3px); white-space:nowrap; text-shadow:0 1px 14px rgba(255,253,247,0.95); }
+.hero h1::before, .hero h1::after { content:'◆'; color:var(--gold-pale); font-size:clamp(0.4rem,0.7vw,0.65rem); opacity:0.85; }
+.hero-amp { font-family:'Great Vibes',cursive; font-size:0.72em; font-weight:400; color:var(--gold); line-height:1; margin:0 0.05em; transform:translateY(0.06em); text-shadow:0 1px 10px rgba(255,253,247,0.95); }
 .hero-subtitle { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.6rem,3.2vw,2.6rem); letter-spacing:0.08em; color:var(--navy); margin:1.1rem 0; }
 .hero-date { font-family:'EB Garamond',serif; font-size:1.35rem; font-weight:500; color:var(--navy); margin-top:1.4rem; }
 .hero-date .venue { font-size:1.1rem; color:var(--warm-brown); display:block; margin-top:0.5rem; letter-spacing:0.04em; }
@@ -293,8 +295,13 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   body { background-size:420px 420px; background-repeat:repeat; background-position:center top; background-attachment:scroll; }
   #password-gate { background-size:420px 420px; }
   .nav-crest { height:86px; max-width:190px; }
-  .hero-content { padding:3rem 0.4rem; } .hero-content::before { inset:-1rem; }
-  .hero h1 { white-space:normal; }
+  .hero { min-height:76svh; padding-top:5rem; padding-bottom:0.5rem; }
+  .hero-content { padding:2rem 0.4rem 1rem; } .hero-content::before { inset:-1rem; }
+  .hero h1 { flex-wrap:wrap; gap:0.15rem 0.45rem; white-space:normal; font-size:clamp(3rem,14vw,4.3rem); line-height:0.92; }
+  .hero h1::before, .hero h1::after { display:none; }
+  .hero-amp { flex-basis:auto; }
+  #welcome { padding-top:0.5rem !important; }
+  #welcome .fade-in { opacity:1; transform:none; }
   .tl { padding:1.5rem 1.2rem; }
   .photo-marquee-track img { height:240px; }
 }
@@ -343,7 +350,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 
 <section class="hero" id="hero">
   <div class="hero-content">
-    <h1>Elizabeth and Daksh</h1>
+    <h1><span>Elizabeth</span><span class="hero-amp">&amp;</span><span>Daksh</span></h1>
     <p class="hero-subtitle">are getting married</p>
     <div class="gold-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
     <div class="hero-date"><span id="hero-dates-text"></span><span class="venue">The Riverview Retreat, Corbett National Park</span></div>
