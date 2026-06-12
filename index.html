@@ -709,10 +709,10 @@ function attemptLogin() {
       }
     }
     if (!data || !data.ok || !data.guest) {
-      error.textContent = data && data.error ? data.error : 'We could not find that name on the invitation list. Please try again.';
+      error.textContent = data && data.error
+        ? data.error + ' We searched for "' + firstName + ' ' + lastName + '".'
+        : 'We could not find "' + firstName + ' ' + lastName + '" on the invitation list. Please try again.';
       error.style.display = 'block';
-      first.value = '';
-      last.value = '';
       first.focus();
       return;
     }
