@@ -696,6 +696,11 @@ function attemptLogin() {
   apiJsonp('login', { firstName: firstName, lastName: lastName }, function(data) {
     button.disabled = false;
     button.textContent = 'Enter';
+    if (data && data.connectionError) {
+      error.textContent = data.error;
+      error.style.display = 'block';
+      return;
+    }
     if (!data || !data.ok || !data.guest) {
       var localGuest = findLocalGuest(firstName, lastName);
       if (localGuest) {
@@ -852,23 +857,27 @@ function apiJsonp(action, params, done) {
   var script = document.createElement('script');
   var timer;
   var finished = false;
-  function finish(data) {
+  function finish(data, connectionError) {
     if (finished) return;
     finished = true;
     if (timer) clearTimeout(timer);
     try { delete window[cbName]; } catch(e) { window[cbName] = undefined; }
     if (script.parentNode) script.parentNode.removeChild(script);
-    done(data);
+    done(connectionError ? {
+      ok: false,
+      connectionError: true,
+      error: 'We could not connect to the guest list. Please disable any content blocker for this site, then refresh and try again.'
+    } : data);
   }
-  window[cbName] = finish;
-  script.onerror = function() { finish(null); };
+  window[cbName] = function(data) { finish(data, false); };
+  script.onerror = function() { finish(null, true); };
   var query = ['action=' + encodeURIComponent(action), 'callback=' + encodeURIComponent(cbName)];
   Object.keys(params || {}).forEach(function(key) {
     query.push(encodeURIComponent(key) + '=' + encodeURIComponent(params[key] == null ? '' : params[key]));
   });
   script.src = RSVP_ENDPOINT + '?' + query.join('&');
   document.head.appendChild(script);
-  timer = setTimeout(function() { finish(null); }, 10000);
+  timer = setTimeout(function() { finish(null, true); }, 10000);
 }
 
 function loadHouseholdRSVP(done) {
