@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Wedding of Elizabeth & Daksh</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Josefin+Sans:wght@300;400;500&family=Great+Vibes&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --navy: #1B3A5C; --navy-deep: #0F2440;
@@ -17,7 +17,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; overflow-x: hidden; overscroll-behavior-x: none; }
 body {
-  font-family:'EB Garamond',serif; color:var(--charcoal); min-height:100vh; overflow-x:hidden; overscroll-behavior-x:none;
+  font-family:'Lora',serif; color:var(--charcoal); min-height:100vh; overflow-x:hidden; overscroll-behavior-x:none;
   background-color:var(--cream);
   background-image:linear-gradient(rgba(250,246,238,0.78), rgba(250,246,238,0.78)), url('assets/backgrounds/corbett-mehendi-pattern.png');
   background-repeat:repeat;
@@ -46,11 +46,11 @@ body {
 .gate-card::before { content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:60px; height:2px; background:var(--gold); }
 .gate-crest { display:block; width:min(100%,330px); margin:0 auto 1.4rem; height:auto; }
 .gate-name-fields { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
-.gate-input { width:100%; padding:0.9rem 0.75rem; border:1px solid var(--gold-faint); border-radius:3px; font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--charcoal); background:rgba(250,246,238,0.8); text-align:center; outline:none; }
+.gate-input { width:100%; padding:0.9rem 0.75rem; border:1px solid var(--gold-faint); border-radius:3px; font-family:'Lora',serif; font-size:1.05rem; color:var(--charcoal); background:rgba(250,246,238,0.8); text-align:center; outline:none; }
 .gate-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(184,148,62,0.1); }
-.gate-btn { margin-top:1.2rem; padding:0.85rem 2.5rem; background:var(--navy); color:var(--cream); border:none; border-radius:3px; font-family:'Josefin Sans',sans-serif; font-size:0.72rem; letter-spacing:4px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
+.gate-btn { margin-top:1.2rem; padding:0.85rem 2.5rem; background:var(--navy); color:var(--cream); border:none; border-radius:3px; font-family:'Montserrat',sans-serif; font-size:0.72rem; letter-spacing:4px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
 .gate-btn:hover { background:var(--navy-deep); transform:translateY(-1px); }
-.gate-error { margin-top:1rem; font-family:'EB Garamond',serif; font-size:0.9rem; color:#a0522d; display:none; }
+.gate-error { margin-top:1rem; font-family:'Lora',serif; font-size:0.9rem; color:#a0522d; display:none; }
 #main-site { display:none; }
 #main-site.visible { display:block; }
 
@@ -60,11 +60,11 @@ body {
 .gold-divider .diamond { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); opacity:0.7; }
 
 /* NAV */
-nav { position:fixed; top:0; left:0; width:100%; z-index:1000; padding:0.8rem 2rem; display:flex; justify-content:center; align-items:center; transition:all 0.5s; background:rgba(250,246,238,0.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--gold-faint); }
+nav { position:fixed; top:0; left:0; width:100%; z-index:1000; padding:0.8rem 2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:all 0.5s; background:rgba(250,246,238,0.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--gold-faint); }
 nav.scrolled { box-shadow:0 1px 20px rgba(107,93,78,0.08); }
-nav ul { display:grid; grid-template-columns:repeat(3,minmax(90px,1fr)) auto repeat(3,minmax(90px,1fr)); gap:clamp(0.55rem,1.2vw,1.35rem); width:min(100%,1050px); list-style:none; align-items:center; }
+nav ul { display:flex; gap:clamp(0.2rem,0.75vw,0.85rem); list-style:none; align-items:center; }
 nav li { display:flex; justify-content:center; align-items:center; }
-nav a { text-decoration:none; color:var(--navy); font-family:'Josefin Sans',sans-serif; font-weight:400; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; position:relative; transition:color 0.3s; }
+nav a { text-decoration:none; color:var(--navy); font-family:'Montserrat',sans-serif; font-weight:400; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; position:relative; transition:color 0.3s; }
 nav a:not(.nav-home) { padding:0.5rem 1.05rem; border-radius:999px; transition:color 0.3s, background 0.3s, box-shadow 0.3s; }
 nav a:not(.nav-home):hover { color:var(--gold); background:rgba(184,148,62,0.10); }
 nav a.active, nav a.active:hover { color:var(--cream); background:var(--navy); font-weight:600; box-shadow:0 4px 14px rgba(27,58,92,0.30); }
@@ -80,10 +80,10 @@ nav ul.open a.active, nav ul.open a.active:hover { color:var(--navy-deep) !impor
 
 /* SECTIONS */
 section { padding: 3.25rem var(--page-pad); position: relative; }
-.section-label { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.8rem; text-align:center; }
+.section-label { font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.8rem; text-align:center; }
 .section-title { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(1.8rem,4vw,2.8rem); text-align:center; color:var(--navy); margin-bottom:0.5rem; letter-spacing:3px; text-transform:uppercase; }
-.section-script { font-family:'Great Vibes',cursive; font-size:clamp(1.8rem,4vw,2.5rem); text-align:center; color:var(--navy); margin-bottom:0.5rem; }
-.section-subtitle { font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--warm-brown); text-align:center; max-width:600px; margin:0 auto 3rem; line-height:1.8; }
+.section-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.8rem,4vw,2.5rem); text-align:center; color:var(--navy); margin-bottom:0.5rem; }
+.section-subtitle { font-family:'Lora',serif; font-size:1.05rem; color:var(--warm-brown); text-align:center; max-width:600px; margin:0 auto 3rem; line-height:1.8; }
 .section-heading { max-width:var(--content-width); margin:0 auto 1.5rem; padding:1.35rem 1.5rem 0.1rem; background:rgba(255,253,247,0.74); border:1px solid rgba(232,217,168,0.62); border-radius:4px; backdrop-filter:blur(7px); }
 .section-heading .section-subtitle { margin-bottom:1.5rem; }
 
@@ -95,9 +95,9 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(35px)} to{opacity:1;transform:translateY(0)} }
 .hero h1 { display:flex; align-items:center; justify-content:center; gap:clamp(0.35rem,1vw,0.9rem); font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(3rem,7vw,6rem); color:var(--navy-deep); line-height:1; letter-spacing:clamp(1px,0.25vw,3px); white-space:nowrap; text-shadow:0 1px 14px rgba(255,253,247,0.95); }
 .hero h1::before, .hero h1::after { content:'◆'; color:var(--gold-pale); font-size:clamp(0.4rem,0.7vw,0.65rem); opacity:0.85; }
-.hero-amp { font-family:'Great Vibes',cursive; font-size:0.72em; font-weight:400; color:var(--gold); line-height:1; margin:0 0.05em; transform:translateY(0.06em); text-shadow:0 1px 10px rgba(255,253,247,0.95); }
+.hero-amp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.72em; font-weight:400; color:var(--gold); line-height:1; margin:0 0.05em; transform:translateY(0.06em); text-shadow:0 1px 10px rgba(255,253,247,0.95); }
 .hero-subtitle { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.6rem,3.2vw,2.6rem); letter-spacing:0.08em; color:var(--navy); margin:1.1rem 0; }
-.hero-date { font-family:'EB Garamond',serif; font-size:1.35rem; font-weight:500; color:var(--navy); margin-top:1.4rem; }
+.hero-date { font-family:'Lora',serif; font-size:1.35rem; font-weight:500; color:var(--navy); margin-top:1.4rem; }
 .hero-date .venue { font-size:1.1rem; color:var(--warm-brown); display:block; margin-top:0.5rem; letter-spacing:0.04em; }
 .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:3; animation:bob 3s ease-in-out infinite; }
 @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
@@ -109,13 +109,13 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .card-header { padding:2rem 2.5rem 1.5rem; text-align:center; border-bottom:1px solid var(--gold-faint); position:relative; }
 .card-header::before { content:''; position:absolute; bottom:-1px; left:50%; transform:translateX(-50%); width:60px; height:1px; background:var(--gold); }
 .card-header h3 { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:500; color:var(--navy); margin-bottom:0.4rem; }
-.card-meta { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+.card-meta { font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
 
 /* EVENTS CAROUSEL */
 .events-carousel { max-width:var(--content-width); margin:0 auto; }
 .ec-tabs { display:flex; flex-wrap:wrap; justify-content:center; gap:0.55rem; margin-bottom:1.3rem; }
 .ec-tab { cursor:pointer; border:1px solid var(--gold-faint); background:rgba(255,253,247,0.85); border-radius:6px; padding:0.5rem 1.15rem; text-align:center; line-height:1.3; transition:transform 0.2s, background 0.3s, border-color 0.3s, box-shadow 0.3s; backdrop-filter:blur(6px); }
-.ec-tab .ec-tab-day { display:block; font-family:'Josefin Sans',sans-serif; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:0.12rem; }
+.ec-tab .ec-tab-day { display:block; font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:0.12rem; }
 .ec-tab .ec-tab-title { display:block; font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; color:var(--navy); }
 .ec-tab:hover { border-color:var(--gold); transform:translateY(-1px); }
 .ec-tab.active { background:var(--navy); border-color:var(--navy); box-shadow:0 4px 14px rgba(27,58,92,0.25); }
@@ -133,47 +133,70 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .tl { padding:1.5rem 2.5rem; }
 .tl-row { display:grid; grid-template-columns:75px 112px 1fr; gap:1rem; padding:1rem 0; border-bottom:1px solid rgba(184,148,62,0.12); align-items:center; }
 .tl-row:last-child { border-bottom:none; }
-.tl-time { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); }
+.tl-time { font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); }
 .tl-icon { display:block; width:108px; height:108px; margin:0 auto; object-fit:contain; background-image:url('assets/icons/itinerary-icons-celebratory-transparent-clean.png'); background-repeat:no-repeat; background-size:400% 400%; }
 .icon-christian { background-position:0 0; } .icon-cocktails { background-position:33.333% 0; } .icon-formal-dance { background-position:66.666% 0; } .icon-breakfast { background-position:100% 0; }
 .icon-haldi { background-position:0 33.333%; } .icon-mehndi { background-position:33.333% 33.333%; } .icon-tea { background-position:66.666% 33.333%; } .icon-sangeet { background-position:100% 33.333%; }
 .icon-pheras { background-position:0 66.666%; } .icon-lunch { background-position:33.333% 66.666%; } .icon-baraat { background-position:66.666% 66.666%; } .icon-royal-reception { background-position:100% 66.666%; }
 .icon-afterparty-casual { background-position:0 100%; } .icon-flight { background-position:33.333% 100%; } .icon-transport { background-position:66.666% 100%; } .icon-visa { background-position:100% 100%; }
 .tl-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600; color:var(--navy); margin-bottom:0.2rem; }
-.tl-desc { font-family:'EB Garamond',serif; font-size:0.92rem; color:var(--text-body); line-height:1.7; }
+.tl-desc { font-family:'Lora',serif; font-size:0.92rem; color:var(--text-body); line-height:1.7; }
 .tl-desc a { color:var(--gold); text-decoration:underline; text-underline-offset:3px; }
 
-/* OUTFIT */
-.outfit-grid { max-width:var(--content-width); margin:0 auto; display:flex; justify-content:center; flex-wrap:wrap; gap:0; padding:1.2rem; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px 4px 0 0; border-bottom:none; backdrop-filter:blur(6px); }
-.outfit-card { flex:0 1 33.333%; min-width:260px; border-radius:4px; padding:1.15rem 1rem 1.4rem; text-align:center; }
-.o-num { font-family:'Great Vibes',cursive; font-size:2.5rem; color:var(--gold-pale); line-height:1; margin-bottom:0.3rem; }
-.o-event { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600; color:var(--navy); margin-bottom:0.2rem; }
-.o-day { font-family:'Josefin Sans',sans-serif; font-size:0.65rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
-.o-detail { font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--text-body); line-height:1.7; margin-bottom:0.4rem; }
-.o-detail strong { color:var(--navy); }
-.o-tag { display:inline-block; padding:0.25rem 0.7rem; border:1px solid var(--gold-faint); border-radius:2px; font-family:'Josefin Sans',sans-serif; font-size:0.6rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); margin-top:0.8rem; }
-.attire-figure { width:100%; max-width:380px; height:320px; margin:0 auto 0.85rem; background-size:var(--figure-width,92%) auto; background-repeat:no-repeat; background-position:center bottom; }
-.figure-christian { --figure-width:94.5%; background-image:url('assets/attire/attire-christian_2.png'); }
-.figure-haldi { --figure-width:96.4%; background-image:url('assets/attire/attire-haldi_2.png'); }
-.figure-sangeet { --figure-width:95.2%; background-image:url('assets/attire/attire-sangeet_2.png'); }
-.figure-wedding { --figure-width:93.6%; background-image:url('assets/attire/attire-wedding_2.png'); }
-.figure-baraat { --figure-width:93.7%; background-image:url('assets/attire/attire-baraat_2.png'); }
+/* ATTIRE (table layout) */
+.attire-hero { display:flex; align-items:center; gap:2.5rem; max-width:var(--content-width); margin:0 auto 2rem; padding:0 var(--page-pad); }
+.attire-hero-left { flex:1; text-align:left; }
+.attire-hero-left .section-label { text-align:left; }
+.attire-hero-left .section-title { font-size:clamp(3.2rem,8vw,5.5rem); margin-bottom:0.15rem; text-align:left; }
+.attire-hero-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2.8vw,1.55rem); color:var(--gold); margin:0 0 0.9rem; }
+.attire-hero-intro { font-family:'Lora',serif; font-size:0.97rem; line-height:1.85; color:var(--text-body); max-width:380px; }
+.attire-hero-photos { flex:0 0 auto; display:flex; align-items:flex-end; padding-bottom:0.5rem; }
+.attire-polaroid { background:#fff; padding:8px 8px 22px; box-shadow:0 4px 20px rgba(15,36,64,0.14),0 1px 4px rgba(15,36,64,0.08); position:relative; transition:transform 0.3s; }
+.attire-polaroid img { display:block; width:128px; height:180px; object-fit:contain; object-position:center bottom; }
+.attire-polaroid:nth-child(1) { transform:rotate(-3.5deg); z-index:1; }
+.attire-polaroid:nth-child(2) { transform:rotate(2.5deg) translate(-14px,-8px); z-index:3; }
+.attire-polaroid:nth-child(3) { transform:rotate(-1.5deg) translate(-26px,6px); z-index:2; }
+.attire-polaroid:hover { transform:rotate(0deg) scale(1.05) !important; z-index:10 !important; }
+.attire-table { max-width:var(--content-width); margin:0 auto; background:rgba(255,253,247,0.92); border:1px solid var(--gold-faint); border-radius:4px 4px 0 0; border-bottom:none; backdrop-filter:blur(6px); overflow:hidden; }
+.attire-row { display:grid; grid-template-columns:76px 2fr 1fr 1.1fr 68px; border-bottom:1px solid var(--gold-faint); }
+.attire-row > * { padding:1.05rem 0.85rem; }
+.attire-col-icon { display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--gold-faint); padding:1rem 0.4rem; }
+.attire-col-main { display:flex; flex-direction:column; justify-content:center; }
+.attire-col-swatches { border-left:1px solid var(--gold-faint); display:flex; align-items:center; justify-content:center; padding:0.75rem; }
+.attire-col-men { border-left:1px solid var(--gold-faint); }
+.attire-event-icon { width:54px; height:54px; background-image:url('assets/icons/itinerary-icons-celebratory-transparent-clean.png'); background-repeat:no-repeat; background-size:400% 400%; display:block; }
+.attire-day-meta { display:block; font-family:'Montserrat',sans-serif; font-size:0.56rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--warm-brown); line-height:1.75; margin-top:0.45rem; text-align:center; }
+.attire-event-name { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.45rem,2.8vw,1.8rem); color:var(--navy); line-height:1.2; margin-bottom:0.5rem; }
+.attire-code-label { display:block; font-family:'Montserrat',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.3rem; }
+.attire-code-accent { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.02rem; color:var(--gold); margin-bottom:0.25rem; }
+.attire-code-desc { display:block; font-family:'Lora',serif; font-size:0.84rem; color:var(--text-body); line-height:1.65; }
+.attire-code-note { display:inline-block; margin-top:0.5rem; font-family:'Montserrat',sans-serif; font-size:0.57rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--warm-brown); border:1px solid var(--gold-faint); border-radius:999px; padding:0.15rem 0.65rem; }
+.attire-gender-head { display:block; font-family:'Montserrat',sans-serif; font-size:0.57rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+.attire-gender-text { display:block; font-family:'Lora',serif; font-size:0.84rem; color:var(--text-body); line-height:1.6; }
+.attire-gender-accent { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.93rem; color:var(--warm-brown); margin-top:0.3rem; }
+.attire-swatches { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+.attire-swatch { width:20px; height:20px; border-radius:50%; display:block; }
+.attire-footwear { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-top:none; border-bottom:none; background:rgba(250,246,238,0.55); padding:1.4rem 2rem; text-align:center; }
+.attire-fw-eyebrow { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+.attire-fw-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.38rem; color:var(--navy); margin-bottom:0.65rem; }
+.attire-fw-desc { font-family:'Lora',serif; font-size:0.9rem; color:var(--text-body); line-height:1.75; max-width:580px; margin:0 auto; }
+.attire-tagline { text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.2rem; color:var(--warm-brown); padding:1.2rem var(--page-pad) 0.8rem; max-width:var(--content-width); margin:0 auto; }
 .shop-links { max-width:var(--content-width); margin:0 auto; text-align:center; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-top:none; border-radius:0 0 4px 4px; backdrop-filter:blur(6px); }
 .shop-links h4 { font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--navy); padding:1.1rem 1.4rem 0.9rem; margin:0; }
 .shop-accordion { border-top:1px solid var(--gold-faint); }
 .shop-acc-item { border-bottom:1px solid var(--gold-faint); }
-.shop-acc-btn { width:100%; padding:0.95rem 1.4rem; background:rgba(255,253,247,0.5); border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--navy); }
+.shop-acc-btn { width:100%; padding:0.95rem 1.4rem; background:rgba(255,253,247,0.5); border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--navy); }
 .shop-acc-btn:hover { background:rgba(184,148,62,0.06); }
 .shop-acc-arrow { font-size:0.75rem; color:var(--gold); transition:transform 0.3s; }
 .shop-acc-item.open .shop-acc-arrow { transform:rotate(180deg); }
 .shop-acc-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
 .shop-acc-item.open .shop-acc-body { max-height:400px; }
 .shop-link-grid { display:flex; flex-direction:column; gap:0; padding:0.4rem 0 0.8rem; }
-.shop-link { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 1.4rem; font-family:'EB Garamond',serif; font-size:1rem; color:var(--navy); text-decoration:none; border-bottom:1px solid rgba(184,148,62,0.1); }
+.shop-link { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 1.4rem; font-family:'Lora',serif; font-size:1rem; color:var(--navy); text-decoration:none; border-bottom:1px solid rgba(184,148,62,0.1); }
 .shop-link:last-child { border-bottom:none; }
 .shop-link:hover { background:rgba(184,148,62,0.05); color:var(--navy); }
 .shop-link-name { font-weight:400; }
-.shop-link-price { font-family:'Josefin Sans',sans-serif; font-size:0.65rem; letter-spacing:1px; color:var(--gold); }
+.shop-link-price { font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:1px; color:var(--gold); }
 
 /* INFO CARDS */
 .info-cards { max-width:var(--content-width); margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
@@ -182,51 +205,49 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .detail-icon { display:block; width:110px; height:110px; margin:0 auto 0.45rem; background-image:url('assets/icons/itinerary-icons-celebratory-transparent-clean.png'); background-repeat:no-repeat; background-size:400% 400%; }
 .detail-icon.icon-accommodation { background-image:url('assets/icons/itinerary-icons-transparent-clean.png'); background-position:0 100%; }
 .info-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:600; color:var(--navy); margin-bottom:0.8rem; text-align:center; }
-.info-card p, .info-card li { font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--text-body); line-height:1.75; }
+.info-card p, .info-card li { font-family:'Lora',serif; font-size:0.95rem; color:var(--text-body); line-height:1.75; }
 .info-card ul { list-style:none; padding:0; }
 .info-card li { padding:0.25rem 0; }
 .info-card li::before { content:'✦ '; color:var(--gold); font-size:0.6em; }
 .info-card a { color:var(--navy); text-decoration:underline; text-decoration-color:var(--gold-pale); text-underline-offset:3px; }
 .accom-box { max-width:var(--content-width); margin:1rem auto 0; padding:2rem; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px; text-align:center; backdrop-filter:blur(6px); }
 .accom-box h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:600; color:var(--navy); margin-bottom:1rem; }
-.accom-box p { font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--text-body); line-height:1.9; }
+.accom-box p { font-family:'Lora',serif; font-size:1.05rem; color:var(--text-body); line-height:1.9; }
 .accom-periods { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin-top:1.45rem; padding-top:1.45rem; border-top:1px solid var(--gold-faint); text-align:left; }
 .accom-periods h5 { font-family:'Cormorant Garamond',serif; font-size:1.16rem; font-weight:600; color:var(--navy); margin-bottom:0.35rem; text-align:center; }
 .accom-periods p { font-size:0.95rem; line-height:1.75; }
 
-.registry-message { max-width:680px; margin:0 auto; font-family:'EB Garamond',serif; font-size:1.15rem; color:var(--text-body); line-height:2; padding:2.5rem; border:1px solid var(--gold-faint); border-radius:4px; background:rgba(255,253,247,0.85); backdrop-filter:blur(6px); text-align:center; position:relative; }
+.registry-message { max-width:680px; margin:0 auto; font-family:'Lora',serif; font-size:1.15rem; color:var(--text-body); line-height:2; padding:2.5rem; border:1px solid var(--gold-faint); border-radius:4px; background:rgba(255,253,247,0.85); backdrop-filter:blur(6px); text-align:center; position:relative; }
 .registry-message::before { content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:50px; height:2px; background:var(--gold); }
 
 .rsvp-form { max-width:var(--content-width); margin:0 auto; padding:clamp(1.4rem,4vw,2.2rem); display:flex; flex-direction:column; gap:1.2rem; background:rgba(255,253,247,0.86); border:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(8px); }
 .rsvp-inner { max-width:560px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:1.2rem; }
 .rsvp-deadline { max-width:560px; margin:0 auto 1.4rem; font-size:1.15rem; color:var(--navy); line-height:1.65; }
 .form-group { text-align:left; }
-.form-group label { display:block; font-family:'Josefin Sans',sans-serif; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.5rem; }
-.form-group input, .form-group select, .form-group textarea { width:100%; padding:0.9rem 1.1rem; border:1px solid var(--gold-faint); border-radius:3px; font-family:'EB Garamond',serif; font-size:1rem; color:var(--charcoal); background:rgba(255,253,247,0.9); outline:none; }
+.form-group label { display:block; font-family:'Montserrat',sans-serif; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.5rem; }
+.form-group input, .form-group select, .form-group textarea { width:100%; padding:0.9rem 1.1rem; border:1px solid var(--gold-faint); border-radius:3px; font-family:'Lora',serif; font-size:1rem; color:var(--charcoal); background:rgba(255,253,247,0.9); outline:none; }
 .form-group input[readonly] { color:var(--warm-brown); background:rgba(245,239,224,0.72); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(184,148,62,0.1); }
 .form-group textarea { resize:vertical; min-height:90px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
 .phone-row { display:grid; grid-template-columns:minmax(210px,0.9fr) 1.1fr; gap:0.75rem; }
 .rsvp-household { text-align:left; padding:1rem 1.1rem; border:1px solid var(--gold-faint); border-radius:3px; background:rgba(255,253,247,0.65); }
-.rsvp-household-title { font-family:'Josefin Sans',sans-serif; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.75rem; }
-.member-option { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-top:1px solid rgba(184,148,62,0.14); font-family:'EB Garamond',serif; font-size:1.05rem; color:var(--charcoal); }
+.rsvp-household-title { font-family:'Montserrat',sans-serif; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.75rem; }
+.member-option { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-top:1px solid rgba(184,148,62,0.14); font-family:'Lora',serif; font-size:1.05rem; color:var(--charcoal); }
 .member-option:first-of-type { border-top:none; }
 .member-option input { width:18px; height:18px; accent-color:var(--navy); flex:0 0 auto; }
-.member-status { margin-left:auto; font-family:'Josefin Sans',sans-serif; font-size:0.58rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--sage); }
+.member-status { margin-left:auto; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--sage); }
 .guest-fields { display:flex; flex-direction:column; gap:0.8rem; }
 .guest-entry { padding:1rem; border:1px solid var(--gold-faint); border-radius:3px; background:rgba(255,253,247,0.55); }
 .guest-entry-title { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; color:var(--navy); margin-bottom:0.7rem; }
-.rsvp-summary { font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--warm-brown); line-height:1.55; }
-.btn-submit { padding:1rem 3rem; background:var(--navy); color:var(--cream); border:none; border-radius:3px; font-family:'Josefin Sans',sans-serif; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; margin-top:0.5rem; }
+.rsvp-summary { font-family:'Lora',serif; font-size:0.95rem; color:var(--warm-brown); line-height:1.55; }
+.btn-submit { padding:1rem 3rem; background:var(--navy); color:var(--cream); border:none; border-radius:3px; font-family:'Montserrat',sans-serif; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; margin-top:0.5rem; }
 .btn-submit:hover { background:var(--navy-deep); transform:translateY(-1px); }
 
 .accordion { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-radius:4px; overflow:hidden; background:rgba(255,253,247,0.9); backdrop-filter:blur(6px); }
 .accordion-item { background:none; }
 .accordion-item + .accordion-item { border-top:1px solid var(--gold-faint); }
-#clothing { padding-top:1.5rem; padding-bottom:1.5rem; }
-#clothing .section-heading { margin-bottom:0; padding-bottom:0; }
-#clothing .section-heading .section-subtitle { margin-bottom:0.4rem; }
+#clothing { padding-top:2rem; padding-bottom:2rem; }
 #travel { padding-top:1.5rem; padding-bottom:1.5rem; }
 #travel .section-heading { margin-bottom:1rem; }
 #travel .info-cards { margin-bottom:0; gap:0; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-bottom:none; border-radius:4px 4px 0 0; backdrop-filter:blur(6px); }
@@ -241,7 +262,7 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .accordion-item.open .accordion-arrow { transform:rotate(180deg); }
 .accordion-body { max-height:0; overflow:hidden; transition:max-height 0.4s; padding:0 1.8rem; }
 .accordion-item.open .accordion-body { max-height:800px; padding:0 1.8rem 1.5rem; }
-.accordion-body p, .accordion-body li { font-family:'EB Garamond',serif; font-size:0.95rem; color:var(--text-body); line-height:1.75; }
+.accordion-body p, .accordion-body li { font-family:'Lora',serif; font-size:0.95rem; color:var(--text-body); line-height:1.75; }
 .accordion-body ul { list-style:none; padding:0; margin-top:0.5rem; }
 .accordion-body li { padding:0.2rem 0; }
 .accordion-body li::before { content:'✦ '; color:var(--gold); font-size:0.6em; }
@@ -250,7 +271,7 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .contact-card { max-width:500px; margin:0 auto; padding:2.5rem; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(6px); position:relative; }
 .contact-card::before { content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:50px; height:2px; background:var(--gold); }
 .contact-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:600; color:var(--navy); margin-bottom:0.5rem; }
-.contact-card p { font-family:'EB Garamond',serif; font-size:1rem; color:var(--text-body); line-height:1.8; }
+.contact-card p { font-family:'Lora',serif; font-size:1rem; color:var(--text-body); line-height:1.8; }
 .accom-box p, .contact-card p { font-style:normal !important; }
 
 #welcome .fade-in { max-width:var(--content-width); margin:0 auto; padding:2.1rem; background:rgba(255,253,247,0.84); border:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(8px); }
@@ -261,8 +282,8 @@ section:not(.hero) > .section-subtitle { text-shadow:0 1px 0 rgba(255,253,247,0.
 
 footer { background:var(--navy-deep); color:rgba(250,246,238,0.5); text-align:center; padding:2.4rem var(--page-pad); position:relative; }
 footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:0.3; }
-.footer-names { font-family:'Great Vibes',cursive; font-size:2.2rem; color:var(--gold-pale); margin-bottom:0.5rem; }
-.footer-details { font-family:'Josefin Sans',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:rgba(250,246,238,0.35); }
+.footer-names { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:2.2rem; color:var(--gold-pale); margin-bottom:0.5rem; }
+.footer-details { font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:rgba(250,246,238,0.35); }
 
 .fade-in { opacity:0; transform:translateY(25px); transition:opacity 0.9s ease,transform 0.9s ease; }
 .fade-in.visible { opacity:1; transform:translateY(0); }
@@ -293,7 +314,16 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .hamburger { display:flex; }
   .ec-arrow { display:none; }
   .tl-row { grid-template-columns:58px 84px 1fr; gap:0.6rem; } .tl-icon { width:80px; height:80px; }
-  .form-row, .phone-row { grid-template-columns:1fr; } .outfit-card { flex-basis:100%; min-width:0; } .attire-figure { height:380px; } .info-cards, .accom-periods { grid-template-columns:1fr; }
+  .form-row, .phone-row { grid-template-columns:1fr; } .info-cards, .accom-periods { grid-template-columns:1fr; }
+  .attire-hero { flex-direction:column; text-align:center; gap:1.5rem; }
+  .attire-hero-left .section-label, .attire-hero-left .section-title { text-align:center; }
+  .attire-hero-intro { max-width:100%; margin:0 auto; }
+  .attire-polaroid img { width:88px; height:124px; }
+  .attire-row { grid-template-columns:72px 1fr; }
+  .attire-col-men { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; }
+  .attire-col-women { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; }
+  .attire-col-swatches { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; padding:0.75rem 1rem; }
+  .attire-swatches { display:flex; flex-direction:row; gap:8px; }
   #travel .info-card + .info-card { border-left:none; border-top:2px solid var(--gold-faint); }
   .gate-name-fields { grid-template-columns:1fr; }
   body { background-size:420px 420px; background-repeat:repeat; background-position:center top; background-attachment:scroll; }
@@ -316,6 +346,25 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 .photo-marquee.dragging { cursor:grabbing; }
 .photo-marquee-track { display:flex; gap:1.1rem; width:max-content; }
 .photo-marquee-track img { display:block; height:340px; width:auto; border-radius:4px; box-shadow:0 6px 24px rgba(15,36,64,0.18); flex:none; user-select:none; -webkit-user-drag:none; }
+
+/* NAV RSVP PILL — always highlighted */
+.nav-rsvp-pill { background:transparent !important; color:var(--gold) !important; font-weight:600 !important; border:1.5px solid var(--gold) !important; box-shadow:none !important; }
+.nav-rsvp-pill:hover { background:rgba(184,148,62,0.10) !important; color:var(--gold) !important; }
+nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold-pale) !important; border-color:var(--gold-pale) !important; }
+
+/* HERO PHOTO CAROUSEL */
+.hero-carousel-bg { position:absolute; inset:0; z-index:-5; overflow:hidden; }
+.hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 1.8s ease; }
+.hero-slide.active { opacity:1; }
+.hero-photo-overlay { position:absolute; inset:0; z-index:-4; background:rgba(250,246,238,0.50); pointer-events:none; }
+
+/* COUNTDOWN TIMER */
+#countdown { border-bottom:1px solid var(--gold-faint); }
+.countdown-timer { display:flex; align-items:center; justify-content:center; gap:0; margin:0 auto; }
+.countdown-unit { display:flex; flex-direction:column; align-items:center; min-width:clamp(64px,14vw,96px); }
+.countdown-num { font-family:'Cormorant Garamond',serif; font-size:clamp(2.6rem,7vw,4.6rem); font-weight:600; color:var(--navy); line-height:1; }
+.countdown-label { font-family:'Montserrat',sans-serif; font-size:0.62rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-top:0.3rem; }
+.countdown-sep { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,5.5vw,3.8rem); font-weight:300; color:var(--gold-pale); padding:0 clamp(0.1rem,0.6vw,0.5rem); align-self:flex-start; margin-top:0.1rem; }
 </style>
 </head>
 <body>
@@ -324,7 +373,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   <div class="gate-card">
     <img class="gate-crest" src="assets/ed-crest.png" alt="Elizabeth and Daksh crest">
     <div class="gold-divider" style="margin:1rem auto"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
-    <p style="font-family:'EB Garamond',serif;font-size:1rem;color:var(--warm-brown);margin-bottom:1.5rem">Please enter your first and last name</p>
+    <p style="font-family:'Lora',serif;font-size:1rem;color:var(--warm-brown);margin-bottom:1.5rem">Please enter your first and last name</p>
     <div class="gate-name-fields">
       <input type="text" class="gate-input" id="gate-first-name" placeholder="First name" autocomplete="given-name">
       <input type="text" class="gate-input" id="gate-last-name" placeholder="Last name" autocomplete="family-name" onkeydown="if(event.key==='Enter')attemptLogin()">
@@ -339,25 +388,57 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 <div id="scroll-progress"></div>
 
 <nav id="nav">
+  <a href="#hero" class="nav-home" aria-label="Return to the top of the wedding website">
+    <img class="nav-crest" src="assets/ed-crest.png" alt="Elizabeth and Daksh crest">
+  </a>
   <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul>
     <li><a href="#welcome">Our Story</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#clothing">Attire</a></li>
-    <li><img src="data:image/png;base64,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ryrJMwpkbqjeBKd2QAKIGOrSIJLstL39QXEy1g4QgaA3yIKSICoTK4mwdbUYeCdflNJTBZDI73hh6LROCb/pj/O3GaYsVgB8pcaIsx1y2RcQweUh13R1WEG7yOgdTZ3lrJDnqcWXmIjO4D1oEJBCcDWO+HdDXm2j7P/50plFkLFEWHCoPRY0Sqbbg6Et6SkVz+b5don/S+FQekFXZlfWHt6pD0zp1HfYpVDxLJCrQciTFG6tJDRlvcmWd3x0Xlki05WxYLMI5D14PK9E3irDkwhEQM7XmwJk1IAKhEk51t/3MpyN91Qx2dHRwt6lwrLyjxGcRaMjDJ1ZrSc00FniOYrV8ZjMAsq5BLowGvR2PMtyyDrBry0frlUodMeVr2NZ/Fg/hkTPIXOU7lYlcyXAvn3vPRvL3S/naYZl0TR1NfRjG3ioU1OaP/k45F4GObuSYOrrf673zHQw3RKIJW8YxUjE4s053dIZl23dsu0NYk1e5JkjVAOnjyUoPtToRCTv8hbuX9iuIicxSCKlzBGJ88X24ZiDwRP5pi34yst5T7vyjkhZlsNSwwJBx5JDWwsdTxkIGldXBYQvIZT4PIAgU24OBP1Qx7StgshBbsx7jk6Nl332Y7YA7F37rHXAQQsbcRDVL6QHkMzAAUu6zMN+sZ2JlNJagESEvC0a+xvlCK2AgUtXy+D9QCUJF/ylLbAb+5uq1wuzs7kHKqVgnXobBfVu8agjuABhoIuCfWu5eu9dOF3nt5RxkvIAl6qOYoNBrUzlqw+NcgAzg7hwI6UclGvfWOuOc9A7dh1ICFbBBEia3DBOqemEyMwijAAKlUsCLqASKQFm68pxQPITC17/0nfBOUz0lIkHVZD0lgAASr1Vd/ysWK/R6942KikpuEDw+y/IzktUAJCRHTchhzh7D4o5nMegHuTehSs6ghYZe7jgEwgFhSfXqJzK1Icf7IK8b8EEoWHww1xSbv0jkZKgCFnujWlHvDE7xO6B2rSiL1tMCCLW+UQrrb0PO/nJdWem6s1ep0pUwe8MXcuylBH2eM5aDsK3XD4P13xyE19KqcDi4dSlwZv8uctuUcg7qIc2W+jHSykqL6XooHBpf8rCJIdmZABZpiU8BQut4AIPpefZ4T47+kLGT/Z7FTjf6pwmHALSgVaT0Gx1rDWwsT6YhCkLAYvK8Wr+EYdSB5gd14P+T3qE7zs5Zfk3DX0YbMw9qgFg9m0uZu+UxGzFIClUBCEXOcVCCdBiaufAAlMLjaka1iFl9UOUbaCnCZDDVGqpSoshILhaJgyuBAH08Ki94xCwMyCashH+TXlYX8rr/P8lpsHyKzGKdAAAADl0RVh0Q29udGFpbnNBaUdlbmVyYXRlZENvbnRlbnQ6Q29udGFpbnNBaUdlbmVyYXRlZENvbnRlbnQAWWVz/o9BOAAAAB90RVh0cGRmOkF1dGhvcgBFbGl6YWJldGggV2VhdGhlcnNiebaQwMEAAABIdEVYdHhtcDpDcmVhdG9yVG9vbABDYW52YSBkb2M9REFIS3htS2ljT3MgdXNlcj1VQUZDWXR3Z3lldyBicmFuZD1CQUZDWXJwZEJ5TeZPT8IAAAAASUVORK5CYII=" class="nav-crest" alt="E&amp;D"></li>
-    <li style="display:none"><a href="#registry">Registry</a></li>
+    <li><a href="#events">The Celebration</a></li>
     <li><a href="#travel">Travel</a></li>
-    <li><a href="#rsvp">RSVP</a></li>
+    <li><a href="#clothing">Attire</a></li>
+    <li><a href="#registry">Registry</a></li>
     <li><a href="#info">FAQ</a></li>
+    <li><a href="#rsvp" class="nav-rsvp-pill">RSVP</a></li>
   </ul>
 </nav>
 
 <section class="hero" id="hero">
+  <div class="hero-carousel-bg" id="hero-carousel-bg">
+    <div class="hero-slide active" style="background-image:url('assets/photos/engagement/DSC02483.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02536.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02548.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02562.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02563.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02600.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3092.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3205.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3211.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3212.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3214.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3221.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3222.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3226.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3227.JPG')"></div>
+  </div>
+  <div class="hero-photo-overlay"></div>
   <div class="hero-content">
     <h1><span>Elizabeth</span><span class="hero-amp">&amp;</span><span>Daksh</span></h1>
-    <p class="hero-subtitle">are getting married</p>
     <div class="gold-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
     <div class="hero-date"><span id="hero-dates-text"></span><span class="venue">The Riverview Retreat, Corbett National Park</span></div>
+  </div>
+</section>
+
+<section id="countdown" style="text-align:center;padding:2.6rem var(--page-pad) 2rem">
+  <p class="section-label" style="margin-bottom:1.6rem">The Countdown Is On</p>
+  <div class="countdown-timer" id="countdown-timer">
+    <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">Days</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-label">Hours</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-label">Minutes</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-label">Seconds</span></div>
   </div>
 </section>
 
@@ -367,21 +448,11 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
     <div class="gold-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
     <div class="photo-marquee" aria-hidden="true">
       <div class="photo-marquee-track">
-        <img src="assets/photos/photo-1.jpg" alt="">
-        <img src="assets/photos/photo-2.jpg" alt="">
-        <img src="assets/photos/photo-3.jpg" alt="">
-        <img src="assets/photos/photo-4.jpg" alt="">
-        <img src="assets/photos/photo-5.jpg" alt="">
-        <img src="assets/photos/photo-6.jpg" alt="">
-        <img src="assets/photos/photo-1.jpg" alt="">
-        <img src="assets/photos/photo-2.jpg" alt="">
-        <img src="assets/photos/photo-3.jpg" alt="">
-        <img src="assets/photos/photo-4.jpg" alt="">
-        <img src="assets/photos/photo-5.jpg" alt="">
-        <img src="assets/photos/photo-6.jpg" alt="">
+        <img src="assets/photos/our%20story/IMG_0019.jpg" alt=""><img src="assets/photos/our%20story/IMG_0043.jpg" alt=""><img src="assets/photos/our%20story/IMG_0116.jpg" alt=""><img src="assets/photos/our%20story/IMG_0416.JPG" alt=""><img src="assets/photos/our%20story/IMG_0433.JPG" alt=""><img src="assets/photos/our%20story/IMG_0523.jpg" alt=""><img src="assets/photos/our%20story/IMG_0556.jpg" alt=""><img src="assets/photos/our%20story/IMG_0558.jpg" alt=""><img src="assets/photos/our%20story/IMG_1379.JPG" alt=""><img src="assets/photos/our%20story/IMG_1915.JPG" alt=""><img src="assets/photos/our%20story/IMG_1921.JPG" alt=""><img src="assets/photos/our%20story/IMG_1930.jpg" alt=""><img src="assets/photos/our%20story/IMG_1941.JPG" alt=""><img src="assets/photos/our%20story/IMG_2727.JPG" alt=""><img src="assets/photos/our%20story/IMG_2842.jpg" alt=""><img src="assets/photos/our%20story/IMG_3914.jpg" alt=""><img src="assets/photos/our%20story/IMG_4131.jpg" alt=""><img src="assets/photos/our%20story/IMG_5042.jpg" alt=""><img src="assets/photos/our%20story/IMG_5043.jpg" alt=""><img src="assets/photos/our%20story/IMG_5907.jpg" alt=""><img src="assets/photos/our%20story/IMG_6663.jpg" alt=""><img src="assets/photos/our%20story/IMG_6779.jpg" alt=""><img src="assets/photos/our%20story/IMG_6998.jpg" alt=""><img src="assets/photos/our%20story/IMG_7055.JPG" alt=""><img src="assets/photos/our%20story/IMG_8236.JPG" alt=""><img src="assets/photos/our%20story/IMG_8244.JPG" alt=""><img src="assets/photos/our%20story/IMG_9257.jpg" alt=""><img src="assets/photos/our%20story/IMG_9618.jpg" alt="">
+        <img src="assets/photos/our%20story/IMG_0019.jpg" alt=""><img src="assets/photos/our%20story/IMG_0043.jpg" alt=""><img src="assets/photos/our%20story/IMG_0116.jpg" alt=""><img src="assets/photos/our%20story/IMG_0416.JPG" alt=""><img src="assets/photos/our%20story/IMG_0433.JPG" alt=""><img src="assets/photos/our%20story/IMG_0523.jpg" alt=""><img src="assets/photos/our%20story/IMG_0556.jpg" alt=""><img src="assets/photos/our%20story/IMG_0558.jpg" alt=""><img src="assets/photos/our%20story/IMG_1379.JPG" alt=""><img src="assets/photos/our%20story/IMG_1915.JPG" alt=""><img src="assets/photos/our%20story/IMG_1921.JPG" alt=""><img src="assets/photos/our%20story/IMG_1930.jpg" alt=""><img src="assets/photos/our%20story/IMG_1941.JPG" alt=""><img src="assets/photos/our%20story/IMG_2727.JPG" alt=""><img src="assets/photos/our%20story/IMG_2842.jpg" alt=""><img src="assets/photos/our%20story/IMG_3914.jpg" alt=""><img src="assets/photos/our%20story/IMG_4131.jpg" alt=""><img src="assets/photos/our%20story/IMG_5042.jpg" alt=""><img src="assets/photos/our%20story/IMG_5043.jpg" alt=""><img src="assets/photos/our%20story/IMG_5907.jpg" alt=""><img src="assets/photos/our%20story/IMG_6663.jpg" alt=""><img src="assets/photos/our%20story/IMG_6779.jpg" alt=""><img src="assets/photos/our%20story/IMG_6998.jpg" alt=""><img src="assets/photos/our%20story/IMG_7055.JPG" alt=""><img src="assets/photos/our%20story/IMG_8236.JPG" alt=""><img src="assets/photos/our%20story/IMG_8244.JPG" alt=""><img src="assets/photos/our%20story/IMG_9257.jpg" alt=""><img src="assets/photos/our%20story/IMG_9618.jpg" alt="">
       </div>
     </div>
-    <div style="max-width:580px;margin:0 auto;font-family:'EB Garamond',serif;font-size:1.1rem;line-height:2;color:var(--text-body)">
+    <div style="max-width:580px;margin:0 auto;font-family:'Lora',serif;font-size:1.1rem;line-height:2;color:var(--text-body)">
       <p>We come from different places, cultures, and backgrounds, with roots spanning Hong Kong, Dehradun, Dubai, New Orleans, and now New York City, the place we've built our life together. That blend of cultures shapes so much of who we are: the music we enjoy, the food we share, the way we celebrate, and the people we surround ourselves with.</p>
       <p style="margin-top:1.2rem">We love creating, hosting, dancing, making music, sharing meals, and bringing people together. More than anything, we care deeply about community and the people we love.</p>
       <p style="margin-top:1.2rem">Our wedding is a reflection of all of that: vibrant, joyful, multicultural, and centered around the people who have shaped our lives. We hope that by the end of the celebrations, you not only feel how much we love each other, but also how deeply we love the people around us.</p>
@@ -441,19 +512,62 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 </section>
 
 <section id="clothing">
-  <div class="section-heading fade-in">
-    <p class="section-label">Style Guide</p>
-    <h2 class="section-title">What to Wear</h2>
-    <p class="section-subtitle">Your guide to dressing for each celebration</p>
+  <!-- Attire header: title + polaroid photos -->
+  <div class="attire-hero fade-in">
+    <div class="attire-hero-left">
+      <p class="section-label">Style Guide</p>
+      <h2 class="section-title" style="font-size:clamp(3.2rem,8vw,5.5rem);margin-bottom:0.15rem">Attire</h2>
+      <p class="attire-hero-script">Dress up, show up, let's celebrate.</p>
+      <p class="attire-hero-intro">We can't wait to celebrate with you! Here's your guide to what to wear for each of our festivities.</p>
+    </div>
+    <div class="attire-hero-photos">
+      <div class="attire-polaroid"><img src="assets/attire/attire-christian_2.png" alt="Christian ceremony attire"></div>
+      <div class="attire-polaroid"><img src="assets/attire/attire-haldi_2.png" alt="Haldi attire"></div>
+      <div class="attire-polaroid"><img src="assets/attire/attire-baraat_2.png" alt="Baraat and reception attire"></div>
+    </div>
   </div>
-  <div class="gold-divider fade-in" style="margin:0.1rem auto 0.5rem"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
-  <div class="outfit-grid">
-    <div class="outfit-card fade-in christian-only"><div class="o-num">One</div><div class="o-event">The Christian Ceremony</div><div class="o-day">Feb 22 · Evening</div><p class="o-detail"><strong>Men:</strong> A suit or tuxedo, or Indian formals such as a bandhgala or sherwani.</p><p class="o-detail"><strong>Women:</strong> A cocktail dress or gown, or a saree or anarkali.</p><span class="o-tag">Cocktail · Western or Indian</span></div>
-    <div class="outfit-card fade-in"><div class="o-num">Two</div><div class="o-event">Haldi &amp; Mehendi</div><div class="o-day">Feb 23 · Afternoon</div><p class="o-detail"><strong>Men:</strong> Yellow kurta pajama.</p><p class="o-detail"><strong>Women:</strong> Anything yellow!</p><p class="o-detail"><strong>Note:</strong> Turmeric stains!</p><span class="o-tag">Casual · Indian</span></div>
-    <div class="outfit-card fade-in"><div class="o-num">Three</div><div class="o-event">Sangeet</div><div class="o-day">Feb 23 · Evening</div><p class="o-detail"><strong>Men:</strong> Sherwani, jodhpuri suit, or formal kurta.</p><p class="o-detail"><strong>Women:</strong> Lehenga, saree, or anarkali. Glamorous!</p><span class="o-tag">Formal · Indian</span></div>
-    <div class="outfit-card fade-in"><div class="o-num">Four</div><div class="o-event">Jai Mala &amp; Pheras</div><div class="o-day">Feb 24 · Afternoon</div><p class="o-detail"><strong>Men:</strong> Sherwani, formal kurta, or suit.</p><p class="o-detail"><strong>Women:</strong> Saree, lehenga, or elegant dress.</p><span class="o-tag">Formal · Indian or Western</span></div>
-    <div class="outfit-card fade-in"><div class="o-num">Five</div><div class="o-event">Baraat &amp; Reception</div><div class="o-day">Feb 24 · Evening</div><p class="o-detail"><strong>Men:</strong> Sherwani, bandhgala, jodhpuri, or a black tuxedo.</p><p class="o-detail"><strong>Women:</strong> Show-stopping lehenga, regal saree, or a black-tie gown, finished with a maang tikka.</p><span class="o-tag">Black-Tie · Indian or Western</span></div>
-    <div class="fade-in" style="flex:0 1 100%;padding:1.1rem 1.4rem 0.4rem;text-align:center;border-top:1px solid var(--gold-faint);margin-top:0.6rem"><h4 style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);margin-bottom:0.5rem">A Note on Footwear</h4><p style="font-family:'EB Garamond',serif;font-size:0.95rem;color:var(--text-body);line-height:1.75;max-width:640px;margin:0 auto">Several of our celebrations will be held outdoors on lawns and grass, so please pack accordingly. Wear whatever you love, though for the ladies, block heels, wedges, or juttis are gently recommended over stilettos to keep things steady on softer ground.</p></div>
+  <!-- Attire event table -->
+  <div class="attire-table fade-in">
+    <div class="attire-row christian-only">
+      <div class="attire-col-icon"><span class="attire-event-icon icon-christian" aria-hidden="true"></span><span class="attire-day-meta">Sunday<br>22 Feb 2027<br>Evening</span></div>
+      <div class="attire-col-main"><span class="attire-event-name">Christian Ceremony &amp; Cocktail</span><span class="attire-code-label">Cocktail (Western or Indian)</span><span class="attire-code-desc">An evening of love, vows, and celebration.</span></div>
+      <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">A suit, western or indo-western.</span></div>
+      <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Cocktail dress, gown, saree, or dressy Indian attire.</span></div>
+      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F2BFC9"></span><span class="attire-swatch" style="background:#C47A8A"></span><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#9A5E72"></span></div></div>
+    </div>
+    <div class="attire-row">
+      <div class="attire-col-icon"><span class="attire-event-icon icon-haldi" aria-hidden="true"></span><span class="attire-day-meta">Tuesday<br>23 Feb 2027<br>Daytime</span></div>
+      <div class="attire-col-main"><span class="attire-event-name">Haldi &amp; Mehendi</span><span class="attire-code-label">Casual &amp; Indian</span><span class="attire-code-accent">Wear Yellow!</span><span class="attire-code-desc">A fun, vibrant day of turmeric, mehendi, and good vibes.</span><span class="attire-code-note">Note: Turmeric stains.</span></div>
+      <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Yellow kurta pajamas or Indian casuals.</span></div>
+      <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Yellow Indian attire: salwar kameez, anarkali, lehenga, or saree.</span></div>
+      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F5C842"></span><span class="attire-swatch" style="background:#E8A020"></span><span class="attire-swatch" style="background:#6B7C3E"></span><span class="attire-swatch" style="background:#D4621A"></span></div></div>
+    </div>
+    <div class="attire-row">
+      <div class="attire-col-icon"><span class="attire-event-icon icon-sangeet" aria-hidden="true"></span><span class="attire-day-meta">Tuesday<br>23 Feb 2027<br>Evening</span></div>
+      <div class="attire-col-main"><span class="attire-event-name">Sangeet</span><span class="attire-code-label">Formal Indian</span><span class="attire-code-desc">A night of music, dance and non-stop energy!</span></div>
+      <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, jodhpuri suit, or formal kurta.</span></div>
+      <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Lehenga, saree, or anarkali.</span><span class="attire-gender-accent">Something you can dance in!</span></div>
+      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#1B5C5A"></span><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#B8943E"></span></div></div>
+    </div>
+    <div class="attire-row">
+      <div class="attire-col-icon"><span class="attire-event-icon icon-pheras" aria-hidden="true"></span><span class="attire-day-meta">Wednesday<br>24 Feb 2027<br>Daytime</span></div>
+      <div class="attire-col-main"><span class="attire-event-name">Jai Mala &amp; Pheras</span><span class="attire-code-label">Indian or Western Formal</span><span class="attire-code-desc">The most important part: we do!</span></div>
+      <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, formal kurta, or suit.</span></div>
+      <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Saree, lehenga, or formal gown.</span></div>
+      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F0EBE0;border:1px solid var(--gold-faint)"></span><span class="attire-swatch" style="background:#7A8C6E"></span><span class="attire-swatch" style="background:#5C7A8C"></span><span class="attire-swatch" style="background:#C4A0A5"></span></div></div>
+    </div>
+    <div class="attire-row" style="border-bottom:none">
+      <div class="attire-col-icon"><span class="attire-event-icon icon-baraat" aria-hidden="true"></span><span class="attire-day-meta">Wednesday<br>24 Feb 2027<br>Evening</span></div>
+      <div class="attire-col-main"><span class="attire-event-name">Baraat &amp; Reception</span><span class="attire-code-label">Black Tie (Indian or Western)</span><span class="attire-code-desc">It's time to celebrate in style!</span></div>
+      <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, bandhgala, jodhpuri, or black tuxedo.</span></div>
+      <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Lehenga, saree, or black tie gown, finished with a maang tikka.</span></div>
+      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#1A1A1A"></span><span class="attire-swatch" style="background:#4A4A4A"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#C8A96E"></span></div></div>
+    </div>
+  </div>
+  <div class="attire-footwear fade-in">
+    <p class="attire-fw-eyebrow">Note on Footwear</p>
+    <p class="attire-fw-script">Comfort first, always.</p>
+    <p class="attire-fw-desc">Several of our celebrations will be held outdoors on lawns and grass, so please pack accordingly. Wear whatever you love, though for the ladies, block heels, wedges, or juttis are gently recommended over stilettos to keep things steady on softer ground.</p>
   </div>
   <div class="shop-links fade-in">
     <h4>A Few Places We Recommend</h4>
@@ -481,6 +595,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
       </div>
     </div>
   </div>
+  <p class="attire-tagline fade-in">When in doubt, a little extra is always just right.</p>
 </section>
 
 <section id="travel">
@@ -497,15 +612,22 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   <div class="accom-box fade-in"><h4>Accommodation</h4><p>We are looking forward to hosting you at the Riverview Retreat for the duration of the wedding celebrations.</p><div style="margin:1.25rem auto 0;max-width:520px;padding:1rem 1.25rem;border:1px solid var(--gold-faint);border-radius:4px;background:rgba(255,253,247,0.55)"><p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);font-weight:600;margin-bottom:0.4rem">The Riverview Retreat, Corbett</p><p style="font-size:0.98rem;line-height:1.65;margin-bottom:0.55rem">Zero Garjia, Corbett National Park, Dhikuli,<br>Ramnagar, Nainital, Uttarakhand 244715</p><p style="font-size:0.95rem;line-height:1.75;margin-bottom:0.55rem"><strong>Hotel:</strong> <a href="tel:+919760090821" style="color:var(--navy);text-decoration:none">+91 97600 90821</a><br><strong>Reservations:</strong> <a href="tel:+919555088000" style="color:var(--navy);text-decoration:none">+91 95550 88000</a></p><p style="font-size:0.92rem"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px">Visit the hotel website →</a></p></div><div class="accom-periods"><div><h5>Arriving Before</h5><p>For guests extending their journey before the celebrations, our wedding planner will be delighted to share a selection of lovely nearby hotels and retreats for you to book directly.</p></div><div><h5>Staying After</h5><p>For those wishing to linger a little longer after the wedding, you may reserve directly with the hotel by calling <a href="tel:+919555088000">+91 95550 88000</a>, or speak with our wedding planner for assistance.</p></div></div></div>
 </section>
 
-<section id="registry" style="text-align:center;display:none">
+<section id="registry" style="text-align:center">
   <div class="fade-in"><p class="section-label">Gifts</p><h2 class="section-title">Registry</h2><div class="gold-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
-  <div class="registry-message">Your love and presence means the world to us. In lieu of traditional gifts, if you wish to honour us, we would be grateful for a contribution towards building our future together. Details coming soon.</div></div>
+  <div class="registry-message">
+    <p>Your presence is truly the only gift we need. Having you with us in India to celebrate this chapter of our lives means everything.</p>
+    <p style="margin-top:1.1rem;font-size:0.95rem;color:var(--warm-brown)">Please do not bring gift boxes to the wedding. While we are so grateful for your generosity, we will be unable to bring them back to New York with us.</p>
+    <div id="registry-fund" style="display:none;margin-top:1.6rem;padding-top:1.6rem;border-top:1px solid var(--gold-faint)">
+      <p>If you would like to help us build our new life together, we would be so touched by a contribution to our honeymoon fund.</p>
+      <a href="https://www.paypal.com/pool/9q35TZOYce?sr=wccr" class="btn-registry" target="_blank" rel="noopener" style="display:inline-block;margin-top:1.2rem;padding:0.85rem 2.4rem;background:var(--navy);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border-radius:999px;transition:background 0.3s">Send a Gift</a>
+    </div>
+  </div></div>
 </section>
 
 <section id="rsvp" style="text-align:center">
   <div class="rsvp-form fade-in">
     <div style="text-align:center"><p class="section-label">Respond</p><h2 class="section-title">RSVP</h2><div class="gold-divider" style="margin:1rem auto"><span class="line"></span><span class="diamond"></span><span class="line"></span></div></div>
-    <p class="rsvp-deadline">Kindly RSVP by <strong>July 31</strong>. As it is peak wedding season in India, accommodations at our wedding hotel can only be secured for guests who confirm by this date. Reservations thereafter will be subject to availability and may be arranged at a nearby property. Should your plans change after confirming, we would be grateful if you could let us know at the earliest, and no later than <strong>September 30</strong>, to help us manage room allocations. Your prompt reply means the world to us, and we sincerely hope you can join us.</p>
+    <p class="rsvp-deadline">Kindly RSVP by <strong>August 31</strong>. As it is peak wedding season in India, accommodations at our wedding hotel can only be secured for guests who confirm by this date. Reservations thereafter will be subject to availability and may be arranged at a nearby property. Should your plans change after confirming, we would be grateful if you could let us know at the earliest, and no later than <strong>October 31</strong>, to help us manage room allocations. Your prompt reply means the world to us, and we sincerely hope you can join us.</p>
     <div class="rsvp-inner">
     <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" id="rsvp-first" placeholder="First name"></div><div class="form-group"><label>Last Name</label><input type="text" id="rsvp-last" placeholder="Last name"></div></div>
     <div class="form-group"><label>Email</label><input type="email" id="rsvp-email" placeholder="your@email.com"></div>
@@ -516,7 +638,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
     <p class="rsvp-summary" id="guest-note"></p>
     <div class="form-group"><label>Notes for the Couple</label><textarea id="rsvp-dietary" placeholder="Dietary requirements, allergies, or anything we should know..."></textarea></div>
     <button class="btn-submit" onclick="handleRSVP()">Send RSVP</button>
-    <p id="rsvp-confirmation" style="display:none;margin-top:1rem;color:var(--sage);font-family:'Great Vibes',cursive;font-size:1.6rem">Thank you! We can't wait to celebrate with you!</p>
+    <p id="rsvp-confirmation" style="display:none;margin-top:1rem;color:var(--sage);font-family:'Cormorant Garamond',serif; font-style:italic;font-size:1.6rem">Thank you! We can't wait to celebrate with you!</p>
     </div>
   </div>
 </section>
@@ -534,7 +656,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 <section id="questions" style="text-align:center">
   <div class="fade-in"><p class="section-label">Need Help?</p><h2 class="section-script">Questions</h2><div class="gold-divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
   <p class="section-subtitle">For questions about travel, accommodation, or celebrations</p>
-  <div class="contact-card"><h4>Wedding Planner &amp; Dedicated Guest Team</h4><p style="color:var(--warm-brown)">Our wedding planner and dedicated guest team will be in touch with additional details soon. Once you RSVP, they will contact you to help with logistics and any questions you may have. We will continue to update this website as the celebration approaches, so please check back periodically for the latest information.</p><p style="margin-top:0.9rem"><strong>Available by phone and text:</strong><br><a href="tel:+918882688816" style="color:var(--navy);text-decoration:none">+91 88826 88816</a></p></div></div>
+  <div class="contact-card"><h4>Silver Slate Events</h4><p style="color:var(--warm-brown)">Once you have RSVPed, our wedding planner will be in touch to help with travel logistics and answer any questions. You are also welcome to reach out to them directly in the meantime.</p><p style="margin-top:0.9rem"><strong>Phone and WhatsApp:</strong><br><a href="tel:+918882688816" style="color:var(--navy);text-decoration:none">+91 88826 88816</a></p><p style="margin-top:0.6rem"><strong>Email:</strong><br><a href="mailto:silverslateevents.wedding@gmail.com" style="color:var(--navy);text-decoration:none">silverslateevents.wedding@gmail.com</a></p></div></div>
 </section>
 
 <div class="modal" id="mehndi-modal" role="dialog" aria-modal="true" aria-labelledby="mehndi-title" onclick="closeModalOnBackdrop(event)">
@@ -577,7 +699,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   </div>
 </div>
 
-<footer><p class="footer-names">Elizabeth &amp; Daksh</p><p class="footer-details">February 2027 · Corbett National Park</p><p style="font-family:'EB Garamond',serif;font-size:0.9rem;color:rgba(250,246,238,0.55);margin-top:0.9rem;line-height:1.7"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold-pale);text-decoration:none">The Riverview Retreat, Corbett</a><br>Zero Garjia, Corbett National Park, Dhikuli, Ramnagar, Nainital, Uttarakhand 244715</p></footer>
+<footer><p class="footer-names">Elizabeth &amp; Daksh</p><p class="footer-details">February 2027 · Corbett National Park</p><p style="font-family:'Lora',serif;font-size:0.9rem;color:rgba(250,246,238,0.55);margin-top:0.9rem;line-height:1.7"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold-pale);text-decoration:none">The Riverview Retreat, Corbett</a><br>Zero Garjia, Corbett National Park, Dhikuli, Ramnagar, Nainital, Uttarakhand 244715</p></footer>
 
 </div>
 
@@ -585,14 +707,8 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
 <script>
 var navCrest = document.querySelector('.nav-crest');
 if (navCrest) {
-  var homeLink = document.createElement('a');
-  homeLink.href = '#hero';
-  homeLink.className = 'nav-home';
-  homeLink.setAttribute('aria-label', 'Return to the top of the wedding website');
   navCrest.src = 'assets/ed-crest.png';
   navCrest.alt = 'Elizabeth and Daksh crest';
-  navCrest.parentNode.replaceChildren(homeLink);
-  homeLink.appendChild(navCrest);
 }
 
 const ICON_CLASSES = {
@@ -640,14 +756,6 @@ document.querySelectorAll('.tl-row').forEach(function(row) {
   heading.before(icon);
 });
 
-['figure-christian', 'figure-haldi', 'figure-sangeet', 'figure-wedding', 'figure-baraat'].forEach(function(figureClass, index) {
-  var outfit = document.querySelectorAll('.outfit-card')[index];
-  if (!outfit) return;
-  var figure = document.createElement('div');
-  figure.className = 'attire-figure ' + figureClass;
-  figure.setAttribute('aria-hidden', 'true');
-  outfit.prepend(figure);
-});
 
 document.querySelectorAll('.tl-row').forEach(function(row) {
   var title = row.querySelector('.tl-name').textContent.trim();
@@ -745,6 +853,8 @@ function enterWebsite(m) {
   document.getElementById('main-site').classList.add('visible');
   if (!m.invitedMonday) document.querySelectorAll('.christian-only').forEach(function(e){e.style.display='none';});
   document.getElementById('hero-dates-text').textContent = m.invitedMonday ? '22nd – 24th February, 2027' : '23rd – 24th February, 2027';
+  initCountdown(m.invitedMonday);
+  setupRegistry(m);
   document.getElementById('rsvp-first').value = m.firstName;
   document.getElementById('rsvp-last').value = m.lastName;
   document.getElementById('rsvp-first').readOnly = true;
@@ -1202,7 +1312,7 @@ setupCountryCodes();
 // Active-section indicator: highlight current nav link + top progress bar.
 (function() {
   var allLinks = Array.prototype.slice.call(document.querySelectorAll('nav ul li a[href^="#"]'));
-  var home = allLinks.filter(function(a) { return a.classList.contains('nav-home'); })[0];
+  var home = document.querySelector('nav .nav-home');
   var map = allLinks
     .filter(function(a) { return !a.classList.contains('nav-home'); })
     .map(function(a) { var sec = document.querySelector(a.getAttribute('href')); return sec ? { link: a, sec: sec } : null; })
@@ -1231,6 +1341,60 @@ setupCountryCodes();
   window.addEventListener('resize', onScroll);
   onScroll();
 })();
+
+// ── HERO PHOTO CAROUSEL ──────────────────────────────
+(function() {
+  var slides = document.querySelectorAll('.hero-slide');
+  if (!slides.length) return;
+  var current = 0;
+  setInterval(function() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 5000);
+})();
+
+// ── COUNTDOWN TIMER ──────────────────────────────────
+var _countdownInterval = null;
+function initCountdown(invitedMonday) {
+  if (_countdownInterval) clearInterval(_countdownInterval);
+  // 3-day guests: ceremony starts Monday Feb 22; 2-day guests: Tuesday Feb 23
+  var target = new Date(invitedMonday ? 'Feb 22, 2027 00:00:00' : 'Feb 23, 2027 00:00:00');
+  var days = document.getElementById('cd-days');
+  var hours = document.getElementById('cd-hours');
+  var mins = document.getElementById('cd-mins');
+  var secs = document.getElementById('cd-secs');
+  function tick() {
+    var diff = target - Date.now();
+    if (diff <= 0) { clearInterval(_countdownInterval); if(days)days.textContent='0'; if(hours)hours.textContent='00'; if(mins)mins.textContent='00'; if(secs)secs.textContent='00'; return; }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    if(days) days.textContent = d;
+    if(hours) hours.textContent = String(h).padStart(2,'0');
+    if(mins) mins.textContent = String(m).padStart(2,'0');
+    if(secs) secs.textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  _countdownInterval = setInterval(tick, 1000);
+}
+
+// ── REGISTRY DISPLAY LOGIC ───────────────────────────
+// Shows honeymoon fund only for non-parent buckets.
+// guestGroup comes from household.bucket in the Apps Script login response.
+// FILL IN bucket values once confirmed: e.g. ['ours','vir']
+var HONEYMOON_FUND_BUCKETS = ['elizabeth & daksh', 'vir']; // show fund to these buckets only
+function setupRegistry(m) {
+  var fund = document.getElementById('registry-fund');
+  if (!fund) return;
+  var group = (m.guestGroup || '').toLowerCase().trim();
+  // Until bucket values are confirmed, show fund to all logged-in guests as placeholder.
+  // Replace null above with e.g. ['ours','vir'] once bucket names are known.
+  var showFund = HONEYMOON_FUND_BUCKETS === null ? true : HONEYMOON_FUND_BUCKETS.indexOf(group) !== -1;
+  fund.style.display = showFund ? '' : 'none';
+}
+
+
+
 </script>
-</body>
-</html>

@@ -19,6 +19,26 @@
 
 ---
 
+## DONE (session 10 — 2026-06-14) — branch: pre-launch
+25. **Nav redesigned** — logo (E&D crest) moved to far left as standalone `<a class="nav-home">` outside `<ul>`. Nav items right-aligned in flex row: Our Story | The Celebration | Travel | Attire | Registry | FAQ | RSVP. "Events" renamed to "The Celebration". RSVP is always a navy pill (`.nav-rsvp-pill`), never dimmed. Nav layout changed from 7-column grid to flex with `justify-content:space-between`. Active-section JS updated: `home` now found via `document.querySelector('nav .nav-home')` since it's outside `<ul>`. Nav crest JS simplified (link already in HTML, no longer built dynamically).
+26. **Hero photo carousel** — 6 photos from `assets/photos/photo-1.jpg` through `photo-6.jpg` cycle every 5 seconds with 1.8s crossfade. "are getting married" subtitle removed. Text now: name / gold divider / date / venue. Cream overlay (`rgba(250,246,238,0.50)` at z-index:-4) sits between photos and existing gradient pseudo-elements to keep text readable.
+27. **Countdown timer** — new `<section id="countdown">` inserted between hero and "Our Story". Shows Days / Hours / Minutes / Seconds. `initCountdown(invitedMonday)` called from `enterWebsite(m)`: 3-day guests count to Feb 22 2027, 2-day guests count to Feb 23 2027. Timer ticks every second.
+28. **Registry section** — section made visible (was `display:none`), nav link now shows. Message updated: presence-is-the-gift copy + gift-box warning (shown to all). Honeymoon fund block (`#registry-fund`) shown/hidden by `setupRegistry(m)` based on `m.guestGroup` (bucket). **Pending:** honeymoon fund URL (placeholder `HONEYMOON_FUND_URL_PLACEHOLDER` in `href`) and bucket values (see NEXT section). Fund currently shows to all guests until bucket names are confirmed.
+29. **Contact / Questions** — updated to Silver Slate Events: phone +91 88826 88816, email silverslateevents.wedding@gmail.com. Message preserved: planner reaches out after RSVP.
+30. **RSVP deadline** — July 31 → August 31 (deadline text only; no other copy changed).
+31. **Apps Script** — added `guestGroup: text(household.bucket)` to the `loginGuest` return object. This makes `m.guestGroup` available in the front-end for registry display logic. **Requires redeploy** (new version) before it takes effect on the live endpoint.
+
+## DONE (session 9 — 2026-06-14)
+24. **Font system updated** — redesign-2027 branch deleted; all work now on main. Font replacements across all CSS rules:
+    - Headings: Cormorant Garamond (unchanged)
+    - Subheading script (.section-script, .hero-amp, .o-num, .footer-names, #rsvp-confirmation): Great Vibes → Cormorant Garamond italic
+    - Handwritten notes: Caveat added to Google Fonts (ready to use, not yet applied to any elements)
+    - Navigation / labels / buttons / tags: Josefin Sans → Montserrat
+    - Body copy / subtitles / inputs / descriptions: EB Garamond → Lora
+    - Google Fonts URL updated: removed Josefin Sans, Great Vibes, EB Garamond; added Montserrat, Lora, Caveat
+
+---
+
 ## DONE (this session)
 1. **No horizontal page scroll** — added `overflow-x:hidden` + `overscroll-behavior-x:none` to `html`/`body` (kills two-finger trackpad lateral drift). Carousel is the only horizontal-scroll area.
 2. **Photo marquee (welcome section)** — still auto-scrolls right→left, but is now manually scrollable/swipeable/draggable; auto-scroll pauses on interaction, resumes ~1.8s later (JS IIFE near end of `<script>`).
@@ -52,7 +72,30 @@
 22. **Sangeet photo fixed (locally only)** — 71,766 semi-transparent pixels composited against black background (new_rgb = old_rgb × alpha/255, new_alpha = 255). Backup at `assets/attire/attire-sangeet_2.backup.png`. **NOT pushed** — review locally first, then push separately.
 23. **RSVP changes pushed to main** — commit `3ab68dc`. `rsvp-google-apps-script.gs` still needs to be redeployed as a new Apps Script version for the live endpoint to reflect these changes.
 
+## DONE (session 11 — 2026-06-14) — branch: pre-launch
+32. **RSVP deadline** — cancellation grace period updated from September 30 → October 31 (line ~557 of index.html).
+33. **Hero carousel** — replaced `photo-1.jpg` through `photo-6.jpg` with all 15 engagement photos from `assets/photos/engagement/` (DSC02483–DSC02600 + IMG_3092–IMG_3227). Slides expand from 6 to 15.
+34. **"A Note From Us" photo marquee** — replaced 6-photo set with all 28 photos from `assets/photos/our story/`. HEICs converted to JPG with `sips` (16 new .jpg files). Track now has 56 img elements (28 × 2 for seamless loop).
+35. **Attire section redesigned** — full visual overhaul to match style-guide mockup:
+    - **Header:** Large "Attire" title left-aligned, italic "Dress up, show up, let's celebrate." subtitle, intro text, and a 3-photo polaroid cluster on the right using 3 personal attire photos from `assets/photos/attire/` (HEIC→JPG converted). Polaroids have rotation + hover effects.
+    - **Event table:** 6-column CSS grid (icon | event name | dress code | Men | Women | color swatches) for all 5 events. Each event uses the existing sprite icons (icon-christian/haldi/sangeet/pheras/baraat). Color swatches are 4 filled circles per event. Christian Ceremony row keeps `.christian-only` class. Cursive italic accents: "Wear Yellow!" (Haldi code col), "Something you can dance in!" (Sangeet women col).
+    - **Footwear note:** Separated into its own `.attire-footwear` box with eyebrow label + script line + body.
+    - **Tagline:** "When in doubt, a little extra is always just right." at bottom.
+    - **Mobile:** Collapses to 2-col grid (icon+event | rest of columns). Dress code + swatches span full width.
+    - **Removed:** Old `.outfit-card`, `.outfit-grid`, `.o-num`, `.o-event`, `.o-tag`, `.attire-figure`, `.figure-*` CSS. JS block that prepended attire illustrations removed.
+    - **Shop links accordion** unchanged.
+    - **Refinement (same session):** Merged the event-name and dress-code columns into a single `.attire-col-main` column (5 cols total instead of 6) with a larger event name (`clamp(1.45rem,2.8vw,1.8rem)`) to eliminate row whitespace. Polaroid images changed from personal HEIC photos → couple illustrations (`attire-christian_2.png`, `attire-haldi_2.png`, `attire-baraat_2.png`) with `object-fit:contain`. Christian ceremony swatches changed to pinks/pastels — no white/ivory (`#F2BFC9`, `#C47A8A`, `#1B3A5C`, `#9A5E72`) because bride wears white. Mobile layout: men + women now each span full width (2 cols) on mobile instead of side-by-side in a 72px/1fr grid.
+
 ## NEXT / OUTSTANDING
+
+### BRANCH: pre-launch (not yet merged to main)
+All session 10 work is on branch `pre-launch`. Review, approve, then merge to main.
+
+### C. Registry — COMPLETE
+Both items now done in code: PayPal pool link set on line ~549; `HONEYMOON_FUND_BUCKETS = ['elizabeth & daksh', 'vir']` set at line ~1322.
+
+### D. Apps Script redeploy — COMPLETE (2026-06-14)
+`rsvp-google-apps-script.gs` now returns `guestGroup`. New version deployed. Registry bucket logic is live.
 
 ### A. Attire illustrations — COMPLETE
 Individual transparent PNGs at `assets/attire/attire-{christian,haldi,sangeet,wedding,baraat}.png`. Source is `final_attire.png` (1536×1024). Old sprite sheet files remain as backup. See item 14 above for crop details.
@@ -77,7 +120,7 @@ After updating `rsvp-google-apps-script.gs`, paste the new code into the Apps Sc
 ## KEY TECHNICAL NOTES
 - Everything is in `index.html`. Editing image *data* (base64) is impractical; change asset filenames/positions in CSS/JS instead.
 - Icons: `.tl-icon` spans get sprite classes assigned in JS (`ICON_CLASSES` map) at load. Detail icons (flight/transport/visa/accommodation) similar.
-- Design tokens (CSS vars): navy `#1B3A5C`, gold `#B8943E`, cream `#FAF6EE`, etc. Fonts: Cormorant Garamond, Josefin Sans, Great Vibes, EB Garamond.
+- Design tokens (CSS vars): navy `#1B3A5C`, gold `#B8943E`, cream `#FAF6EE`, etc. Fonts: Cormorant Garamond (headings/script), Montserrat (nav/labels/buttons), Lora (body/inputs), Caveat (loaded, not yet used).
 - `style-previews.html` is a separate design-mockup file, not the live site.
 - When verifying in the preview tool, note its screenshots can lag a frame behind JS state — trust `eval` readouts over a single screenshot.
 
