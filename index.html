@@ -152,20 +152,21 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .attire-hero-intro { font-family:'Lora',serif; font-size:0.97rem; line-height:1.85; color:var(--text-body); max-width:380px; }
 .attire-hero-photos { flex:0 0 auto; display:flex; align-items:flex-end; padding-bottom:0.5rem; }
 .attire-polaroid { background:#fff; padding:8px 8px 22px; box-shadow:0 4px 20px rgba(15,36,64,0.14),0 1px 4px rgba(15,36,64,0.08); position:relative; transition:transform 0.3s; }
-.attire-polaroid img { display:block; width:128px; height:180px; object-fit:contain; object-position:center bottom; }
+.attire-polaroid img { display:block; width:128px; height:180px; object-fit:cover; object-position:center center; }
 .attire-polaroid:nth-child(1) { transform:rotate(-3.5deg); z-index:1; }
 .attire-polaroid:nth-child(2) { transform:rotate(2.5deg) translate(-14px,-8px); z-index:3; }
 .attire-polaroid:nth-child(3) { transform:rotate(-1.5deg) translate(-26px,6px); z-index:2; }
 .attire-polaroid:hover { transform:rotate(0deg) scale(1.05) !important; z-index:10 !important; }
 .attire-table { max-width:var(--content-width); margin:0 auto; background:rgba(255,253,247,0.92); border:1px solid var(--gold-faint); border-radius:4px 4px 0 0; border-bottom:none; backdrop-filter:blur(6px); overflow:hidden; }
-.attire-row { display:grid; grid-template-columns:76px 2fr 1fr 1.1fr 68px; border-bottom:1px solid var(--gold-faint); }
+.attire-row { display:grid; grid-template-columns:92px 2fr 1fr 1.2fr; border-bottom:1px solid var(--gold-faint); }
 .attire-row > * { padding:1.05rem 0.85rem; }
-.attire-col-icon { display:flex; flex-direction:column; align-items:center; justify-content:center; border-right:1px solid var(--gold-faint); padding:1rem 0.4rem; }
-.attire-col-main { display:flex; flex-direction:column; justify-content:center; }
-.attire-col-swatches { border-left:1px solid var(--gold-faint); display:flex; align-items:center; justify-content:center; padding:0.75rem; }
-.attire-col-men { border-left:1px solid var(--gold-faint); }
-.attire-event-icon { width:54px; height:54px; background-image:url('assets/icons/itinerary-icons-celebratory-transparent-clean.png'); background-repeat:no-repeat; background-size:400% 400%; display:block; }
-.attire-day-meta { display:block; font-family:'Montserrat',sans-serif; font-size:0.56rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--warm-brown); line-height:1.75; margin-top:0.45rem; text-align:center; }
+.attire-col-icon { grid-column:1; grid-row:1/3; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:1.2rem 0.4rem 1rem; }
+.attire-col-main { grid-column:2; grid-row:1/3; display:flex; flex-direction:column; justify-content:center; border-right:1px solid var(--gold-faint); }
+.attire-col-men { grid-column:3; grid-row:1; }
+.attire-col-women { grid-column:4; grid-row:1; border-left:1px solid var(--gold-faint); }
+.attire-palette { grid-column:3/5; grid-row:2; display:flex; justify-content:center; align-items:center; gap:7px; padding:0.5rem 1rem 0.85rem; border-top:1px solid rgba(184,148,62,0.18); }
+.attire-couple-icon { width:72px; height:100px; object-fit:contain; object-position:center bottom; display:block; }
+.attire-climate { display:block; font-family:'Montserrat',sans-serif; font-size:0.57rem; letter-spacing:1.1px; text-transform:uppercase; color:var(--warm-brown); margin:0.3rem 0 0.45rem; }
 .attire-event-name { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1.45rem,2.8vw,1.8rem); color:var(--navy); line-height:1.2; margin-bottom:0.5rem; }
 .attire-code-label { display:block; font-family:'Montserrat',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.3rem; }
 .attire-code-accent { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.02rem; color:var(--gold); margin-bottom:0.25rem; }
@@ -174,9 +175,8 @@ section { padding: 3.25rem var(--page-pad); position: relative; }
 .attire-gender-head { display:block; font-family:'Montserrat',sans-serif; font-size:0.57rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
 .attire-gender-text { display:block; font-family:'Lora',serif; font-size:0.84rem; color:var(--text-body); line-height:1.6; }
 .attire-gender-accent { display:block; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.93rem; color:var(--warm-brown); margin-top:0.3rem; }
-.attire-swatches { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
-.attire-swatch { width:20px; height:20px; border-radius:50%; display:block; }
-.attire-footwear { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-top:none; border-bottom:none; background:rgba(250,246,238,0.55); padding:1.4rem 2rem; text-align:center; }
+.attire-swatch { width:20px; height:20px; border-radius:50%; display:block; flex-shrink:0; }
+.attire-footwear { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-top:none; background:rgba(255,253,247,0.92); padding:1.4rem 2rem; text-align:center; backdrop-filter:blur(6px); }
 .attire-fw-eyebrow { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
 .attire-fw-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.38rem; color:var(--navy); margin-bottom:0.65rem; }
 .attire-fw-desc { font-family:'Lora',serif; font-size:0.9rem; color:var(--text-body); line-height:1.75; max-width:580px; margin:0 auto; }
@@ -320,10 +320,11 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .attire-hero-intro { max-width:100%; margin:0 auto; }
   .attire-polaroid img { width:88px; height:124px; }
   .attire-row { grid-template-columns:72px 1fr; }
-  .attire-col-men { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; }
-  .attire-col-women { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; }
-  .attire-col-swatches { grid-column:1 / span 2; border-top:1px solid var(--gold-faint); border-left:none; padding:0.75rem 1rem; }
-  .attire-swatches { display:flex; flex-direction:row; gap:8px; }
+  .attire-col-icon { grid-row:1; }
+  .attire-col-main { grid-row:1; border-right:none; }
+  .attire-col-men { grid-column:1 / span 2; grid-row:auto; border-top:1px solid var(--gold-faint); border-left:none; }
+  .attire-col-women { grid-column:1 / span 2; grid-row:auto; border-top:1px solid var(--gold-faint); border-left:none; }
+  .attire-palette { grid-column:1 / span 2; grid-row:auto; }
   #travel .info-card + .info-card { border-left:none; border-top:2px solid var(--gold-faint); }
   .gate-name-fields { grid-template-columns:1fr; }
   body { background-size:420px 420px; background-repeat:repeat; background-position:center top; background-attachment:scroll; }
@@ -521,47 +522,47 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
       <p class="attire-hero-intro">We can't wait to celebrate with you! Here's your guide to what to wear for each of our festivities.</p>
     </div>
     <div class="attire-hero-photos">
-      <div class="attire-polaroid"><img src="assets/attire/attire-christian_2.png" alt="Christian ceremony attire"></div>
-      <div class="attire-polaroid"><img src="assets/attire/attire-haldi_2.png" alt="Haldi attire"></div>
-      <div class="attire-polaroid"><img src="assets/attire/attire-baraat_2.png" alt="Baraat and reception attire"></div>
+      <div class="attire-polaroid"><img src="assets/photos/attire/IMG_2338.jpg" alt=""></div>
+      <div class="attire-polaroid"><img src="assets/photos/attire/IMG_2184.jpg" alt=""></div>
+      <div class="attire-polaroid"><img src="assets/photos/attire/IMG_2244.jpg" alt=""></div>
     </div>
   </div>
   <!-- Attire event table -->
   <div class="attire-table fade-in">
     <div class="attire-row christian-only">
-      <div class="attire-col-icon"><span class="attire-event-icon icon-christian" aria-hidden="true"></span><span class="attire-day-meta">Sunday<br>22 Feb 2027<br>Evening</span></div>
-      <div class="attire-col-main"><span class="attire-event-name">Christian Ceremony &amp; Cocktail</span><span class="attire-code-label">Cocktail (Western or Indian)</span><span class="attire-code-desc">An evening of love, vows, and celebration.</span></div>
+      <div class="attire-col-icon"><img class="attire-couple-icon" src="assets/attire/attire-christian_2.png" alt=""></div>
+      <div class="attire-col-main"><span class="attire-event-name">Christian Ceremony &amp; Cocktail</span><span class="attire-code-label">Cocktail (Western or Indian)</span><span class="attire-climate">Evening · ~11°C / 52°F</span><span class="attire-code-desc">An evening of love, vows, and celebration.</span></div>
       <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">A suit, western or indo-western.</span></div>
       <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Cocktail dress, gown, saree, or dressy Indian attire.</span></div>
-      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F2BFC9"></span><span class="attire-swatch" style="background:#C47A8A"></span><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#9A5E72"></span></div></div>
+      <div class="attire-palette"><span class="attire-swatch" style="background:#8BA882"></span><span class="attire-swatch" style="background:#7BAAC4"></span><span class="attire-swatch" style="background:#E8A090"></span><span class="attire-swatch" style="background:#C4B4E0"></span><span class="attire-swatch" style="background:#D4B87A"></span><span class="attire-swatch" style="background:#B4A0C4"></span></div>
     </div>
     <div class="attire-row">
-      <div class="attire-col-icon"><span class="attire-event-icon icon-haldi" aria-hidden="true"></span><span class="attire-day-meta">Tuesday<br>23 Feb 2027<br>Daytime</span></div>
-      <div class="attire-col-main"><span class="attire-event-name">Haldi &amp; Mehendi</span><span class="attire-code-label">Casual &amp; Indian</span><span class="attire-code-accent">Wear Yellow!</span><span class="attire-code-desc">A fun, vibrant day of turmeric, mehendi, and good vibes.</span><span class="attire-code-note">Note: Turmeric stains.</span></div>
+      <div class="attire-col-icon"><img class="attire-couple-icon" src="assets/attire/attire-haldi_2.png" alt=""></div>
+      <div class="attire-col-main"><span class="attire-event-name">Haldi &amp; Mehendi</span><span class="attire-code-label">Casual &amp; Indian</span><span class="attire-climate">Daytime · ~22°C / 72°F</span><span class="attire-code-accent">Wear Yellow!</span><span class="attire-code-desc">A fun, vibrant day of turmeric, mehendi, and good vibes.</span><span class="attire-code-note">Note: Turmeric stains.</span></div>
       <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Yellow kurta pajamas or Indian casuals.</span></div>
       <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Yellow Indian attire: salwar kameez, anarkali, lehenga, or saree.</span></div>
-      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F5C842"></span><span class="attire-swatch" style="background:#E8A020"></span><span class="attire-swatch" style="background:#6B7C3E"></span><span class="attire-swatch" style="background:#D4621A"></span></div></div>
+      <div class="attire-palette"><span class="attire-swatch" style="background:#F5C842"></span><span class="attire-swatch" style="background:#EFCA5A"></span><span class="attire-swatch" style="background:#E8A020"></span><span class="attire-swatch" style="background:#D4621A"></span><span class="attire-swatch" style="background:#C87A20"></span><span class="attire-swatch" style="background:#F0D060"></span></div>
     </div>
     <div class="attire-row">
-      <div class="attire-col-icon"><span class="attire-event-icon icon-sangeet" aria-hidden="true"></span><span class="attire-day-meta">Tuesday<br>23 Feb 2027<br>Evening</span></div>
-      <div class="attire-col-main"><span class="attire-event-name">Sangeet</span><span class="attire-code-label">Formal Indian</span><span class="attire-code-desc">A night of music, dance and non-stop energy!</span></div>
+      <div class="attire-col-icon"><img class="attire-couple-icon" src="assets/attire/attire-sangeet_2.png" alt=""></div>
+      <div class="attire-col-main"><span class="attire-event-name">Sangeet</span><span class="attire-code-label">Formal Indian</span><span class="attire-climate">Evening · ~11°C / 52°F</span><span class="attire-code-desc">A night of music, dance and non-stop energy!</span></div>
       <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, jodhpuri suit, or formal kurta.</span></div>
       <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Lehenga, saree, or anarkali.</span><span class="attire-gender-accent">Something you can dance in!</span></div>
-      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#1B5C5A"></span><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#B8943E"></span></div></div>
+      <div class="attire-palette"><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#5C1A3A"></span><span class="attire-swatch" style="background:#1B5C5A"></span><span class="attire-swatch" style="background:#3A1A5C"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#B8943E"></span></div>
     </div>
     <div class="attire-row">
-      <div class="attire-col-icon"><span class="attire-event-icon icon-pheras" aria-hidden="true"></span><span class="attire-day-meta">Wednesday<br>24 Feb 2027<br>Daytime</span></div>
-      <div class="attire-col-main"><span class="attire-event-name">Jai Mala &amp; Pheras</span><span class="attire-code-label">Indian or Western Formal</span><span class="attire-code-desc">The most important part: we do!</span></div>
+      <div class="attire-col-icon"><img class="attire-couple-icon" src="assets/attire/attire-wedding_2.png" alt=""></div>
+      <div class="attire-col-main"><span class="attire-event-name">Jai Mala &amp; Pheras</span><span class="attire-code-label">Indian or Western Formal</span><span class="attire-climate">Daytime · ~22°C / 72°F</span><span class="attire-code-desc">The most important part: we do!</span></div>
       <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, formal kurta, or suit.</span></div>
       <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Saree, lehenga, or formal gown.</span></div>
-      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#F0EBE0;border:1px solid var(--gold-faint)"></span><span class="attire-swatch" style="background:#7A8C6E"></span><span class="attire-swatch" style="background:#5C7A8C"></span><span class="attire-swatch" style="background:#C4A0A5"></span></div></div>
+      <div class="attire-palette"><span class="attire-swatch" style="background:#C8432A"></span><span class="attire-swatch" style="background:#E8821A"></span><span class="attire-swatch" style="background:#2A6B3A"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#6B3A8B"></span><span class="attire-swatch" style="background:#B8943E"></span></div>
     </div>
     <div class="attire-row" style="border-bottom:none">
-      <div class="attire-col-icon"><span class="attire-event-icon icon-baraat" aria-hidden="true"></span><span class="attire-day-meta">Wednesday<br>24 Feb 2027<br>Evening</span></div>
-      <div class="attire-col-main"><span class="attire-event-name">Baraat &amp; Reception</span><span class="attire-code-label">Black Tie (Indian or Western)</span><span class="attire-code-desc">It's time to celebrate in style!</span></div>
+      <div class="attire-col-icon"><img class="attire-couple-icon" src="assets/attire/attire-baraat_2.png" alt=""></div>
+      <div class="attire-col-main"><span class="attire-event-name">Baraat &amp; Reception</span><span class="attire-code-label">Black Tie (Indian or Western)</span><span class="attire-climate">Evening · ~11°C / 52°F</span><span class="attire-code-desc">It's time to celebrate in style!</span></div>
       <div class="attire-col-men"><span class="attire-gender-head">Men</span><span class="attire-gender-text">Sherwani, bandhgala, jodhpuri, or black tuxedo.</span></div>
       <div class="attire-col-women"><span class="attire-gender-head">Women</span><span class="attire-gender-text">Lehenga, saree, or black tie gown, finished with a maang tikka.</span></div>
-      <div class="attire-col-swatches"><div class="attire-swatches"><span class="attire-swatch" style="background:#1A1A1A"></span><span class="attire-swatch" style="background:#4A4A4A"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#C8A96E"></span></div></div>
+      <div class="attire-palette"><span class="attire-swatch" style="background:#1A1A1A"></span><span class="attire-swatch" style="background:#4A4A4A"></span><span class="attire-swatch" style="background:#8B1A2C"></span><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#4A1A3A"></span><span class="attire-swatch" style="background:#C8A96E"></span></div>
     </div>
   </div>
   <div class="attire-footwear fade-in">
@@ -595,7 +596,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
       </div>
     </div>
   </div>
-  <p class="attire-tagline fade-in">When in doubt, a little extra is always just right.</p>
+
 </section>
 
 <section id="travel">
@@ -1384,13 +1385,11 @@ function initCountdown(invitedMonday) {
 // Shows honeymoon fund only for non-parent buckets.
 // guestGroup comes from household.bucket in the Apps Script login response.
 // FILL IN bucket values once confirmed: e.g. ['ours','vir']
-var HONEYMOON_FUND_BUCKETS = ['elizabeth & daksh', 'vir']; // show fund to these buckets only
+var HONEYMOON_FUND_BUCKETS = ['elizabeth & daksh', 'vir']; // exact bucket names from sheet, lowercased for comparison
 function setupRegistry(m) {
   var fund = document.getElementById('registry-fund');
   if (!fund) return;
-  var group = (m.guestGroup || '').toLowerCase().trim();
-  // Until bucket values are confirmed, show fund to all logged-in guests as placeholder.
-  // Replace null above with e.g. ['ours','vir'] once bucket names are known.
+  var group = (m.guestGroup || '').toLowerCase().trim(); // lowercases so "Elizabeth & Daksh" and "Vir" both match
   var showFund = HONEYMOON_FUND_BUCKETS === null ? true : HONEYMOON_FUND_BUCKETS.indexOf(group) !== -1;
   fund.style.display = showFund ? '' : 'none';
 }
