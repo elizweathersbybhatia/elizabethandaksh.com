@@ -85,6 +85,7 @@ function loginGuest(firstName, lastName) {
       fullName: text(login.full_name),
       loginRole: text(login.login_role),
       inviteScope: text(household.invite_scope),
+      guestGroup: text(household.bucket),
       invitedMonday: bool(household.invited_monday),
       invitedTuesday: bool(household.invited_tuesday),
       invitedWednesday: bool(household.invited_wednesday),
