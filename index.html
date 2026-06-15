@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Wedding of Elizabeth & Daksh</title>
+<link rel="preload" as="image" href="assets/photos/engagement/DSC02483.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -430,6 +431,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 
 /* HERO PHOTO CAROUSEL */
 .hero-carousel-bg { position:absolute; inset:0; z-index:-5; overflow:hidden; }
+.hero-carousel-base { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; }
 .hero-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 1.8s ease; }
 .hero-slide.active { opacity:1; }
 @media (min-width:769px) {
@@ -484,13 +486,13 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 
 <section class="hero" id="hero">
   <div class="hero-carousel-bg" id="hero-carousel-bg">
+    <img class="hero-carousel-base" src="assets/photos/engagement/DSC02483.jpg" alt="" fetchpriority="high" decoding="sync">
     <div class="hero-slide active" style="background-image:url('assets/photos/engagement/DSC02483.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02536.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02548.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02562.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02563.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/DSC02600.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3092.JPG')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3205.JPG')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3211.JPG')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement/IMG_3212.JPG')"></div>
@@ -1399,13 +1401,25 @@ setupCountryCodes();
 
 // ── HERO PHOTO CAROUSEL ──────────────────────────────
 (function() {
-  var slides = document.querySelectorAll('.hero-slide');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.hero-slide'));
   if (!slides.length) return;
   var current = 0;
+  var readySlides = [slides[0]];
+  var fadeDuration = 1800;
+  slides.slice(1).forEach(function(slide) {
+    var match = slide.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+    if (!match) return;
+    var image = new Image();
+    image.onload = function() { readySlides.push(slide); };
+    image.src = match[1];
+  });
   setInterval(function() {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
+    if (readySlides.length < 2) return;
+    var previous = readySlides[current];
+    current = (current + 1) % readySlides.length;
+    var next = readySlides[current];
+    next.classList.add('active');
+    setTimeout(function() { previous.classList.remove('active'); }, fadeDuration);
   }, 5000);
 })();
 
