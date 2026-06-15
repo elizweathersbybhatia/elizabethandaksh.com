@@ -415,13 +415,14 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .hero-amp { flex-basis:auto; }
   .welcome-content { opacity:1; transform:none; }
   .tl { padding:1.5rem 1.2rem; }
-  .photo-marquee { height:240px; } .photo-marquee-track img { height:240px; } .photo-marquee-track { animation-duration:60s; }
+  .photo-marquee { height:240px; } .photo-marquee-track img { height:240px; }
 }
 
 /* PHOTO MARQUEE */
-@keyframes marquee-scroll { to { transform:translateX(-50%); } }
-.photo-marquee { width:100%; max-width:var(--content-width); margin:1.6rem auto 1.8rem; overflow:hidden; position:relative; height:340px; }
-.photo-marquee-track { display:flex; gap:1.1rem; width:max-content; animation:marquee-scroll 90s linear infinite; will-change:transform; }
+.photo-marquee { width:100%; max-width:var(--content-width); margin:1.6rem auto 1.8rem; overflow-x:auto; overflow-y:hidden; position:relative; height:340px; scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; cursor:grab; }
+.photo-marquee::-webkit-scrollbar { display:none; }
+.photo-marquee.dragging { cursor:grabbing; }
+.photo-marquee-track { display:flex; gap:1.1rem; width:max-content; }
 .photo-marquee-track img { display:block; height:340px; width:auto; border-radius:4px; box-shadow:0 6px 24px rgba(15,36,64,0.18); flex:none; user-select:none; -webkit-user-drag:none; }
 
 /* NAV RSVP PILL — always highlighted */
@@ -1364,7 +1365,88 @@ function confirmRSVP(b, acceptedGuestIds, additionalAdults, children) {
 
 setupCountryCodes();
 
-// Photo carousel: CSS animation handles seamless auto-scroll (see @keyframes marquee-scroll).
+// Photo carousel: seamless auto-scroll that pauses for manual swipe, wheel, or drag.
+(function() {
+  var marquee = document.querySelector('.photo-marquee');
+  var track = marquee && marquee.querySelector('.photo-marquee-track');
+  if (!marquee || !track) return;
+  marquee.removeAttribute('aria-hidden');
+  var photos = Array.prototype.slice.call(track.children);
+  var groupSize = photos.length / 2;
+  var paused = false, resumeTimer = null, dragging = false, startX = 0, startScroll = 0;
+  var loopWidth = 0, positioned = false, normalizing = false;
+  var SPEED = 0.55;
+  photos.slice(0, groupSize).forEach(function(photo) {
+    track.appendChild(photo.cloneNode(true));
+  });
+  function measureLoop() {
+    var first = track.children[0];
+    var secondGroup = track.children[groupSize];
+    loopWidth = secondGroup.offsetLeft - first.offsetLeft;
+    if (loopWidth > 0 && !positioned) {
+      marquee.scrollLeft = loopWidth;
+      positioned = true;
+    }
+  }
+  function keepInMiddleCopy() {
+    if (normalizing || !positioned || !loopWidth) return;
+    normalizing = true;
+    if (marquee.scrollLeft < loopWidth * 0.5) {
+      marquee.scrollLeft += loopWidth;
+    } else if (marquee.scrollLeft >= loopWidth * 1.5) {
+      marquee.scrollLeft -= loopWidth;
+    }
+    normalizing = false;
+  }
+  function pauseAuto(resumeDelay) {
+    paused = true;
+    clearTimeout(resumeTimer);
+    if (resumeDelay) resumeTimer = setTimeout(function() { paused = false; }, resumeDelay);
+  }
+  function tick() {
+    if (!loopWidth || !positioned) measureLoop();
+    if (!paused && positioned) {
+      marquee.scrollLeft += SPEED;
+      keepInMiddleCopy();
+    }
+    requestAnimationFrame(tick);
+  }
+  marquee.addEventListener('scroll', keepInMiddleCopy, { passive: true });
+  marquee.addEventListener('wheel', function() { pauseAuto(1600); }, { passive: true });
+  marquee.addEventListener('touchstart', function() { pauseAuto(0); }, { passive: true });
+  marquee.addEventListener('touchend', function() { pauseAuto(1600); }, { passive: true });
+  marquee.addEventListener('touchcancel', function() { pauseAuto(1600); }, { passive: true });
+  marquee.addEventListener('mousedown', function(e) {
+    dragging = true;
+    marquee.classList.add('dragging');
+    startX = e.pageX;
+    startScroll = marquee.scrollLeft;
+    pauseAuto(0);
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    marquee.scrollLeft = startScroll - (e.pageX - startX);
+  });
+  window.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    marquee.classList.remove('dragging');
+    pauseAuto(1600);
+  });
+  window.addEventListener('blur', function() {
+    if (!dragging) return;
+    dragging = false;
+    marquee.classList.remove('dragging');
+    pauseAuto(1600);
+  });
+  window.addEventListener('resize', function() {
+    loopWidth = 0;
+    positioned = false;
+  });
+  marquee.addEventListener('dragstart', function(e) { e.preventDefault(); });
+  requestAnimationFrame(tick);
+})();
 
 // Active-section indicator: highlight current nav link + top progress bar.
 (function() {
