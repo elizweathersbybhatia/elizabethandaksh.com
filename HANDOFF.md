@@ -130,12 +130,25 @@ After updating `rsvp-google-apps-script.gs`, paste the new code into the Apps Sc
 
 ### B. Pre-launch essentials (not started)
 - **Guest login + household RSVP backend implemented locally.** The public site no longer contains a `GUEST_LIST`. Login uses the Apps Script endpoint, which privately reads `Login_Master` and `Household_Master` from the attached Google Sheet. Named household members have unique logins and individual accepted status. Unnamed adults require first and last names; children require first name, last name, and age. Responses are stored one row per household and can be updated to add unused seats. See `RSVP_SETUP.md`.
-- **Local guest preview enabled.** `local-guest-data.js` contains the 224 generated
+- **Local guest preview enabled.** `local-guest-data.js` contains the 229 generated
   logins for local testing and is ignored by Git. Local RSVP edits use browser
   `localStorage`; production continues to use Apps Script and Google Sheets.
-- **Deployment still required.** Import the workbook's `Login_Master` and `Household_Master` tabs into the RSVP Google Sheet, replace the deployed Apps Script with `rsvp-google-apps-script.gs`, and publish a new Web App version. Until that is done, the live endpoint still runs the prior API and the new login will not work.
+- **Deployment still required.** Import the updated `wedding_website_guest_master_corrected.xlsx` `Login_Master` and `Household_Master` tabs into the RSVP Google Sheet (see Google Sheet changes below), replace the deployed Apps Script with `rsvp-google-apps-script.gs`, and publish a new Web App version. Until that is done, the live endpoint still runs the prior API and the new login will not work.
 - **Guest workbook privacy.** `wedding_website_guest_master_final.xlsx` remains local but is now ignored and staged for removal from future Git commits. The older committed copy still exists in Git history unless history is separately rewritten.
 - Shop links, planner contact details, hotel details, registry PayPal link, and the current RSVP endpoint are populated.
+
+### E. Guest list updates applied (session 13 — 2026-06-15)
+All changes applied to `wedding_website_guest_master_corrected.xlsx` (Downloads) and `local-guest-data.js` regenerated (229 entries, was 224):
+- **Shweta Mastal (PF007):** `children_count_known` 2→0 (reclassified to adults; total stays 4; she now has 3 unnamed adult slots)
+- **Nitin Bhatia (PF014):** `children_count_known` 3→0 (reclassified; total stays 5; 4 unnamed adult slots)
+- **Arujit Deswal → Arunjit Deswal (PF021/PF021-A):** first name spelling corrected
+- **Ashima Bhatia → Ashima Puri (PF035/PF035-A):** surname updated, total 2→3, unnamed adult slots 1→2
+- **Aarti Kumar (PF036/PF036-A):** total 2→4, children_count 0→2 (1 unnamed adult, 2 child slots)
+- **Stuti Kuthiala (PR037/PR037-A):** total 2→1, no unnamed slots
+- **New Parents Friends households (PR054–PR059):** Dhruv Arora (2 pax), Pranav Arora (2 pax), Anant Puri (2 pax), Bobby Sikand (1 pax), Madhav Dalvi (1 pax), Vijit Malik (2 pax). All india-scope, Tuesday+Wednesday.
+- **Shreya & Kaviyan:** ON HOLD — surname unknown. One household, 2 pax, each gets own login. Add when surname confirmed.
+
+**Google Sheet import:** replace both `Login_Master` and `Household_Master` tabs from `wedding_website_guest_master_corrected.xlsx`. Column names have been aligned to what the Apps Script expects (`guest_id`, `total_guests`, `login_count`, `children_count`).
 
 ---
 

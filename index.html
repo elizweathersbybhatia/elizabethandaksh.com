@@ -176,19 +176,18 @@ section { padding:3.75rem var(--page-pad); position:relative; }
 .attire-pheras { --attire-accent:#d49a38; }
 .attire-reception { --attire-accent:#243a55; }
 .attire-extra-card { display:flex; flex-direction:column; justify-content:center; min-height:100%; border:1px solid var(--gold-faint); border-top:2px solid var(--gold); background:linear-gradient(145deg,rgba(255,253,247,0.94),rgba(246,239,224,0.9)); padding:1.35rem 1.15rem; text-align:center; backdrop-filter:blur(6px); }
-.attire-extra-card h3 { font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; font-style:normal; margin-bottom:0.55rem; }
+.attire-extra-card h3 { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.15rem; font-weight:600; color:var(--navy); letter-spacing:0; text-transform:none; margin-bottom:0.55rem; }
 .attire-extra-card > p { font-family:'Lora',serif; font-size:0.78rem; color:var(--text-body); line-height:1.6; margin:0 auto 0; max-width:260px; }
-.attire-extra-divider { width:50px; height:1px; background:var(--gold-faint); margin:1.1rem auto; }
+.attire-extra-divider { width:50px; height:1px; background:var(--gold-faint); margin:1.25rem auto; }
 .attire-fw-eyebrow { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
 .attire-fw-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.38rem; color:var(--navy); margin-bottom:0.65rem; }
 .attire-fw-desc { font-family:'Lora',serif; font-size:0.9rem; color:var(--text-body); line-height:1.75; max-width:580px; margin:0 auto; }
 .attire-tagline { text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.2rem; color:var(--warm-brown); padding:1.2rem var(--page-pad) 0.8rem; max-width:var(--content-width); margin:0 auto; }
-.shop-links { width:100%; margin-top:0.25rem; text-align:center; background:rgba(255,253,247,0.62); border:1px solid var(--gold-faint); }
-.shop-links h3 { font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; font-style:normal; margin-bottom:0.55rem; padding:0; }
+.shop-links { width:100%; margin-top:0; text-align:center; background:rgba(255,253,247,0.62); border:1px solid var(--gold-faint); }
 .shop-links h4 { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); padding:0.8rem 0.8rem 0.65rem; margin:0; }
 .shop-accordion { border-top:1px solid var(--gold-faint); }
 .shop-acc-item { border-bottom:1px solid var(--gold-faint); }
-.shop-acc-btn { width:100%; padding:0.95rem 1.4rem; background:rgba(255,253,247,0.5); border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-family:'Montserrat',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--navy); }
+.shop-acc-btn { width:100%; padding:0.95rem 1.4rem; background:rgba(255,253,247,0.5); border:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-family:'Lora',serif; font-size:0.82rem; letter-spacing:0; text-transform:none; color:var(--navy); }
 .shop-acc-btn:hover { background:rgba(184,148,62,0.06); }
 .shop-acc-arrow { font-size:0.75rem; color:var(--gold); transition:transform 0.3s; }
 .shop-acc-item.open .shop-acc-arrow { transform:rotate(180deg); }
@@ -597,7 +596,6 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="attire-hero-left">
       <p class="section-label">Style Guide</p>
       <h2 class="section-title">Attire</h2>
-      <p class="attire-hero-script">Dress up, show up, let's celebrate.</p>
       <p class="attire-hero-intro">We can't wait to celebrate with you! Here's your guide to what to wear for each of our festivities.</p>
     </div>
   </div>
@@ -624,10 +622,10 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     </article>
     <aside class="attire-extra-card">
       <h3>Footwear Note</h3>
-      <p>Several celebrations are on lawns. Block heels, wedges, or juttis will be much happier than stilettos.</p>
+      <p>Several of our celebrations will be held outdoors on lawns and grass, so please pack accordingly. Wear whatever you love, though for the ladies, block heels, wedges, or juttis are recommended over stilettos to keep things steady on softer ground.</p>
       <div class="attire-extra-divider"></div>
+      <h3>A Few Places We Recommend</h3>
       <div class="shop-links">
-        <h3>A Few Places We Recommend</h3>
         <div class="shop-accordion">
       <div class="shop-acc-item">
         <button class="shop-acc-btn" onclick="toggleShop(this)"><span>Ready to Wear</span><span class="shop-acc-arrow">▼</span></button>
@@ -664,7 +662,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <p class="section-subtitle">Everything you need for your journey to Corbett</p>
   </div>
   <div class="info-cards">
-    <div class="info-card fade-in"><h4>✈️ Flights</h4><p><strong>Best-connected:</strong> Delhi (DEL), ~260 km.<br><strong>Nearest:</strong> Pantnagar (PGH), ~80 km.</p><p style="margin-top:0.75rem;font-size:0.84rem;color:var(--warm-brown);font-style:italic">For international travelers, if you can swing it, we highly recommend arriving in India a day or two early. Spend some time in Delhi, eat everything, see the sights, and let your body catch up before the celebrations begin. Your future dancing self will thank you.</p></div>
+    <div class="info-card fade-in"><h4>✈️ Flights</h4><p><strong>Best-connected:</strong> Delhi (DEL), ~260 km.<br><strong>Nearest:</strong> Pantnagar (PGH), ~80 km.</p><p style="margin-top:0.75rem;font-size:0.84rem;color:var(--warm-brown)">For international travelers, if you can swing it, we highly recommend arriving in India a day or two early. Spend some time in Delhi, eat everything, see the sights, and let your body catch up before the celebrations begin. Your future dancing self will thank you.</p></div>
     <div class="info-card fade-in"><h4>🚗 Ground Transport</h4><ul><li>From Delhi airport: ~5–6 hr drive</li><li>From Pantnagar airport: ~2 hr drive</li></ul><p style="margin-top:0.75rem">For guests requiring transport, our planning team will share trusted local options that may be reserved directly by guests.</p></div>
     <div class="info-card fade-in"><h4>🛂 Visa</h4><p>International guests need an <strong>Indian tourist visa</strong>. Apply 4–6 weeks ahead.</p><p style="margin-top:0.8rem"><a href="https://indianvisaonline.gov.in" target="_blank">Apply for e-Visa →</a></p></div>
   </div>
@@ -1055,7 +1053,7 @@ document.addEventListener('keydown', function(event) {
 });
 // Paste the Google Apps Script Web App URL between the quotes below (see setup steps).
 // Until it's filled in, the form still shows the confirmation but does NOT record anything.
-var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw24FeHBPo_vKh39OlpauSqImWkCdES_LWgYlDu5SB1n8JZ2N2wOQWZG1-FLEOZ4STE/exec';
+var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyY_tlaozNTTDIhU-qL74DDqUY1a-_MPgYBRRP2M5W2y2XtmGUE3WhJc0h27JluNuWc/exec';
 
 function apiJsonp(action, params, done) {
   if (!RSVP_ENDPOINT) { done(null); return; }
@@ -1088,7 +1086,7 @@ function apiJsonp(action, params, done) {
 
 function loadHouseholdRSVP(done) {
   var m = window.currentGuestMember;
-  if (String(m.token).indexOf('local:') === 0) {
+  if (String(m.token).indexOf('local-') === 0) {
     try {
       window.currentRSVP = JSON.parse(localStorage.getItem('wedding-rsvp:' + m.householdId) || '{}');
     } catch (e) {
@@ -1112,7 +1110,12 @@ function renderHouseholdRSVP() {
   (rsvp.acceptedGuestIds || []).forEach(function(id) { accepted[id] = true; });
   var wrap = document.getElementById('rsvp-named-members');
   wrap.innerHTML = '<p class="rsvp-household-title">Named Household Members</p>';
-  m.namedMembers.forEach(function(member) {
+  var members = m.namedMembers.slice().sort(function(a, b) {
+    if (a.guestId === m.guestId) return -1;
+    if (b.guestId === m.guestId) return 1;
+    return 0;
+  });
+  members.forEach(function(member) {
     var label = document.createElement('label');
     label.className = 'member-option';
     var input = document.createElement('input');
@@ -1316,22 +1319,23 @@ function handleRSVP() {
     notes: document.getElementById('rsvp-dietary').value.trim(),
     inviteScope: m.inviteScope
   });
-  if (String(m.token).indexOf('local:') === 0) {
+  if (!RSVP_ENDPOINT || String(m.token).indexOf('local-') === 0) { confirmRSVP(b, acceptedGuestIds, additionalAdults, children); return; }
+  var rsvpParams = {};
+  data.forEach(function(val, key) { rsvpParams[key] = val; });
+  apiJsonp('saveRsvp', rsvpParams, function(result) {
+    if (!result || result.connectionError) {
+      alert('We could not reach the server. Please check your connection and try again, or contact us directly.');
+      b.textContent = window.currentRSVP && window.currentRSVP.updatedAt ? 'Update RSVP' : 'Send RSVP';
+      b.disabled = false;
+      return;
+    }
+    if (!result.ok) {
+      alert(result.error || 'Something went wrong. Please try again or contact us directly.');
+      b.textContent = window.currentRSVP && window.currentRSVP.updatedAt ? 'Update RSVP' : 'Send RSVP';
+      b.disabled = false;
+      return;
+    }
     confirmRSVP(b, acceptedGuestIds, additionalAdults, children);
-    return;
-  }
-  if (!RSVP_ENDPOINT) { confirmRSVP(b, acceptedGuestIds, additionalAdults, children); return; }
-  fetch(RSVP_ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    body: data.toString()
-  }).then(function() {
-    confirmRSVP(b, acceptedGuestIds, additionalAdults, children);
-  }).catch(function() {
-    alert('Sorry, something went wrong sending your RSVP. Please try again, or contact us directly.');
-    b.textContent = window.currentRSVP && window.currentRSVP.updatedAt ? 'Update RSVP' : 'Send RSVP';
-    b.disabled = false;
   });
 }
 
