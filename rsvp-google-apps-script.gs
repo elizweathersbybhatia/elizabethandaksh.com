@@ -1,16 +1,18 @@
 /**
  * Wedding website guest login and household RSVP API.
  *
- * Required sheets in this spreadsheet:
- *   Login_Master
- *   Household_Master
+ * Reads from and writes to the shared Google Sheet:
+ *   https://docs.google.com/spreadsheets/d/1dFmW6g8yY7fgT2RpKfxMaCVi76xkoF3a-BiaCcNd1u4/edit
  *
- * Import those two tabs from wedding_website_guest_master_final.xlsx, then deploy
- * this script as a Web App ("Execute as: Me", "Who has access: Anyone").
+ * Required tabs: Login_Master, Household_Master. RSVPs are written to Household_RSVPs.
+ * Import Login_Master and Household_Master from wedding_website_guest_master_corrected.xlsx
+ * before deploying.
  *
+ * Deploy as a Web App ("Execute as: Me", "Who has access: Anyone").
  * After every code update, deploy a new version. The /exec URL remains unchanged.
  */
 
+var SPREADSHEET_ID = '1dFmW6g8yY7fgT2RpKfxMaCVi76xkoF3a-BiaCcNd1u4';
 var LOGIN_SHEET = 'Login_Master';
 var HOUSEHOLD_SHEET = 'Household_Master';
 var RSVP_SHEET = 'Household_RSVPs';
@@ -32,6 +34,10 @@ function doGet(e) {
       result = loginGuest(p.firstName, p.lastName);
     } else if (p.action === 'getRsvp') {
       result = getRsvp(p.token);
+    } else if (p.action === 'saveRsvp') {
+      var lock = LockService.getScriptLock();
+      lock.waitLock(30000);
+      try { result = saveRsvp(p); } finally { lock.releaseLock(); }
     } else {
       result = { ok: true, message: 'Wedding RSVP endpoint is live.' };
     }
@@ -85,6 +91,7 @@ function loginGuest(firstName, lastName) {
       fullName: text(login.full_name),
       loginRole: text(login.login_role),
       inviteScope: text(household.invite_scope),
+      guestGroup: text(household.bucket),
       invitedMonday: bool(household.invited_monday),
       invitedTuesday: bool(household.invited_tuesday),
       invitedWednesday: bool(household.invited_wednesday),
@@ -234,7 +241,7 @@ function findHousehold(householdId) {
 }
 
 function getOrCreateRsvpSheet() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   var sheet = ss.getSheetByName(RSVP_SHEET) || ss.insertSheet(RSVP_SHEET);
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(RSVP_HEADERS);
@@ -299,7 +306,7 @@ function readObjects(sheetName) {
 }
 
 function findOrNameMasterSheet(sheetName) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   var exact = ss.getSheetByName(sheetName);
   if (exact) return exact;
 
