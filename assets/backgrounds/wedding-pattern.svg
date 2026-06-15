@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+
+<!-- River: same y at x=0 and x=800 → tiles seamlessly horizontal -->
+<path d="M0,492 C133,472 267,512 400,492 C533,472 667,512 800,492" fill="none" stroke="#C4956A" stroke-width="1" opacity="0.32"/>
+<path d="M0,508 C133,528 267,488 400,508 C533,528 667,488 800,508" fill="none" stroke="#C4956A" stroke-width="1" opacity="0.32"/>
+<path d="M70,500 Q90,496 110,500" fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.18"/>
+<path d="M220,500 Q240,496 260,500" fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.18"/>
+<path d="M380,500 Q400,496 420,500" fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.18"/>
+<path d="M540,500 Q560,496 580,500" fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.18"/>
+<path d="M680,500 Q700,496 720,500" fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.18"/>
+
+<!-- Weeping Willow from top edge -->
+<g fill="none" stroke="#8CAE8C" stroke-width="0.9" opacity="0.4">
+  <path d="M142,0 C140,35 138,65 136,95 C134,125 132,155 130,180"/>
+  <path d="M135,18 C150,42 158,82 160,132 C161,157 158,182 155,210"/>
+  <path d="M135,34 C117,54 110,90 107,138 C105,164 102,190 100,220"/>
+  <path d="M136,50 C154,68 162,104 165,154 C166,180 163,207 160,237"/>
+  <path d="M135,66 C120,82 112,116 109,164 C107,190 104,217 102,247"/>
+  <path d="M134,82 C148,98 156,132 158,182 C159,210 156,237 153,267"/>
+  <path d="M132,98 C114,114 106,144 103,192 C101,220 98,246 96,276"/>
+</g>
+<g fill="none" stroke="#8CAE8C" stroke-width="0.5" opacity="0.28">
+  <path d="M157,96 C165,88 171,91 164,100"/>
+  <path d="M103,126 C95,118 91,121 97,130"/>
+  <path d="M162,150 C170,142 176,145 169,154"/>
+  <path d="M99,174 C91,166 87,169 93,178"/>
+  <path d="M156,196 C164,188 170,191 163,200"/>
+</g>
+
+<!-- Plum blossom branch -->
+<g fill="none" stroke="#C4956A" stroke-width="0.8" opacity="0.38">
+  <path d="M302,0 C314,28 332,52 354,72 C376,92 404,108 424,130 C444,152 452,178 447,205"/>
+  <path d="M330,50 C344,40 358,34 374,32"/>
+  <path d="M360,76 C352,60 348,48 352,36"/>
+  <path d="M410,120 C426,110 440,103 458,100"/>
+  <path d="M430,146 C420,130 417,116 422,104"/>
+</g>
+<!-- Blossom A -->
+<g transform="translate(374,26)" opacity="0.44">
+  <circle cx="9" cy="0" r="6.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.5"/>
+  <circle cx="2.8" cy="8.5" r="6.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.5"/>
+  <circle cx="-7.2" cy="5.3" r="6.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.5"/>
+  <circle cx="-7.2" cy="-5.3" r="6.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.5"/>
+  <circle cx="2.8" cy="-8.5" r="6.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.5"/>
+  <circle cx="0" cy="0" r="2.5" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.4"/>
+</g>
+<!-- Blossom B -->
+<g transform="translate(352,40)" opacity="0.44">
+  <circle cx="7" cy="0" r="5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="2.2" cy="6.7" r="5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="-5.8" cy="4.1" r="5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="-5.8" cy="-4.1" r="5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="2.2" cy="-6.7" r="5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="0" cy="0" r="2" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.3"/>
+</g>
+<!-- Blossom C -->
+<g transform="translate(458,96)" opacity="0.44">
+  <circle cx="8" cy="0" r="5.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="2.5" cy="7.4" r="5.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="-6.5" cy="4.6" r="5.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="-6.5" cy="-4.6" r="5.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="2.5" cy="-7.4" r="5.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4"/>
+  <circle cx="0" cy="0" r="2.2" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.4"/>
+</g>
+<ellipse cx="344" cy="68" rx="3" ry="4.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4" transform="rotate(-20,344,68)" opacity="0.4"/>
+<ellipse cx="404" cy="114" rx="3" ry="4.5" fill="#F0C8C8" stroke="#C48888" stroke-width="0.4" transform="rotate(10,404,114)" opacity="0.4"/>
+
+<!-- Lotus (lower left) -->
+<g transform="translate(200,615)" opacity="0.42">
+  <path d="M0,10 L0,-2" fill="none" stroke="#8CAE8C" stroke-width="0.7"/>
+  <ellipse cx="0" cy="12" rx="34" ry="11" fill="#8CAE8C" opacity="0.22"/>
+  <g fill="#EBC8B8" stroke="#C4956A" stroke-width="0.6">
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(45)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(90)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(135)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(180)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(225)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(270)"/>
+    <path d="M0,0 C-12,-20 -8,-38 0,-43 C8,-38 12,-20 0,0" transform="rotate(315)"/>
+  </g>
+  <g fill="#FAE8DC" stroke="#C4956A" stroke-width="0.5">
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(22.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(67.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(112.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(157.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(202.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(247.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(292.5)"/>
+    <path d="M0,0 C-8,-13 -6,-27 0,-30 C6,-27 8,-13 0,0" transform="rotate(337.5)"/>
+  </g>
+  <circle r="8" fill="#F5D5A0" stroke="#C4956A" stroke-width="0.6"/>
+  <circle cx="-3" cy="-3" r="1.5" fill="#C4956A" opacity="0.55"/>
+  <circle cx="3" cy="-3" r="1.5" fill="#C4956A" opacity="0.55"/>
+  <circle cx="0" cy="2" r="1.5" fill="#C4956A" opacity="0.55"/>
+</g>
+
+<!-- Lotus 2 (right, smaller) -->
+<g transform="translate(620,335)" opacity="0.34">
+  <path d="M0,8 L0,0" fill="none" stroke="#8CAE8C" stroke-width="0.6"/>
+  <ellipse cx="0" cy="10" rx="26" ry="8" fill="#8CAE8C" opacity="0.2"/>
+  <g fill="#EBC8B8" stroke="#C4956A" stroke-width="0.5">
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(45)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(90)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(135)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(180)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(225)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(270)"/>
+    <path d="M0,0 C-9,-15 -6,-30 0,-34 C6,-30 9,-15 0,0" transform="rotate(315)"/>
+  </g>
+  <circle r="6" fill="#F5D5A0" stroke="#C4956A" stroke-width="0.5"/>
+</g>
+
+<!-- Brooklyn Bridge (top right, very faint) -->
+<g opacity="0.18">
+  <rect x="550" y="228" width="8" height="70" fill="#C4956A"/>
+  <path d="M550,255 Q554,248 558,255" fill="none" stroke="#FAF6EE" stroke-width="0.8"/>
+  <path d="M550,268 Q554,261 558,268" fill="none" stroke="#FAF6EE" stroke-width="0.8"/>
+  <rect x="630" y="228" width="8" height="70" fill="#C4956A"/>
+  <path d="M630,255 Q634,248 638,255" fill="none" stroke="#FAF6EE" stroke-width="0.8"/>
+  <path d="M630,268 Q634,261 638,268" fill="none" stroke="#FAF6EE" stroke-width="0.8"/>
+  <path d="M512,272 Q554,230 592,240 Q634,230 676,272" fill="none" stroke="#C4956A" stroke-width="0.9"/>
+  <line x1="510" y1="298" x2="680" y2="298" stroke="#C4956A" stroke-width="1.1"/>
+  <g stroke="#C4956A" stroke-width="0.4">
+    <line x1="522" y1="268" x2="522" y2="298"/>
+    <line x1="532" y1="258" x2="532" y2="298"/>
+    <line x1="542" y1="250" x2="542" y2="298"/>
+    <line x1="552" y1="244" x2="552" y2="298"/>
+    <line x1="562" y1="240" x2="562" y2="298"/>
+    <line x1="572" y1="238" x2="572" y2="298"/>
+    <line x1="582" y1="238" x2="582" y2="298"/>
+    <line x1="592" y1="239" x2="592" y2="298"/>
+    <line x1="602" y1="241" x2="602" y2="298"/>
+    <line x1="612" y1="245" x2="612" y2="298"/>
+    <line x1="622" y1="251" x2="622" y2="298"/>
+    <line x1="632" y1="258" x2="632" y2="298"/>
+    <line x1="642" y1="267" x2="642" y2="298"/>
+    <line x1="654" y1="277" x2="654" y2="298"/>
+    <line x1="665" y1="287" x2="665" y2="298"/>
+  </g>
+</g>
+
+<!-- Chinese knot (lower right) -->
+<g transform="translate(658,668)" fill="none" stroke="#B8943E" stroke-width="0.8" opacity="0.3">
+  <rect x="-18" y="-18" width="36" height="36" rx="2"/>
+  <path d="M-18,0 L-28,0 L-28,28 L0,28 L0,18"/>
+  <path d="M0,-18 L0,-28 L28,-28 L28,0 L18,0"/>
+  <rect x="-9" y="-9" width="18" height="18" rx="1"/>
+  <line x1="-18" y1="28" x2="-20" y2="44" stroke="#B8943E" stroke-width="0.6"/>
+  <line x1="-10" y1="28" x2="-11" y2="44" stroke="#B8943E" stroke-width="0.4"/>
+  <line x1="0" y1="28" x2="0" y2="44" stroke="#B8943E" stroke-width="0.6"/>
+</g>
+
+<!-- Reeds near river (left) -->
+<g fill="none" stroke="#8CAE8C" stroke-width="0.8" opacity="0.36">
+  <path d="M58,510 C56,460 54,410 52,362"/>
+  <path d="M72,510 C71,462 70,414 72,368"/>
+  <path d="M86,510 C86,464 88,416 93,372"/>
+  <ellipse cx="52" cy="358" rx="4" ry="11" fill="#8CAE8C" opacity="0.35"/>
+  <ellipse cx="72" cy="364" rx="4" ry="11" fill="#8CAE8C" opacity="0.35"/>
+  <ellipse cx="93" cy="368" rx="4" ry="11" fill="#8CAE8C" opacity="0.35"/>
+  <path d="M57,432 C46,422 42,412 50,410"/>
+  <path d="M74,452 C85,442 90,432 82,428"/>
+</g>
+
+<!-- Musical notes (upper right) -->
+<g fill="#C4956A" opacity="0.3">
+  <ellipse cx="502" cy="182" rx="6.5" ry="4.5" transform="rotate(-20,502,182)"/>
+  <line x1="508" y1="179" x2="508" y2="152" stroke="#C4956A" stroke-width="1.1"/>
+  <ellipse cx="526" cy="172" rx="6.5" ry="4.5" transform="rotate(-20,526,172)"/>
+  <line x1="532" y1="169" x2="532" y2="142" stroke="#C4956A" stroke-width="1.1"/>
+  <path d="M508,152 L532,142" fill="none" stroke="#C4956A" stroke-width="2.2"/>
+  <path d="M508,158 L532,148" fill="none" stroke="#C4956A" stroke-width="1.6"/>
+</g>
+
+<!-- Sparkles -->
+<g fill="#B8943E" opacity="0.3">
+  <path d="M264,90 L267,100 L277,103 L267,106 L264,116 L261,106 L251,103 L261,100Z"/>
+  <path d="M714,448 L716,455 L723,457 L716,459 L714,466 L712,459 L705,457 L712,455Z"/>
+  <path d="M398,762 L400,770 L408,772 L400,774 L398,782 L396,774 L388,772 L396,770Z"/>
+</g>
+<g stroke="#B8943E" stroke-width="0.7" opacity="0.32">
+  <line x1="188" y1="452" x2="188" y2="464"/><line x1="182" y1="458" x2="194" y2="458"/>
+  <line x1="472" y1="242" x2="472" y2="254"/><line x1="466" y1="248" x2="478" y2="248"/>
+  <line x1="682" y1="152" x2="682" y2="162"/><line x1="677" y1="157" x2="687" y2="157"/>
+  <line x1="332" y1="432" x2="332" y2="442"/><line x1="327" y1="437" x2="337" y2="437"/>
+  <line x1="46" y1="200" x2="46" y2="210"/><line x1="41" y1="205" x2="51" y2="205"/>
+  <line x1="750" y1="600" x2="750" y2="610"/><line x1="745" y1="605" x2="755" y2="605"/>
+</g>
+
+<!-- Diagonal vine (faint, lower half) -->
+<path d="M0,682 C120,642 240,662 360,622 C480,582 600,602 720,566 C760,554 790,546 800,543" fill="none" stroke="#8CAE8C" stroke-width="0.7" opacity="0.22"/>
+<g fill="none" stroke="#8CAE8C" stroke-width="0.5" opacity="0.22">
+  <path d="M120,644 C113,634 107,630 112,640"/>
+  <path d="M240,663 C233,653 227,649 232,659"/>
+  <path d="M360,624 C353,614 347,610 352,620"/>
+  <path d="M480,584 C473,574 467,570 472,580"/>
+  <path d="M600,603 C593,593 587,589 592,599"/>
+  <path d="M720,568 C713,558 707,554 712,564"/>
+</g>
+
+<!-- Leaf sprigs -->
+<g fill="none" stroke="#8CAE8C" stroke-width="0.6" opacity="0.32">
+  <path d="M664,202 C674,192 690,190 692,198"/>
+  <path d="M664,202 C669,214 684,220 688,212"/>
+  <circle cx="664" cy="202" r="2" fill="#8CAE8C" opacity="0.5"/>
+  <path d="M36,634 C46,624 62,622 64,630"/>
+  <path d="M36,634 C41,646 56,652 60,644"/>
+  <circle cx="36" cy="634" r="2" fill="#8CAE8C" opacity="0.5"/>
+  <path d="M752,382 C762,372 778,370 780,378"/>
+  <path d="M752,382 C757,394 772,400 776,392"/>
+</g>
+
+<!-- Small scattered 5-petal flowers -->
+<g transform="translate(444,382)" opacity="0.34">
+  <circle cx="8" cy="0" r="5" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="2.5" cy="7.6" r="5" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-6.5" cy="4.7" r="5" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-6.5" cy="-4.7" r="5" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="2.5" cy="-7.6" r="5" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="0" cy="0" r="2" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.3"/>
+</g>
+<g transform="translate(52,295)" opacity="0.3">
+  <circle cx="6" cy="0" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="1.9" cy="5.7" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-5" cy="3.5" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-5" cy="-3.5" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="1.9" cy="-5.7" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="0" cy="0" r="1.8" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.3"/>
+</g>
+<g transform="translate(565,684)" opacity="0.3">
+  <circle cx="6" cy="0" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="1.9" cy="5.7" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-5" cy="3.5" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="-5" cy="-3.5" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="1.9" cy="-5.7" r="4" fill="#E8C4B8" stroke="#C4956A" stroke-width="0.4"/>
+  <circle cx="0" cy="0" r="1.8" fill="#F5DFA0" stroke="#C4956A" stroke-width="0.3"/>
+</g>
+
+</svg>
