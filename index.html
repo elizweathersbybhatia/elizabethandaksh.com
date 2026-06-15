@@ -973,7 +973,10 @@ function enterWebsite(m) {
   // section at position 0 and lit FAQ. Now that the site is visible, recompute against
   // real layout so the home (E&D) crest is highlighted at the top.
   window.scrollTo(0, 0);
-  requestAnimationFrame(function(){ window.dispatchEvent(new Event('scroll')); });
+  requestAnimationFrame(function(){
+    window.dispatchEvent(new Event('scroll'));
+    window.dispatchEvent(new Event('story-carousel-visible'));
+  });
 }
 function initEventsCarousel() {
   var carousel = document.querySelector('.events-carousel');
@@ -1373,17 +1376,21 @@ setupCountryCodes();
   marquee.removeAttribute('aria-hidden');
   var photos = Array.prototype.slice.call(track.children);
   var groupSize = photos.length / 2;
+  var sourcePhotos = photos.slice(0, groupSize);
   var paused = false, resumeTimer = null, dragging = false, startX = 0, startScroll = 0;
   var loopWidth = 0, positioned = false, normalizing = false;
-  var SPEED = 0.55;
-  photos.slice(0, groupSize).forEach(function(photo) {
+  var SPEED = 1;
+  sourcePhotos.forEach(function(photo) {
     track.appendChild(photo.cloneNode(true));
   });
   function measureLoop() {
+    if (!marquee.clientWidth) return;
     var first = track.children[0];
     var secondGroup = track.children[groupSize];
-    loopWidth = secondGroup.offsetLeft - first.offsetLeft;
-    if (loopWidth > 0 && !positioned) {
+    var measuredWidth = secondGroup.offsetLeft - first.offsetLeft;
+    if (measuredWidth <= marquee.clientWidth * 1.5) return;
+    loopWidth = measuredWidth;
+    if (!positioned) {
       marquee.scrollLeft = loopWidth;
       positioned = true;
     }
@@ -1443,6 +1450,19 @@ setupCountryCodes();
   window.addEventListener('resize', function() {
     loopWidth = 0;
     positioned = false;
+  });
+  window.addEventListener('story-carousel-visible', function() {
+    loopWidth = 0;
+    positioned = false;
+    measureLoop();
+  });
+  sourcePhotos.forEach(function(photo) {
+    if (!photo.complete) {
+      photo.addEventListener('load', function() {
+        loopWidth = 0;
+        positioned = false;
+      }, { once: true });
+    }
   });
   marquee.addEventListener('dragstart', function(e) { e.preventDefault(); });
   requestAnimationFrame(tick);
