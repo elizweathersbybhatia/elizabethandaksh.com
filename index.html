@@ -88,17 +88,17 @@ section { padding:3.75rem var(--page-pad); position:relative; }
 
 /* HERO */
 .hero { min-height:calc(100vh - 40px); display:flex; align-items:center; justify-content:center; text-align:center; padding-top:4rem; position:relative; isolation:isolate; }
-.hero::before { content:''; position:absolute; inset:0; z-index:-2; pointer-events:none; background:linear-gradient(180deg,rgba(15,36,64,0.12) 0%,transparent 24%,transparent 74%,rgba(15,36,64,0.14) 100%); }
+.hero::before { content:none; }
 .hero::after { content:none; }
 .hero-content { animation:fadeUp 1.4s ease-out; position:relative; padding:clamp(2rem,5vw,3.5rem) clamp(1.5rem,8vw,6rem); isolation:isolate; }
-.hero-content::before { content:''; position:absolute; inset:0; z-index:-1; border:1px solid rgba(255,253,247,0.36); border-radius:8px; background:transparent; box-shadow:0 8px 38px rgba(15,36,64,0.08); }
+.hero-content::before { content:none; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(35px)} to{opacity:1;transform:translateY(0)} }
-.hero h1 { display:flex; align-items:center; justify-content:center; gap:clamp(0.35rem,1vw,0.9rem); font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(3rem,7vw,6rem); color:var(--navy-deep); line-height:1; letter-spacing:clamp(1px,0.25vw,3px); white-space:nowrap; -webkit-text-stroke:0.35px rgba(255,253,247,0.82); text-shadow:0 0 2px rgba(255,253,247,1),0 0 12px rgba(255,253,247,0.98),0 2px 4px rgba(15,36,64,0.38); }
-.hero h1::before, .hero h1::after { content:'◆'; color:var(--gold-pale); font-size:clamp(0.4rem,0.7vw,0.65rem); opacity:0.85; }
-.hero-amp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.72em; font-weight:400; color:var(--gold); line-height:1; margin:0 0.05em; transform:translateY(0.06em); text-shadow:0 1px 10px rgba(255,253,247,0.95); }
-.hero-subtitle { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.6rem,3.2vw,2.6rem); letter-spacing:0.08em; color:var(--navy); margin:1.1rem 0; text-shadow:0 1px 0 rgba(255,253,247,0.98),0 1px 10px rgba(255,253,247,0.94); }
-.hero-date { font-family:'Lora',serif; font-size:1.35rem; font-weight:600; color:var(--navy-deep); margin-top:1.4rem; text-shadow:0 1px 0 rgba(255,253,247,0.98),0 1px 12px rgba(255,253,247,0.98); }
-.hero-date .venue { font-size:1.1rem; color:var(--navy); display:block; margin-top:0.5rem; letter-spacing:0.04em; }
+.hero h1 { display:flex; align-items:center; justify-content:center; gap:clamp(0.35rem,1vw,0.9rem); font-family:'Cormorant Garamond',serif; font-weight:700; font-size:clamp(3rem,7vw,6rem); color:#ffffff; line-height:1; letter-spacing:clamp(1px,0.25vw,3px); white-space:nowrap; -webkit-text-stroke:0; text-shadow:0 2px 8px rgba(0,0,0,0.75),0 0 30px rgba(0,0,0,0.35); }
+.hero h1::before, .hero h1::after { content:'◆'; color:rgba(255,255,255,0.6); font-size:clamp(0.4rem,0.7vw,0.65rem); }
+.hero-amp { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.72em; font-weight:400; color:rgba(255,255,255,0.9); line-height:1; margin:0 0.05em; transform:translateY(0.06em); text-shadow:0 2px 8px rgba(0,0,0,0.75); }
+.hero-subtitle { font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(1.6rem,3.2vw,2.6rem); letter-spacing:0.08em; color:#ffffff; margin:1.1rem 0; text-shadow:0 1px 6px rgba(0,0,0,0.8),0 0 20px rgba(0,0,0,0.3); }
+.hero-date { font-family:'Lora',serif; font-size:1.35rem; font-weight:600; color:#ffffff; margin-top:1.4rem; text-shadow:0 1px 6px rgba(0,0,0,0.8); }
+.hero-date .venue { font-size:1.1rem; color:rgba(255,255,255,0.88); display:block; margin-top:0.5rem; letter-spacing:0.04em; text-shadow:0 1px 6px rgba(0,0,0,0.75); }
 .hero-scroll { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:3; animation:bob 3s ease-in-out infinite; }
 @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
@@ -176,13 +176,15 @@ section { padding:3.75rem var(--page-pad); position:relative; }
 .attire-pheras { --attire-accent:#d49a38; }
 .attire-reception { --attire-accent:#243a55; }
 .attire-extra-card { display:flex; flex-direction:column; justify-content:center; min-height:100%; border:1px solid var(--gold-faint); border-top:2px solid var(--gold); background:linear-gradient(145deg,rgba(255,253,247,0.94),rgba(246,239,224,0.9)); padding:1.35rem 1.15rem; text-align:center; backdrop-filter:blur(6px); }
-.attire-extra-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-style:italic; font-weight:500; color:var(--navy); margin-bottom:0.5rem; }
-.attire-extra-card > p { font-family:'Lora',serif; font-size:0.78rem; color:var(--text-body); line-height:1.6; margin:0 auto 0.9rem; max-width:260px; }
+.attire-extra-card h3 { font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; font-style:normal; margin-bottom:0.55rem; }
+.attire-extra-card > p { font-family:'Lora',serif; font-size:0.78rem; color:var(--text-body); line-height:1.6; margin:0 auto 0; max-width:260px; }
+.attire-extra-divider { width:50px; height:1px; background:var(--gold-faint); margin:1.1rem auto; }
 .attire-fw-eyebrow { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
 .attire-fw-script { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.38rem; color:var(--navy); margin-bottom:0.65rem; }
 .attire-fw-desc { font-family:'Lora',serif; font-size:0.9rem; color:var(--text-body); line-height:1.75; max-width:580px; margin:0 auto; }
 .attire-tagline { text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.2rem; color:var(--warm-brown); padding:1.2rem var(--page-pad) 0.8rem; max-width:var(--content-width); margin:0 auto; }
 .shop-links { width:100%; margin-top:0.25rem; text-align:center; background:rgba(255,253,247,0.62); border:1px solid var(--gold-faint); }
+.shop-links h3 { font-family:'Montserrat',sans-serif; font-size:0.6rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); font-weight:600; font-style:normal; margin-bottom:0.55rem; padding:0; }
 .shop-links h4 { font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); padding:0.8rem 0.8rem 0.65rem; margin:0; }
 .shop-accordion { border-top:1px solid var(--gold-faint); }
 .shop-acc-item { border-bottom:1px solid var(--gold-faint); }
@@ -249,10 +251,10 @@ section { padding:3.75rem var(--page-pad); position:relative; }
 .accordion-item { background:none; }
 .accordion-item + .accordion-item { border-top:1px solid var(--gold-faint); }
 #travel .section-heading { margin-bottom:2.35rem; }
-#travel .info-cards { margin-bottom:0; gap:0; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-bottom:none; border-radius:4px 4px 0 0; backdrop-filter:blur(6px); }
-#travel .info-card { background:none; border:none; border-radius:0; padding:2rem 1.6rem; backdrop-filter:none; }
-#travel .info-card + .info-card { border-left:2px solid var(--gold-faint); }
-#travel .accom-box { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-top:2px solid var(--gold-faint); border-radius:0 0 4px 4px; backdrop-filter:blur(6px); }
+#travel .info-cards { margin-bottom:1rem; gap:1rem; background:none; border:none; border-radius:0; backdrop-filter:none; }
+#travel .info-card { background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(6px); }
+#travel .info-card + .info-card { border-left:1px solid var(--gold-faint); }
+#travel .accom-box { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-top:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(6px); }
 #travel .info-card { padding:1.15rem 1.35rem 1.3rem; }
 #travel .detail-icon { width:76px; height:76px; margin-bottom:0.1rem; }
 #travel .info-card h4 { margin-bottom:0.45rem; }
@@ -433,7 +435,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 @media (min-width:769px) {
   .hero-slide { background-position:center top; }
 }
-.hero-photo-overlay { position:absolute; inset:0; z-index:-4; background:rgba(250,246,238,0.50); pointer-events:none; }
+.hero-photo-overlay { display:none; }
 
 /* COUNTDOWN TIMER */
 #countdown { border-bottom:1px solid var(--gold-faint); }
@@ -602,7 +604,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
   <div class="attire-grid fade-in">
     <article class="attire-card attire-christian christian-only">
       <div class="attire-card-visual"><img src="assets/attire/attire-christian_2.png" alt="Christian ceremony attire inspiration"><div class="attire-card-palette"><span class="attire-swatch" style="background:#1B3A5C"></span><span class="attire-swatch" style="background:#486B8A"></span><span class="attire-swatch" style="background:#D79AAA"></span><span class="attire-swatch" style="background:#F0C7CF"></span><span class="attire-swatch" style="background:#315B46"></span><span class="attire-swatch" style="background:#789177"></span></div></div>
-      <div class="attire-card-details"><h3 class="attire-event-name">Christian Ceremony &amp; Cocktail</h3><span class="attire-code-label">Cocktail · Indian or Western</span><span class="attire-climate">Evening · Indoors<br>Outdoor Temp: ~11°C / 52°F</span><div class="attire-guidance"><div class="attire-guide"><span class="attire-gender-head">For Men</span><span class="attire-gender-text">A suit, western or indo-western.</span></div><div class="attire-guide"><span class="attire-gender-head">For Women</span><span class="attire-gender-text">Cocktail dress, gown, saree, or dressy Indian attire.</span></div></div></div>
+      <div class="attire-card-details"><h3 class="attire-event-name">Christian Ceremony</h3><span class="attire-code-label">Cocktail · Indian or Western</span><span class="attire-climate">Evening · Indoors<br>Outdoor Temp: ~11°C / 52°F</span><div class="attire-guidance"><div class="attire-guide"><span class="attire-gender-head">For Men</span><span class="attire-gender-text">A suit, western or indo-western.</span></div><div class="attire-guide"><span class="attire-gender-head">For Women</span><span class="attire-gender-text">Cocktail dress, gown, saree, or dressy Indian attire.</span></div></div></div>
     </article>
     <article class="attire-card attire-haldi">
       <div class="attire-card-visual"><img src="assets/attire/attire-haldi_2.png" alt="Haldi and mehendi attire inspiration"><div class="attire-card-palette"><span class="attire-swatch" style="background:#F5C842"></span><span class="attire-swatch" style="background:#EFCA5A"></span><span class="attire-swatch" style="background:#EFA020"></span><span class="attire-swatch" style="background:#D4621A"></span><span class="attire-swatch" style="background:#C87A20"></span><span class="attire-swatch" style="background:#F0D060"></span></div></div>
@@ -621,11 +623,11 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
       <div class="attire-card-details"><h3 class="attire-event-name">Baraat &amp; Reception</h3><span class="attire-code-label">Black Tie · Indian or Western</span><span class="attire-climate">Evening · Outdoors<br>Outdoor Temp: ~11°C / 52°F</span><div class="attire-guidance"><div class="attire-guide"><span class="attire-gender-head">For Men</span><span class="attire-gender-text">Sherwani, bandhgala, jodhpuri, or black tuxedo.</span></div><div class="attire-guide"><span class="attire-gender-head">For Women</span><span class="attire-gender-text">Lehenga, saree, or black tie gown, finished with a maang tikka.</span></div></div></div>
     </article>
     <aside class="attire-extra-card">
-      <p class="section-label">Good to Know</p>
-      <h3>Footwear &amp; Shopping</h3>
+      <h3>Footwear Note</h3>
       <p>Several celebrations are on lawns. Block heels, wedges, or juttis will be much happier than stilettos.</p>
+      <div class="attire-extra-divider"></div>
       <div class="shop-links">
-        <h4>A Few Places We Recommend</h4>
+        <h3>A Few Places We Recommend</h3>
         <div class="shop-accordion">
       <div class="shop-acc-item">
         <button class="shop-acc-btn" onclick="toggleShop(this)"><span>Ready to Wear</span><span class="shop-acc-arrow">▼</span></button>
@@ -662,7 +664,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <p class="section-subtitle">Everything you need for your journey to Corbett</p>
   </div>
   <div class="info-cards">
-    <div class="info-card fade-in"><h4>✈️ Flights</h4><p><strong>Best-connected:</strong> Delhi (DEL), ~260 km.<br><strong>Nearest:</strong> Pantnagar (PGH), ~80 km.</p></div>
+    <div class="info-card fade-in"><h4>✈️ Flights</h4><p><strong>Best-connected:</strong> Delhi (DEL), ~260 km.<br><strong>Nearest:</strong> Pantnagar (PGH), ~80 km.</p><p style="margin-top:0.75rem;font-size:0.84rem;color:var(--warm-brown);font-style:italic">For international travelers, if you can swing it, we highly recommend arriving in India a day or two early. Spend some time in Delhi, eat everything, see the sights, and let your body catch up before the celebrations begin. Your future dancing self will thank you.</p></div>
     <div class="info-card fade-in"><h4>🚗 Ground Transport</h4><ul><li>From Delhi airport: ~5–6 hr drive</li><li>From Pantnagar airport: ~2 hr drive</li></ul><p style="margin-top:0.75rem">For guests requiring transport, our planning team will share trusted local options that may be reserved directly by guests.</p></div>
     <div class="info-card fade-in"><h4>🛂 Visa</h4><p>International guests need an <strong>Indian tourist visa</strong>. Apply 4–6 weeks ahead.</p><p style="margin-top:0.8rem"><a href="https://indianvisaonline.gov.in" target="_blank">Apply for e-Visa →</a></p></div>
   </div>
@@ -682,12 +684,11 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
   <div class="section-heading fade-in"><p class="section-label">Gifts</p><h2 class="section-title">Registry</h2></div>
   <div class="registry-content fade-in">
   <div class="registry-message">
-    <p>Your presence is truly the only gift we need. Having you with us in India to celebrate this chapter of our lives means everything.</p>
-    <p style="margin-top:1.1rem;font-size:0.95rem;color:var(--warm-brown)">Please do not bring gift boxes to the wedding. While we are so grateful for your generosity, we will be unable to bring them back to New York with us.</p>
-    <div id="registry-fund" style="display:none;margin-top:1.6rem;padding-top:1.6rem;border-top:1px solid var(--gold-faint)">
-      <p>If you would like to help us build our life together, we would be so touched by your gift as we begin this next chapter.</p>
-      <a href="https://www.paypal.com/pool/9q35TZOYce?sr=wccr" class="btn-registry" target="_blank" rel="noopener" style="display:inline-block;margin-top:1.2rem;padding:0.85rem 2.4rem;background:var(--navy);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border-radius:999px;transition:background 0.3s">Send a Gift</a>
+    <p>Your presence is truly the only gift we need. Having you with us in India to celebrate this chapter of our lives means everything. If you would still like to help us build our life together, we would be so touched by your gift as we begin this next chapter.</p>
+    <div id="registry-fund" style="display:none;margin-top:1.6rem">
+      <a href="https://www.paypal.com/pool/9q35TZOYce?sr=wccr" class="btn-registry" target="_blank" rel="noopener" style="display:inline-block;padding:0.85rem 2.4rem;background:var(--navy);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border-radius:999px;transition:background 0.3s">Send a Gift</a>
     </div>
+    <p style="margin-top:1.4rem;font-size:0.92rem;color:var(--warm-brown)">Please do not bring gift boxes to the wedding. While we are so grateful for your generosity, we will be unable to bring them back to New York with us.</p>
   </div></div>
 </section>
 
@@ -724,8 +725,8 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">◇</span><span class="faq-title">Is there parking?</span><span class="faq-preview">Please confirm parking needs with the wedding planners.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Parking is available, but please confirm your needs with Silver Slate Events in advance so they can coordinate with the hotel.</p></div></div>
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♧</span><span class="faq-title">Can I bring a plus one?</span><span class="faq-preview">Your RSVP shows the guests included in your invitation.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Any named guests and available guest spaces are shown in your RSVP. Because hotel rooms are limited, we are unable to accommodate guests beyond the number listed there.</p></div></div>
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">☼</span><span class="faq-title">What's the weather like?</span><span class="faq-preview">February in Jim Corbett is sunny by day and cool at night.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><div class="faq-weather-grid"><div><span>Morning</span><strong>10–16°C</strong><small>Cool &amp; crisp</small></div><div><span>Day</span><strong>22–28°C</strong><small>Warm &amp; sunny</small></div><div><span>Evening</span><strong>12–18°C</strong><small>Pleasant &amp; breezy</small></div></div><p style="margin-top:0.65rem;text-align:center">Sunrise is around 6:45 AM and sunset is around 6:00 PM.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">⌒</span><span class="faq-title">What kind of food will be served?</span><span class="faq-preview">Come hungry. India does not believe in letting wedding guests go unfed.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Come hungry. Very hungry. Expect a generous Indian culinary experience across the celebrations, with plenty to try and options for common dietary needs.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♢</span><span class="faq-title">Will there be an open bar?</span><span class="faq-preview">Of course. It would hardly be our kind of party otherwise.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Of course. It would hardly be our kind of party without the drinks flowing and the dance floor calling.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">⌒</span><span class="faq-title">What kind of food will be served?</span><span class="faq-preview">Come hungry. India does not believe in letting wedding guests go unfed.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Expect a very generous Indian culinary experience across the celebrations, with plenty to try and options for common dietary needs. India does not believe in letting wedding guests go unfed, and neither do we.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♢</span><span class="faq-title">Will there be an open bar?</span><span class="faq-preview">Of course. It would hardly be our kind of party otherwise.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>The drinks will flow freely and the dance floor will be calling all night. You have been warned.</p></div></div>
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">⌁</span><span class="faq-title">Food allergies or dietary restrictions?</span><span class="faq-preview">Please share dietary needs when you RSVP.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Please include any allergies or dietary restrictions in the notes field of your RSVP so our planners and catering team can prepare accordingly.</p></div></div>
   </div>
   <div class="faq-support-grid fade-in">
