@@ -286,7 +286,8 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .faq-item + .faq-item { border-top:1px solid var(--gold-faint); }
 .faq-question { width:100%; border:0; background:transparent; cursor:pointer; padding:1rem 1.25rem; display:grid; grid-template-columns:52px minmax(180px,0.75fr) 1.25fr 20px; gap:1rem; align-items:center; color:var(--navy); text-align:left; }
 .faq-question:hover { background:rgba(184,148,62,0.045); }
-.faq-icon { display:flex; width:42px; height:42px; align-items:center; justify-content:center; border:1px solid rgba(184,148,62,0.28); border-radius:50%; font-family:'Cormorant Garamond',serif; font-size:1.45rem; line-height:1; color:var(--warm-brown); }
+.faq-icon { display:flex; width:42px; height:42px; align-items:center; justify-content:center; border:1px solid rgba(184,148,62,0.28); border-radius:50%; font-family:'Cormorant Garamond',serif; font-size:1.45rem; line-height:1; color:var(--warm-brown); overflow:hidden; }
+.faq-icon img { width:38px; height:38px; object-fit:contain; object-position:center; display:block; flex:none; }
 .faq-title { font-family:'Cormorant Garamond',serif; font-size:1.08rem; font-weight:600; letter-spacing:0.6px; text-transform:uppercase; line-height:1.25; }
 .faq-preview { font-family:'Lora',serif; font-size:0.85rem; color:var(--text-body); line-height:1.65; }
 .faq-chevron { font-size:0.7rem; color:var(--gold); transition:transform 0.3s; }
@@ -392,7 +393,7 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .faq-intro { margin-bottom:1rem; }
   .faq-intro-copy { font-size:var(--body-fs); padding:0 0.3rem; }
   .faq-question { grid-template-columns:32px 1fr 16px; gap:0.7rem; padding:0.85rem 0.8rem; }
-  .faq-icon { width:30px; height:30px; font-size:1.05rem; }
+  .faq-icon { width:30px; height:30px; font-size:1.05rem; } .faq-icon img { width:30px; height:30px; }
   .faq-title { font-family:'Montserrat',sans-serif; font-size:0.61rem; letter-spacing:1.1px; line-height:1.4; }
   .faq-preview { display:none; }
   .faq-answer { padding-left:calc(32px + 1.5rem); padding-right:0.8rem; }
@@ -413,14 +414,13 @@ footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1
   .hero-amp { flex-basis:auto; }
   .welcome-content { opacity:1; transform:none; }
   .tl { padding:1.5rem 1.2rem; }
-  .photo-marquee-track img { height:240px; }
+  .photo-marquee { height:240px; } .photo-marquee-track img { height:240px; } .photo-marquee-track { animation-duration:60s; }
 }
 
 /* PHOTO MARQUEE */
-.photo-marquee { width:100%; max-width:var(--content-width); margin:1.6rem auto 1.8rem; overflow-x:auto; overflow-y:hidden; position:relative; scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; cursor:grab; }
-.photo-marquee::-webkit-scrollbar { display:none; }
-.photo-marquee.dragging { cursor:grabbing; }
-.photo-marquee-track { display:flex; gap:1.1rem; width:max-content; }
+@keyframes marquee-scroll { to { transform:translateX(-50%); } }
+.photo-marquee { width:100%; max-width:var(--content-width); margin:1.6rem auto 1.8rem; overflow:hidden; position:relative; height:340px; }
+.photo-marquee-track { display:flex; gap:1.1rem; width:max-content; animation:marquee-scroll 90s linear infinite; will-change:transform; }
 .photo-marquee-track img { display:block; height:340px; width:auto; border-radius:4px; box-shadow:0 6px 24px rgba(15,36,64,0.18); flex:none; user-select:none; -webkit-user-drag:none; }
 
 /* NAV RSVP PILL — always highlighted */
@@ -618,7 +618,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
       <div class="attire-card-details"><h3 class="attire-event-name">Jai Mala &amp; Pheras</h3><span class="attire-code-label">Formal · Indian or Western</span><span class="attire-climate">Daytime · Outdoors<br>Outdoor Temp: ~22°C / 72°F</span><div class="attire-guidance"><div class="attire-guide"><span class="attire-gender-head">For Men</span><span class="attire-gender-text">Sherwani, formal kurta, or suit.</span></div><div class="attire-guide"><span class="attire-gender-head">For Women</span><span class="attire-gender-text">Saree, lehenga, or formal gown.</span></div></div></div>
     </article>
     <article class="attire-card attire-reception">
-      <div class="attire-card-visual"><img src="assets/attire/attire-baraat_2.png" alt="Baraat and reception attire inspiration"><div class="attire-card-palette"><span class="attire-swatch" style="background:#E2DED4"></span><span class="attire-swatch" style="background:#D9C7A5"></span><span class="attire-swatch" style="background:#171717"></span><span class="attire-swatch" style="background:#153B66"></span><span class="attire-swatch" style="background:#6D214F"></span><span class="attire-swatch" style="background:#B8943E"></span></div></div>
+      <div class="attire-card-visual"><img src="assets/attire/attire-baraat_2.png" alt="Baraat and reception attire inspiration"><div class="attire-card-palette"><span class="attire-swatch" style="background:#171717"></span><span class="attire-swatch" style="background:#153B66"></span><span class="attire-swatch" style="background:#B8943E"></span><span class="attire-swatch" style="background:#C8102E"></span><span class="attire-swatch" style="background:#D4327A"></span><span class="attire-swatch" style="background:#E87A54"></span></div></div>
       <div class="attire-card-details"><h3 class="attire-event-name">Baraat &amp; Reception</h3><span class="attire-code-label">Black Tie · Indian or Western</span><span class="attire-climate">Evening · Outdoors<br>Outdoor Temp: ~11°C / 52°F</span><div class="attire-guidance"><div class="attire-guide"><span class="attire-gender-head">For Men</span><span class="attire-gender-text">Sherwani, bandhgala, jodhpuri, or black tuxedo.</span></div><div class="attire-guide"><span class="attire-gender-head">For Women</span><span class="attire-gender-text">Lehenga, saree, or black tie gown, finished with a maang tikka.</span></div></div></div>
     </article>
     <aside class="attire-extra-card">
@@ -718,15 +718,15 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <p class="faq-intro-copy">We've gathered the most common questions to help you plan with ease. If you need anything else, our wedding planners are here for you.</p>
   </div>
   <div class="faq-list fade-in">
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♙</span><span class="faq-title">What should I wear?</span><span class="faq-preview">Whatever makes you feel fabulous, with a little guidance from us.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Wear whatever makes you feel your absolute best. For dress codes, color inspiration, and a little help deciding just how fabulous to be, visit the <a href="#clothing">Attire section</a>.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">✈</span><span class="faq-title">How do I get there?</span><span class="faq-preview">Flights and driving information are available in Travel.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Delhi is the best-connected airport and Pantnagar is the nearest. Driving times, visa guidance, and transportation details are in the <a href="#travel">Travel section</a>.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">▱</span><span class="faq-title">Where will we stay?</span><span class="faq-preview">Guests will be hosted at the Riverview Retreat.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Wedding guests will be hosted at the Riverview Retreat in Corbett. The address, hotel contacts, and extended-stay guidance are in the <a href="#travel">Travel section</a>.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">◇</span><span class="faq-title">Is there parking?</span><span class="faq-preview">Please confirm parking needs with the wedding planners.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Parking is available, but please confirm your needs with Silver Slate Events in advance so they can coordinate with the hotel.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♧</span><span class="faq-title">Can I bring a plus one?</span><span class="faq-preview">Your RSVP shows the guests included in your invitation.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Any named guests and available guest spaces are shown in your RSVP. Because hotel rooms are limited, we are unable to accommodate guests beyond the number listed there.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">☼</span><span class="faq-title">What's the weather like?</span><span class="faq-preview">February in Jim Corbett is sunny by day and cool at night.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><div class="faq-weather-grid"><div><span>Morning</span><strong>10–16°C</strong><small>Cool &amp; crisp</small></div><div><span>Day</span><strong>22–28°C</strong><small>Warm &amp; sunny</small></div><div><span>Evening</span><strong>12–18°C</strong><small>Pleasant &amp; breezy</small></div></div><p style="margin-top:0.65rem;text-align:center">Sunrise is around 6:45 AM and sunset is around 6:00 PM.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">⌒</span><span class="faq-title">What kind of food will be served?</span><span class="faq-preview">Come hungry. India does not believe in letting wedding guests go unfed.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Expect a very generous Indian culinary experience across the celebrations, with plenty to try and options for common dietary needs. India does not believe in letting wedding guests go unfed, and neither do we.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">♢</span><span class="faq-title">Will there be an open bar?</span><span class="faq-preview">Of course. It would hardly be our kind of party otherwise.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>The drinks will flow freely and the dance floor will be calling all night. You have been warned.</p></div></div>
-    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true">⌁</span><span class="faq-title">Food allergies or dietary restrictions?</span><span class="faq-preview">Please share dietary needs when you RSVP.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Please include any allergies or dietary restrictions in the notes field of your RSVP so our planners and catering team can prepare accordingly.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/dress_hanger.png" alt=""></span><span class="faq-title">What should I wear?</span><span class="faq-preview">Whatever makes you feel fabulous, with a little guidance from us.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Wear whatever makes you feel your absolute best. For dress codes, color inspiration, and a little help deciding just how fabulous to be, visit the <a href="#clothing">Attire section</a>.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/plane.png" alt=""></span><span class="faq-title">How do I get there?</span><span class="faq-preview">Flights and driving information are available in Travel.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Delhi is the best-connected airport and Pantnagar is the nearest. Driving times, visa guidance, and transportation details are in the <a href="#travel">Travel section</a>.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/bed.png" alt=""></span><span class="faq-title">Where will we stay?</span><span class="faq-preview">Guests will be hosted at the Riverview Retreat.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Wedding guests will be hosted at the Riverview Retreat in Corbett. The address, hotel contacts, and extended-stay guidance are in the <a href="#travel">Travel section</a>.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/car.png" alt=""></span><span class="faq-title">Is there parking?</span><span class="faq-preview">Please confirm parking needs with the wedding planners.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Parking is available, but please confirm your needs with Silver Slate Events in advance so they can coordinate with the hotel.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/holding_hands.png" alt=""></span><span class="faq-title">Can I bring a plus one?</span><span class="faq-preview">Your RSVP shows the guests included in your invitation.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Any named guests and available guest spaces are shown in your RSVP. Because hotel rooms are limited, we are unable to accommodate guests beyond the number listed there.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/sun.png" alt=""></span><span class="faq-title">What's the weather like?</span><span class="faq-preview">February in Jim Corbett is sunny by day and cool at night.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><div class="faq-weather-grid"><div><span>Morning</span><strong>10–16°C</strong><small>Cool &amp; crisp</small></div><div><span>Day</span><strong>22–28°C</strong><small>Warm &amp; sunny</small></div><div><span>Evening</span><strong>12–18°C</strong><small>Pleasant &amp; breezy</small></div></div><p style="margin-top:0.65rem;text-align:center">Sunrise is around 6:45 AM and sunset is around 6:00 PM.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/serving_platter.png" alt=""></span><span class="faq-title">What kind of food will be served?</span><span class="faq-preview">Come hungry. India does not believe in letting wedding guests go unfed.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Expect a very generous Indian culinary experience across the celebrations, with plenty to try and options for common dietary needs. India does not believe in letting wedding guests go unfed, and neither do we.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/martini_glass.png" alt=""></span><span class="faq-title">Will there be an open bar?</span><span class="faq-preview">Of course. It would hardly be our kind of party otherwise.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>The drinks will flow freely and the dance floor will be calling all night. You have been warned.</p></div></div>
+    <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span class="faq-icon" aria-hidden="true"><img src="assets/icons/faq/food_allergy.png" alt=""></span><span class="faq-title">Food allergies or dietary restrictions?</span><span class="faq-preview">Please share dietary needs when you RSVP.</span><span class="faq-chevron">▼</span></button><div class="faq-answer"><p>Please include any allergies or dietary restrictions in the notes field of your RSVP so our planners and catering team can prepare accordingly.</p></div></div>
   </div>
   <div class="faq-support-grid fade-in">
     <div class="faq-support-card">
@@ -1362,53 +1362,7 @@ function confirmRSVP(b, acceptedGuestIds, additionalAdults, children) {
 
 setupCountryCodes();
 
-// Photo carousel: continuous right-to-left auto-scroll, pausable by manual scroll/swipe/drag.
-(function() {
-  var marquee = document.querySelector('.photo-marquee');
-  var track = marquee && marquee.querySelector('.photo-marquee-track');
-  if (!marquee || !track) return;
-  marquee.removeAttribute('aria-hidden');
-  var paused = false, resumeTimer = null, dragging = false, startX = 0, startScroll = 0;
-  var SPEED = 1.1;
-  function pauseAuto(resumeDelay) {
-    paused = true;
-    clearTimeout(resumeTimer);
-    if (resumeDelay) resumeTimer = setTimeout(function() { paused = false; }, resumeDelay);
-  }
-  function tick() {
-    if (!paused) {
-      var half = track.scrollWidth / 2;
-      if (half > 0) {
-        marquee.scrollLeft += SPEED;
-        if (marquee.scrollLeft >= half) marquee.scrollLeft -= half;
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-  marquee.addEventListener('wheel', function() { pauseAuto(1400); }, { passive: true });
-  marquee.addEventListener('touchstart', function() { pauseAuto(0); }, { passive: true });
-  marquee.addEventListener('touchend', function() { pauseAuto(1400); }, { passive: true });
-  marquee.addEventListener('touchcancel', function() { pauseAuto(1400); }, { passive: true });
-  marquee.addEventListener('mousedown', function(e) {
-    dragging = true; marquee.classList.add('dragging');
-    startX = e.pageX; startScroll = marquee.scrollLeft;
-    pauseAuto(0); e.preventDefault();
-  });
-  window.addEventListener('mousemove', function(e) {
-    if (!dragging) return;
-    marquee.scrollLeft = startScroll - (e.pageX - startX);
-  });
-  window.addEventListener('mouseup', function() {
-    if (!dragging) return;
-    dragging = false; marquee.classList.remove('dragging'); pauseAuto(1400);
-  });
-  window.addEventListener('blur', function() {
-    if (!dragging) return;
-    dragging = false; marquee.classList.remove('dragging'); pauseAuto(1400);
-  });
-  marquee.addEventListener('dragstart', function(e) { e.preventDefault(); });
-  requestAnimationFrame(tick);
-})();
+// Photo carousel: CSS animation handles seamless auto-scroll (see @keyframes marquee-scroll).
 
 // Active-section indicator: highlight current nav link + top progress bar.
 (function() {
