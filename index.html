@@ -247,6 +247,9 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .member-status-choice input { width:14px; height:14px; accent-color:var(--navy); margin:0; }
 .member-status-choice:has(input:checked) { border-color:var(--gold); color:var(--navy); background:rgba(184,148,62,0.1); }
 .member-status { margin-left:auto; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--sage); }
+.member-age-field { grid-column:1 / -1; display:none; padding:0.1rem 0 0.2rem; }
+.member-age-field input { width:100%; max-width:170px; padding:0.72rem 0.9rem; border:1px solid var(--gold-faint); border-radius:3px; font-family:'Lora',serif; font-size:0.92rem; color:var(--charcoal); background:rgba(255,253,247,0.9); outline:none; }
+.member-option.child-attending .member-age-field { display:block; }
 .guest-fields { display:flex; flex-direction:column; gap:0.8rem; }
 .guest-entry { padding:1rem; border:1px solid var(--gold-faint); border-radius:3px; background:rgba(255,253,247,0.55); }
 .guest-entry-title { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:600; color:var(--navy); margin-bottom:0.7rem; }
@@ -1084,6 +1087,8 @@ document.addEventListener('keydown', function(event) {
 // Paste the Google Apps Script Web App URL between the quotes below (see setup steps).
 // Until it's filled in, the form still shows the confirmation but does NOT record anything.
 var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyY_tlaozNTTDIhU-qL74DDqUY1a-_MPgYBRRP2M5W2y2XtmGUE3WhJc0h27JluNuWc/exec';
+var RSVP_ACCEPT_DEADLINE = new Date(2026, 7, 31, 23, 59, 59, 999);
+var RSVP_DECLINE_CHANGE_DEADLINE = new Date(2026, 9, 31, 23, 59, 59, 999);
 
 function apiJsonp(action, params, done) {
   if (!RSVP_ENDPOINT) { done(null); return; }
@@ -1140,6 +1145,8 @@ function renderHouseholdRSVP() {
   (rsvp.acceptedGuestIds || []).forEach(function(id) { accepted[id] = true; });
   var declined = {};
   (rsvp.declinedGuestIds || []).forEach(function(id) { declined[id] = true; });
+  var namedChildAges = {};
+  (rsvp.namedChildAges || []).forEach(function(child) { namedChildAges[child.guestId] = child.age; });
   var wrap = document.getElementById('rsvp-named-members');
   wrap.innerHTML = '<p class="rsvp-household-title">Named Household Members</p>';
   var members = m.namedMembers.slice().sort(function(a, b) {
@@ -1170,18 +1177,39 @@ function renderHouseholdRSVP() {
       input.name = radioName;
       input.value = option[0];
       input.dataset.guestId = member.guestId;
+      input.dataset.requiresAge = member.requiresAge ? 'true' : 'false';
       if (accepted[member.guestId] || (!rsvp.updatedAt && member.guestId === m.guestId && option[0] === 'accept')) {
         input.checked = option[0] === 'accept';
       }
       if (declined[member.guestId]) {
         input.checked = option[0] === 'decline';
       }
-      input.addEventListener('change', updateRSVPSummary);
+      input.addEventListener('change', function() {
+        updateNamedChildAgeVisibility();
+        updateRSVPSummary();
+      });
       label.appendChild(input);
       label.appendChild(document.createTextNode(option[1]));
       group.appendChild(label);
     });
     row.appendChild(group);
+    if (member.requiresAge) {
+      var ageWrap = document.createElement('div');
+      ageWrap.className = 'member-age-field';
+      var ageInput = document.createElement('input');
+      ageInput.type = 'number';
+      ageInput.min = '0';
+      ageInput.max = '17';
+      ageInput.step = '1';
+      ageInput.placeholder = member.fullName + '\'s age';
+      ageInput.dataset.field = 'namedChildAge';
+      ageInput.dataset.guestId = member.guestId;
+      ageInput.dataset.guestName = member.fullName;
+      if (namedChildAges[member.guestId] != null) ageInput.value = namedChildAges[member.guestId];
+      ageInput.addEventListener('input', updateRSVPSummary);
+      ageWrap.appendChild(ageInput);
+      row.appendChild(ageWrap);
+    }
     wrap.appendChild(row);
   });
   document.getElementById('rsvp-email').value = rsvp.email || '';
@@ -1195,11 +1223,12 @@ function renderHouseholdRSVP() {
   renderAdditionalAdultFields(rsvp.additionalAdults || []);
   renderChildFields(rsvp.children || []);
   document.querySelector('.btn-submit').textContent = rsvp.updatedAt ? 'Update RSVP' : 'Send RSVP';
+  updateNamedChildAgeVisibility();
   updateRSVPSummary();
 }
 
 function readNamedGuestStatuses() {
-  var statuses = { acceptedGuestIds: [], declinedGuestIds: [], missingGuestNames: [] };
+  var statuses = { acceptedGuestIds: [], declinedGuestIds: [], namedChildAges: [], missingGuestNames: [], missingNamedChildAges: [] };
   document.querySelectorAll('.member-status-group').forEach(function(group) {
     var checked = group.querySelector('input:checked');
     if (!checked) {
@@ -1208,11 +1237,39 @@ function readNamedGuestStatuses() {
     }
     if (checked.value === 'accept') {
       statuses.acceptedGuestIds.push(group.dataset.guestId);
+      if (checked.dataset.requiresAge === 'true') {
+        var ageInput = document.querySelector('[data-field="namedChildAge"][data-guest-id="' + cssEscape(group.dataset.guestId) + '"]');
+        var age = ageInput ? ageInput.value.trim() : '';
+        if (age === '' || Number(age) < 0) {
+          statuses.missingNamedChildAges.push(group.dataset.guestName || 'a named child');
+        } else {
+          statuses.namedChildAges.push({
+            guestId: group.dataset.guestId,
+            fullName: group.dataset.guestName || '',
+            age: age
+          });
+        }
+      }
     } else {
       statuses.declinedGuestIds.push(group.dataset.guestId);
     }
   });
   return statuses;
+}
+
+function cssEscape(value) {
+  if (window.CSS && CSS.escape) return CSS.escape(value);
+  return String(value).replace(/["\\]/g, '\\$&');
+}
+
+function updateNamedChildAgeVisibility() {
+  document.querySelectorAll('.member-option').forEach(function(row) {
+    var ageInput = row.querySelector('[data-field="namedChildAge"]');
+    if (!ageInput) return;
+    var attending = row.querySelector('.member-status-group input[value="accept"]:checked');
+    row.classList.toggle('child-attending', !!attending);
+    if (!attending) ageInput.value = '';
+  });
 }
 
 function resetAdditionalGuestFields() {
@@ -1363,8 +1420,33 @@ function updateRSVPSummary() {
   var message = total + ' of ' + m.totalGuests + ' invited seat' + (m.totalGuests === 1 ? '' : 's') + ' attending.';
   if (declined) message += ' ' + declined + ' named guest' + (declined === 1 ? ' is' : 's are') + ' marked not attending.';
   if (statuses.missingGuestNames.length) message += ' Please choose Attend or Decline for each named guest.';
+  if (statuses.missingNamedChildAges.length) message += ' Please add the age for each attending named child.';
   if (!total && declined) message += ' This will record that your household cannot attend.';
   document.getElementById('guest-note').textContent = message;
+}
+
+function attendingTotalForRsvp(rsvp) {
+  if (!rsvp) return 0;
+  return (rsvp.acceptedGuestIds || []).length + (rsvp.additionalAdults || []).length + (rsvp.children || []).length;
+}
+
+function validateRsvpDeadline(acceptedGuestIds, additionalAdults, children) {
+  var now = new Date();
+  var current = window.currentRSVP || {};
+  var previousAccepted = {};
+  (current.acceptedGuestIds || []).forEach(function(id) { previousAccepted[id] = true; });
+  var nextAccepted = {};
+  acceptedGuestIds.forEach(function(id) { nextAccepted[id] = true; });
+  var addsNamedAcceptance = acceptedGuestIds.some(function(id) { return !previousAccepted[id]; });
+  var previousTotal = attendingTotalForRsvp(current);
+  var nextTotal = acceptedGuestIds.length + additionalAdults.length + children.length;
+  if (now > RSVP_DECLINE_CHANGE_DEADLINE) {
+    return 'RSVP changes are now closed. Please contact us directly if you need help.';
+  }
+  if (now > RSVP_ACCEPT_DEADLINE && (nextTotal > previousTotal || addsNamedAcceptance)) {
+    return 'The RSVP deadline for adding attendees was August 31. Please contact us directly if you need help.';
+  }
+  return '';
 }
 
 function handleRSVP() {
@@ -1380,9 +1462,14 @@ function handleRSVP() {
   }
   var acceptedGuestIds = namedStatuses.acceptedGuestIds;
   var declinedGuestIds = namedStatuses.declinedGuestIds;
+  var namedChildAges = namedStatuses.namedChildAges;
   var additionalAdults = readGuestFields('rsvp-adult-fields', false);
   var children = readGuestFields('rsvp-child-fields', true);
   if (!acceptedGuestIds.length && !declinedGuestIds.length) { alert('Please choose Attend or Decline for each named guest.'); return; }
+  if (namedStatuses.missingNamedChildAges.length) {
+    alert('Please enter the age for each attending named child.');
+    return;
+  }
   if (!acceptedGuestIds.length && (additionalAdults.length || children.length)) {
     alert('Additional guests can only be added when at least one named guest is attending.');
     return;
@@ -1403,6 +1490,11 @@ function handleRSVP() {
     alert('This RSVP exceeds the number of seats assigned to your household.');
     return;
   }
+  var deadlineError = validateRsvpDeadline(acceptedGuestIds, additionalAdults, children);
+  if (deadlineError) {
+    alert(deadlineError);
+    return;
+  }
   var b = document.querySelector('.btn-submit');
   b.textContent = 'Sending...'; b.disabled = true;
   var data = new URLSearchParams({
@@ -1417,12 +1509,13 @@ function handleRSVP() {
     phone: document.getElementById('rsvp-phone').value.trim(),
     acceptedGuestIds: JSON.stringify(acceptedGuestIds),
     declinedGuestIds: JSON.stringify(declinedGuestIds),
+    namedChildAges: JSON.stringify(namedChildAges),
     additionalAdults: JSON.stringify(additionalAdults),
     children: JSON.stringify(children),
     notes: document.getElementById('rsvp-dietary').value.trim(),
     inviteScope: m.inviteScope
   });
-  if (!RSVP_ENDPOINT || String(m.token).indexOf('local-') === 0) { confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children); return; }
+  if (!RSVP_ENDPOINT || String(m.token).indexOf('local-') === 0) { confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children); return; }
   var rsvpParams = {};
   data.forEach(function(val, key) { rsvpParams[key] = val; });
   apiJsonp('saveRsvp', rsvpParams, function(result) {
@@ -1438,11 +1531,11 @@ function handleRSVP() {
       b.disabled = false;
       return;
     }
-    confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children);
+    confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children);
   });
 }
 
-function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children) {
+function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children) {
   window.currentRSVP = {
     updatedAt: new Date().toISOString(),
     email: document.getElementById('rsvp-email').value.trim(),
@@ -1451,6 +1544,7 @@ function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, ch
     notes: document.getElementById('rsvp-dietary').value.trim(),
     acceptedGuestIds: acceptedGuestIds,
     declinedGuestIds: declinedGuestIds,
+    namedChildAges: namedChildAges,
     additionalAdults: additionalAdults,
     children: children
   };

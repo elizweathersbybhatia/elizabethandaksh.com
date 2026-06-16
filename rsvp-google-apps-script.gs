@@ -19,6 +19,8 @@ var HOUSEHOLD_SHEET = 'Household_Master';
 var RSVP_SHEET = 'Household_RSVPs';
 var PLANNER_RSVP_SHEET = 'Wedding RSVPs';
 var TOKEN_DAYS = 30;
+var RSVP_ACCEPT_DEADLINE = new Date('2026-09-01T03:59:59.999Z'); // Aug 31, 2026 EOD New York.
+var RSVP_DECLINE_CHANGE_DEADLINE = new Date('2026-11-01T03:59:59.999Z'); // Oct 31, 2026 EOD New York.
 var RSVP_HEADERS = [
   'Updated At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
   'Accepted Named Guests', 'Declined Named Guests',
@@ -27,7 +29,7 @@ var RSVP_HEADERS = [
   'Email', 'Phone', 'Notes', 'Invite Scope',
   'Guest Group', 'Subgroup',
   'Accepted Guest IDs JSON', 'Declined Guest IDs JSON',
-  'Additional Adults JSON', 'Children JSON'
+  'Named Child Ages JSON', 'Additional Adults JSON', 'Children JSON'
 ];
 var PLANNER_RSVP_HEADERS = [
   'Updated At', 'Submitted By Name', 'Guest Group', 'Subgroup', 'Email',
@@ -79,17 +81,24 @@ function loginGuest(firstName, lastName) {
 
   var logins = readObjects(LOGIN_SHEET);
   var login = null;
+  var matchedNonLogin = false;
   for (var i = 0; i < logins.length; i++) {
     if (norm(logins[i].first_name) === first && norm(logins[i].last_name) === last) {
-      login = logins[i];
-      break;
+      if (canRsvpForHousehold(logins[i])) {
+        login = logins[i];
+        break;
+      }
+      matchedNonLogin = true;
     }
+  }
+  if (!login && matchedNonLogin) {
+    return { ok: false, error: 'Please log in using the household invitation name.' };
   }
   if (!login) return { ok: false, error: 'We could not find that name on the invitation list. Please try again.' };
 
   var household = findHousehold(login.household_id);
   var namedMembers = householdMembers(logins, login.household_id);
-  var capacities = deriveCapacities(household, namedMembers.length);
+  var capacities = deriveCapacities(household, namedMembers);
   var token = issueToken(login.guest_id, login.household_id);
 
   return {
@@ -135,11 +144,14 @@ function saveRsvp(p) {
 
   var accepted = parseArray(p.acceptedGuestIds);
   var declined = parseArray(p.declinedGuestIds);
+  var namedChildAges = cleanNamedChildAges(parseArray(p.namedChildAges));
   var additionalAdults = cleanAdults(parseArray(p.additionalAdults));
   var children = cleanChildren(parseArray(p.children));
-  var capacities = deriveCapacities(household, members.length);
+  var capacities = deriveCapacities(household, members);
   var acceptedMap = {};
+  var memberMap = {};
 
+  for (var m = 0; m < members.length; m++) memberMap[members[m].guestId] = members[m];
   for (var j = 0; j < accepted.length; j++) {
     accepted[j] = text(accepted[j]);
     if (!memberIds[accepted[j]]) throw new Error('An RSVP selection is not part of this household.');
@@ -157,11 +169,17 @@ function saveRsvp(p) {
   if (!accepted.length && (additionalAdults.length || children.length)) {
     throw new Error('Additional guests can only be added when at least one named guest is attending.');
   }
+  validateNamedChildAges(namedChildAges, acceptedMap, memberMap);
   if (additionalAdults.length > capacities.unnamedAdultSlots) throw new Error('Too many additional adult guests.');
   if (children.length > capacities.childSlots) throw new Error('Too many child guests.');
   if (accepted.length + additionalAdults.length + children.length > capacities.totalGuests) {
     throw new Error('This RSVP exceeds the household invitation size.');
   }
+
+  var sheet = getOrCreateRsvpSheet();
+  var existingRow = findRsvpRow(sheet, auth.householdId);
+  var existingRsvp = existingRow ? rsvpFromRow(sheet, existingRow) : null;
+  validateRsvpDeadline(existingRsvp, accepted, additionalAdults, children);
 
   var namesById = {};
   for (var k = 0; k < members.length; k++) namesById[members[k].guestId] = members[k].fullName;
@@ -184,6 +202,9 @@ function saveRsvp(p) {
   var childNamesAndAges = children.map(function(child) {
     return child.firstName + ' ' + child.lastName + ' (age ' + child.age + ')';
   });
+  var namedChildNamesAndAges = namedChildAges.map(function(child) {
+    return (namesById[child.guestId] || child.fullName || child.guestId) + ' (age ' + child.age + ')';
+  });
   var totalGuests = accepted.length + additionalAdults.length + children.length;
   var valuesByHeader = {
     'Updated At': new Date(),
@@ -194,7 +215,7 @@ function saveRsvp(p) {
     'Declined Named Guests': declinedNames.join(', '),
     'Additional Adult Names': additionalAdultNames.join(', '),
     'Additional Adult Contacts': additionalAdultContacts.join('; '),
-    'Child Names and Ages': childNamesAndAges.join(', '),
+    'Child Names and Ages': namedChildNamesAndAges.concat(childNamesAndAges).join(', '),
     'Total Number of Guests': totalGuests,
     'Email': text(p.email),
     'Phone': (text(p.phoneCountry) + ' ' + text(p.phone)).trim(),
@@ -204,11 +225,10 @@ function saveRsvp(p) {
     'Subgroup': text(household.subgroup),
     'Accepted Guest IDs JSON': JSON.stringify(accepted),
     'Declined Guest IDs JSON': JSON.stringify(declined),
+    'Named Child Ages JSON': JSON.stringify(namedChildAges),
     'Additional Adults JSON': JSON.stringify(additionalAdults),
     'Children JSON': JSON.stringify(children)
   };
-  var sheet = getOrCreateRsvpSheet();
-  var existingRow = findRsvpRow(sheet, auth.householdId);
   var activeHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
   var values = activeHeaders.map(function(header) {
     return Object.prototype.hasOwnProperty.call(valuesByHeader, header) ? valuesByHeader[header] : '';
@@ -226,10 +246,12 @@ function saveRsvp(p) {
   return { ok: true };
 }
 
-function deriveCapacities(household, namedCount) {
+function deriveCapacities(household, members) {
   var total = number(household.total_guests);
+  var namedCount = members.length;
+  var namedChildCount = members.filter(function(member) { return member.requiresAge; }).length;
   var unnamed = Math.max(0, total - namedCount);
-  var childSlots = Math.min(Math.max(0, number(household.children_count)), unnamed);
+  var childSlots = Math.min(Math.max(0, number(household.children_count) - namedChildCount), unnamed);
   return {
     totalGuests: total,
     childSlots: childSlots,
@@ -246,7 +268,9 @@ function householdMembers(logins, householdId) {
         firstName: text(logins[i].first_name),
         lastName: text(logins[i].last_name),
         fullName: text(logins[i].full_name),
-        loginRole: text(logins[i].login_role)
+        loginRole: text(logins[i].login_role),
+        canRsvpForHousehold: canRsvpForHousehold(logins[i]),
+        requiresAge: isChildRole(logins[i].login_role)
       });
     }
   }
@@ -310,6 +334,7 @@ function rsvpFromRow(sheet, row) {
     phone: (record['Phone'] || '').replace(/^\+\d+\s?/, ''),
     acceptedGuestIds: parseArray(record['Accepted Guest IDs JSON']),
     declinedGuestIds: parseArray(record['Declined Guest IDs JSON']),
+    namedChildAges: parseArray(record['Named Child Ages JSON']),
     additionalAdults: parseArray(record['Additional Adults JSON']),
     children: parseArray(record['Children JSON']),
     notes: record['Notes'],
@@ -446,6 +471,77 @@ function cleanChildren(items) {
     guest.age = age;
     return guest;
   });
+}
+
+function cleanNamedChildAges(items) {
+  return items.map(function(item) {
+    var guest = {
+      guestId: text(item && item.guestId).trim(),
+      fullName: text(item && item.fullName).trim()
+    };
+    var age = number(item && item.age);
+    if (!guest.guestId) throw new Error('A named child age is missing its guest ID.');
+    if (text(item && item.age).trim() === '' || age < 0 || age > 17) {
+      throw new Error('Every attending named child needs an age from 0 to 17.');
+    }
+    guest.age = age;
+    return guest;
+  });
+}
+
+function validateNamedChildAges(namedChildAges, acceptedMap, memberMap) {
+  var agesByGuestId = {};
+  for (var i = 0; i < namedChildAges.length; i++) {
+    var child = namedChildAges[i];
+    var member = memberMap[child.guestId];
+    if (!member || !member.requiresAge) throw new Error('A named child age does not match this household.');
+    if (!acceptedMap[child.guestId]) throw new Error('Only attending named children should include an age.');
+    agesByGuestId[child.guestId] = true;
+  }
+  for (var id in acceptedMap) {
+    if (memberMap[id] && memberMap[id].requiresAge && !agesByGuestId[id]) {
+      throw new Error('Every attending named child needs an age.');
+    }
+  }
+}
+
+function validateRsvpDeadline(existingRsvp, accepted, additionalAdults, children) {
+  var now = new Date();
+  if (now > RSVP_DECLINE_CHANGE_DEADLINE) {
+    throw new Error('RSVP changes are now closed. Please contact us directly if you need help.');
+  }
+  if (now <= RSVP_ACCEPT_DEADLINE) return;
+
+  var previousAccepted = {};
+  if (existingRsvp && existingRsvp.acceptedGuestIds) {
+    for (var i = 0; i < existingRsvp.acceptedGuestIds.length; i++) {
+      previousAccepted[text(existingRsvp.acceptedGuestIds[i])] = true;
+    }
+  }
+  var addsNamedAcceptance = accepted.some(function(id) {
+    return !previousAccepted[text(id)];
+  });
+  var previousTotal = attendingTotal(existingRsvp);
+  var nextTotal = accepted.length + additionalAdults.length + children.length;
+  if (nextTotal > previousTotal || addsNamedAcceptance) {
+    throw new Error('The RSVP deadline for adding attendees was August 31. Please contact us directly if you need help.');
+  }
+}
+
+function attendingTotal(rsvp) {
+  if (!rsvp) return 0;
+  return (rsvp.acceptedGuestIds || []).length +
+    (rsvp.additionalAdults || []).length +
+    (rsvp.children || []).length;
+}
+
+function canRsvpForHousehold(row) {
+  var value = text(row && row.can_rsvp_for_household).trim();
+  return value === '' || bool(value);
+}
+
+function isChildRole(role) {
+  return /child/i.test(text(role));
 }
 
 function issueToken(guestId, householdId) {

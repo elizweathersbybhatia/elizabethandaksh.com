@@ -23,11 +23,22 @@ Import these two tabs from `wedding_website_guest_master_final.xlsx`:
 
 Keep the tab names and header rows exactly as written. The website derives:
 
-- Named logins from `Login_Master`
+- Named household members from `Login_Master`
 - Total invited seats and event access from `Household_Master`
-- Unnamed adult capacity as:
-  `total_guests - login_count - children_count`
-- Child capacity from `children_count`
+- Login access only from rows where `can_rsvp_for_household` is blank or `TRUE`
+- Unnamed adult capacity from total invited seats minus named household members
+  and remaining unnamed child slots
+- Child capacity from `children_count`, reduced by any named child rows already
+  shown in the household member list
+
+To name a spouse or child without creating a separate login, add them to
+`Login_Master` with the same `household_id`, a unique `guest_id`, and
+`can_rsvp_for_household` set to `FALSE`. Use `login_role` values like
+`named_partner` or `named_child`. Named children appear in the household RSVP
+list and require an age only when marked as attending.
+
+Do not increase `total_guests` for these rows. Naming a spouse or child only
+moves that person from an unnamed slot into the named household list.
 
 The source workbook is not modified.
 
@@ -71,7 +82,8 @@ Test these cases after deployment:
 - A `both` guest sees all three wedding days.
 - An `india` guest sees only Tuesday and Wednesday.
 - Either person in a named couple can log in.
-- A named partner appears by full name, not as an unnamed guest.
+- A named non-login spouse appears by full name but cannot log in directly.
+- A named child appears by full name and asks for age only if attending.
 - A one-person household with two unnamed adult slots can submit one, two, or
   three total attendees.
 - Child fields require first name, last name, and age.
