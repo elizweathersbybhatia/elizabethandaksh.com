@@ -314,7 +314,8 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .stay-times { display:grid; grid-template-columns:1fr 1fr; gap:0.6rem; margin-top:1rem; }
 .stay-times div { padding:0.85rem 0.5rem; border:1px solid var(--gold-faint); }
 .stay-times span { display:block; font-family:'Montserrat',sans-serif; font-size:0.53rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); }
-.stay-times strong { display:block; margin-top:0.3rem; font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--navy); }
+.stay-times strong { display:block; margin-top:0.28rem; font-family:'Lora',serif; font-size:0.95rem; font-weight:600; color:var(--navy); line-height:1.35; }
+.stay-times small { display:block; margin-top:0.12rem; font-family:'Lora',serif; font-size:0.95rem; color:var(--warm-brown); line-height:1.35; }
 
 .contact-card { max-width:500px; margin:0 auto; padding:2.5rem; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px; backdrop-filter:blur(6px); position:relative; }
 .contact-card::before { content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:50px; height:2px; background:var(--gold); }
@@ -453,7 +454,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 
 <div id="password-gate">
   <div class="gate-card">
-    <img class="gate-crest" src="assets/ed-crest.png" alt="Elizabeth and Daksh crest">
+    <img class="gate-crest site-crest" src="/assets/ed-crest.png" alt="Elizabeth and Daksh crest">
     <div class="gold-divider" style="margin:1rem auto"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
     <p style="font-family:'Lora',serif;font-size:1rem;color:var(--warm-brown);margin-bottom:1.5rem">Please enter your first and last name</p>
     <div class="gate-name-fields">
@@ -471,7 +472,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 
 <nav id="nav">
   <a href="#hero" class="nav-home" aria-label="Return to the top of the wedding website">
-    <img class="nav-crest" src="assets/ed-crest.png" alt="Elizabeth and Daksh crest">
+    <img class="nav-crest site-crest" src="/assets/ed-crest.png" alt="Elizabeth and Daksh crest">
   </a>
   <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul>
@@ -670,7 +671,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="info-card fade-in"><h4>🚗 Ground Transport</h4><ul><li>From Delhi airport: ~5–6 hr drive</li><li>From Pantnagar airport: ~2 hr drive</li></ul><p style="margin-top:0.75rem">For guests requiring transport, our planning team will share trusted local options that may be reserved directly by guests.</p></div>
     <div class="info-card fade-in"><h4>🛂 Visa</h4><p>International guests need an <strong>Indian tourist visa</strong>. Apply 4–6 weeks ahead.</p><p style="margin-top:0.8rem"><a href="https://indianvisaonline.gov.in" target="_blank">Apply for e-Visa →</a></p></div>
   </div>
-  <div class="accom-box fade-in"><h4>Accommodation</h4><p>We are looking forward to hosting you at the Riverview Retreat for the duration of the wedding celebrations.</p><div style="margin:1.1rem auto 0;max-width:520px;padding:1rem 1.25rem;border:1px solid var(--gold-faint);border-radius:4px;background:rgba(255,253,247,0.55)"><p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);font-weight:600;margin-bottom:0.4rem">The Riverview Retreat, Corbett</p><p style="font-size:0.98rem;line-height:1.65;margin-bottom:0.55rem">Zero Garjia, Corbett National Park, Dhikuli,<br>Ramnagar, Nainital, Uttarakhand 244715</p><p style="font-size:0.95rem;line-height:1.75;margin-bottom:0.55rem"><strong>Hotel:</strong> <a href="tel:+919760090821" style="color:var(--navy);text-decoration:none">+91 97600 90821</a><br><strong>Reservations:</strong> <a href="tel:+919555088000" style="color:var(--navy);text-decoration:none">+91 95550 88000</a></p><p style="font-size:0.92rem"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px">Visit the hotel website →</a></p><div class="stay-times"><div><span>Check-In</span><strong>2:00 PM</strong></div><div><span>Check-Out</span><strong>11:00 AM</strong></div></div></div><div class="accom-periods"><div><h5>Arriving Before</h5><p>For guests extending their journey before the celebrations, our wedding planner will be delighted to share a selection of lovely nearby hotels and retreats for you to book directly.</p></div><div><h5>Staying After</h5><p>For those wishing to linger a little longer after the wedding, you may reserve directly with the hotel by calling <a href="tel:+919555088000">+91 95550 88000</a>, or speak with our wedding planner for assistance.</p></div></div></div>
+  <div class="accom-box fade-in"><h4>Accommodation</h4><p>We are looking forward to hosting you at the Riverview Retreat for the duration of the wedding celebrations.</p><div style="margin:1.1rem auto 0;max-width:520px;padding:1rem 1.25rem;border:1px solid var(--gold-faint);border-radius:4px;background:rgba(255,253,247,0.55)"><p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);font-weight:600;margin-bottom:0.4rem">The Riverview Retreat, Corbett</p><p style="font-size:0.98rem;line-height:1.65;margin-bottom:0.55rem">Zero Garjia, Corbett National Park, Dhikuli,<br>Ramnagar, Nainital, Uttarakhand 244715</p><p style="font-size:0.95rem;line-height:1.75;margin-bottom:0.55rem"><strong>Hotel:</strong> <a href="tel:+919760090821" style="color:var(--navy);text-decoration:none">+91 97600 90821</a><br><strong>Reservations:</strong> <a href="tel:+919555088000" style="color:var(--navy);text-decoration:none">+91 95550 88000</a></p><p style="font-size:0.92rem"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px">Visit the hotel website →</a></p><div class="stay-times"><div><span>Check-In</span><strong id="checkin-date-text">Tuesday, Feb 23rd</strong><small>2:00 PM</small></div><div><span>Check-Out</span><strong>Thursday, Feb 25th</strong><small>11:00 AM</small></div></div></div><div class="accom-periods"><div><h5>Arriving Before</h5><p>For guests extending their journey before the celebrations, our wedding planner will be delighted to share a selection of lovely nearby hotels and retreats for you to book directly.</p></div><div><h5>Staying After</h5><p>For those wishing to linger a little longer after the wedding, you may reserve directly with the hotel by calling <a href="tel:+919555088000">+91 95550 88000</a>, or speak with our wedding planner for assistance.</p></div></div></div>
   <div class="travel-extras fade-in">
     <h3 class="travel-extras-title">More Helpful Travel Details</h3>
     <div class="accordion">
@@ -735,7 +736,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="faq-support-card">
       <h3>Wedding Planners</h3>
       <p class="faq-support-script">We're in good hands.</p>
-      <p>For questions about travel, accommodation, or celebrations, Silver Slate Events will be in touch after you RSVP and is also available to help in the meantime.</p>
+      <p>For questions about travel, accommodation, or celebrations, our planning team will be in touch after you RSVP and is also available to help in the meantime.</p>
       <p class="faq-contact-name">Silver Slate Events</p>
       <div class="faq-contact-lines"><a href="tel:+918882688816">Phone &amp; WhatsApp: +91 88826 88816</a><a href="mailto:silverslateevents.wedding@gmail.com">silverslateevents.wedding@gmail.com</a></div>
     </div>
@@ -788,11 +789,25 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 
 <script src="local-guest-data.js"></script>
 <script>
-var navCrest = document.querySelector('.nav-crest');
-if (navCrest) {
-  navCrest.src = 'assets/ed-crest.png';
-  navCrest.alt = 'Elizabeth and Daksh crest';
+const CREST_DARK_SRC = '/assets/ed-crest.png';
+const CREST_LIGHT_SRC = '/assets/ed-crest-light.png';
+
+function setCrestImage(img, src) {
+  if (!img) return;
+  img.alt = 'Elizabeth and Daksh crest';
+  img.dataset.crestFallback = '';
+  img.onerror = function() {
+    if (src.charAt(0) === '/' && img.dataset.crestFallback !== 'relative') {
+      img.dataset.crestFallback = 'relative';
+      img.src = src.replace(/^\//, '');
+    }
+  };
+  img.src = src;
 }
+
+document.querySelectorAll('.site-crest').forEach(function(crest) {
+  setCrestImage(crest, CREST_DARK_SRC);
+});
 
 const ICON_CLASSES = {
   'Ceremony': 'icon-christian',
@@ -938,6 +953,8 @@ function enterWebsite(m) {
     document.querySelectorAll('.christian-only, .two-day-itinerary .tl-row:first-child').forEach(function(e){e.style.display='none';});
   }
   document.getElementById('hero-dates-text').textContent = m.invitedMonday ? '22nd – 24th February, 2027' : '23rd – 24th February, 2027';
+  var checkinDateText = document.getElementById('checkin-date-text');
+  if (checkinDateText) checkinDateText.textContent = m.invitedMonday ? 'Monday, Feb 22nd' : 'Tuesday, Feb 23rd';
   initCountdown(m.invitedMonday);
   setupRegistry(m);
   document.getElementById('rsvp-first').value = m.firstName;
@@ -956,8 +973,7 @@ function enterWebsite(m) {
     var hamburger = document.querySelector('.hamburger');
     var crest = document.querySelector('.nav-crest');
     function swapCrest(open){
-      if(!crest) return;
-      crest.src = open ? 'assets/ed-crest-light.png' : 'assets/ed-crest.png';
+      setCrestImage(crest, open ? CREST_LIGHT_SRC : CREST_DARK_SRC);
     }
     hamburger.addEventListener('click', function(){
       navUl.classList.toggle('open');
