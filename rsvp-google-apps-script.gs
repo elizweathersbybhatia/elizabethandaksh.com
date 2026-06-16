@@ -13,17 +13,28 @@
  */
 
 var SPREADSHEET_ID = '1dFmW6g8yY7fgT2RpKfxMaCVi76xkoF3a-BiaCcNd1u4';
+var DEFAULT_PLANNER_SPREADSHEET_ID = '1-BR35gFTgLMFKOIzIcFgbj04rYEK7nWJKaJgvn4d_n4';
 var LOGIN_SHEET = 'Login_Master';
 var HOUSEHOLD_SHEET = 'Household_Master';
 var RSVP_SHEET = 'Household_RSVPs';
+var PLANNER_RSVP_SHEET = 'Wedding RSVPs';
 var TOKEN_DAYS = 30;
 var RSVP_HEADERS = [
   'Updated At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
-  'Accepted Named Guests', 'Additional Adult Names', 'Additional Adult Contacts',
+  'Accepted Named Guests', 'Declined Named Guests',
+  'Additional Adult Names', 'Additional Adult Contacts',
   'Child Names and Ages', 'Total Number of Guests',
   'Email', 'Phone', 'Notes', 'Invite Scope',
   'Guest Group', 'Subgroup',
-  'Accepted Guest IDs JSON', 'Additional Adults JSON', 'Children JSON'
+  'Accepted Guest IDs JSON', 'Declined Guest IDs JSON',
+  'Additional Adults JSON', 'Children JSON'
+];
+var PLANNER_RSVP_HEADERS = [
+  'Updated At', 'Submitted By Name', 'Guest Group', 'Subgroup', 'Email',
+  'Accepted Named Guests', 'Declined Named Guests',
+  'Additional Adult Names', 'Child Names and Ages',
+  'Notes', 'Invite Scope', 'Additional Adult Contacts',
+  'Total Number of Guests', 'Phone'
 ];
 
 function doGet(e) {
@@ -123,24 +134,29 @@ function saveRsvp(p) {
   for (var i = 0; i < members.length; i++) memberIds[members[i].guestId] = true;
 
   var accepted = parseArray(p.acceptedGuestIds);
+  var declined = parseArray(p.declinedGuestIds);
   var additionalAdults = cleanAdults(parseArray(p.additionalAdults));
   var children = cleanChildren(parseArray(p.children));
   var capacities = deriveCapacities(household, members.length);
+  var acceptedMap = {};
 
   for (var j = 0; j < accepted.length; j++) {
     accepted[j] = text(accepted[j]);
     if (!memberIds[accepted[j]]) throw new Error('An RSVP selection is not part of this household.');
+    acceptedMap[accepted[j]] = true;
   }
   accepted = unique(accepted);
-
-  var sheet = getOrCreateRsvpSheet();
-  var existingRow = findRsvpRow(sheet, auth.householdId);
-  if (existingRow) {
-    var existing = rsvpFromRow(sheet, existingRow);
-    accepted = unique((existing.acceptedGuestIds || []).concat(accepted));
+  for (var d = 0; d < declined.length; d++) {
+    declined[d] = text(declined[d]);
+    if (!memberIds[declined[d]]) throw new Error('An RSVP selection is not part of this household.');
+    if (acceptedMap[declined[d]]) throw new Error('A named guest cannot be both attending and declined.');
   }
+  declined = unique(declined);
 
-  if (!accepted.length) throw new Error('Select at least one named household member.');
+  if (!accepted.length && !declined.length) throw new Error('Choose Attend or Decline for each named household member.');
+  if (!accepted.length && (additionalAdults.length || children.length)) {
+    throw new Error('Additional guests can only be added when at least one named guest is attending.');
+  }
   if (additionalAdults.length > capacities.unnamedAdultSlots) throw new Error('Too many additional adult guests.');
   if (children.length > capacities.childSlots) throw new Error('Too many child guests.');
   if (accepted.length + additionalAdults.length + children.length > capacities.totalGuests) {
@@ -151,6 +167,7 @@ function saveRsvp(p) {
   for (var k = 0; k < members.length; k++) namesById[members[k].guestId] = members[k].fullName;
   var submittedByName = namesById[auth.guestId] || '';
   var acceptedNames = accepted.map(function(id) { return namesById[id] || id; });
+  var declinedNames = declined.map(function(id) { return namesById[id] || id; });
   var additionalAdultNames = additionalAdults.map(function(guest) {
     return guest.firstName + ' ' + guest.lastName;
   });
@@ -174,6 +191,7 @@ function saveRsvp(p) {
     'Submitted By Guest ID': auth.guestId,
     'Submitted By Name': submittedByName,
     'Accepted Named Guests': acceptedNames.join(', '),
+    'Declined Named Guests': declinedNames.join(', '),
     'Additional Adult Names': additionalAdultNames.join(', '),
     'Additional Adult Contacts': additionalAdultContacts.join('; '),
     'Child Names and Ages': childNamesAndAges.join(', '),
@@ -185,9 +203,12 @@ function saveRsvp(p) {
     'Guest Group': text(household.bucket),
     'Subgroup': text(household.subgroup),
     'Accepted Guest IDs JSON': JSON.stringify(accepted),
+    'Declined Guest IDs JSON': JSON.stringify(declined),
     'Additional Adults JSON': JSON.stringify(additionalAdults),
     'Children JSON': JSON.stringify(children)
   };
+  var sheet = getOrCreateRsvpSheet();
+  var existingRow = findRsvpRow(sheet, auth.householdId);
   var activeHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0];
   var values = activeHeaders.map(function(header) {
     return Object.prototype.hasOwnProperty.call(valuesByHeader, header) ? valuesByHeader[header] : '';
@@ -197,6 +218,11 @@ function saveRsvp(p) {
   var textRange = sheet.getRange(rowNumber, 2, 1, values.length - 1);
   textRange.setNumberFormat('@');
   textRange.setValues([values.slice(1)]);
+  try {
+    syncPlannerRsvps(sheet);
+  } catch (syncErr) {
+    Logger.log('Planner RSVP sync failed: ' + friendlyError(syncErr));
+  }
   return { ok: true };
 }
 
@@ -283,11 +309,75 @@ function rsvpFromRow(sheet, row) {
     phoneCountry: (record['Phone'] || '').replace(/^(\+\d+)\s.*$/, '$1') || '+1',
     phone: (record['Phone'] || '').replace(/^\+\d+\s?/, ''),
     acceptedGuestIds: parseArray(record['Accepted Guest IDs JSON']),
+    declinedGuestIds: parseArray(record['Declined Guest IDs JSON']),
     additionalAdults: parseArray(record['Additional Adults JSON']),
     children: parseArray(record['Children JSON']),
     notes: record['Notes'],
     inviteScope: record['Invite Scope']
   };
+}
+
+function syncPlannerRsvpsManual() {
+  return syncPlannerRsvps();
+}
+
+function syncPlannerRsvps(sourceSheet) {
+  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var plannerSpreadsheetId = PropertiesService.getScriptProperties().getProperty('PLANNER_SPREADSHEET_ID') || DEFAULT_PLANNER_SPREADSHEET_ID || SPREADSHEET_ID;
+  var plannerSs = plannerSpreadsheetId === SPREADSHEET_ID ? ss : SpreadsheetApp.openById(plannerSpreadsheetId);
+  sourceSheet = sourceSheet || getOrCreateRsvpSheet();
+
+  var plannerSheet = plannerSs.getSheetByName(PLANNER_RSVP_SHEET) || plannerSs.insertSheet(PLANNER_RSVP_SHEET);
+  if (plannerSs.getId() === ss.getId() && plannerSheet.getSheetId() === sourceSheet.getSheetId()) {
+    throw new Error('Refusing to sync planner RSVPs into the source RSVP sheet.');
+  }
+  var rows = buildPlannerRsvpRows(sourceSheet);
+  if (plannerSheet.getMaxColumns() < PLANNER_RSVP_HEADERS.length) {
+    plannerSheet.insertColumnsAfter(plannerSheet.getMaxColumns(), PLANNER_RSVP_HEADERS.length - plannerSheet.getMaxColumns());
+  }
+  if (plannerSheet.getMaxRows() < rows.length) {
+    plannerSheet.insertRowsAfter(plannerSheet.getMaxRows(), rows.length - plannerSheet.getMaxRows());
+  }
+
+  plannerSheet.clearContents();
+  plannerSheet.getRange(1, 1, rows.length, PLANNER_RSVP_HEADERS.length).setValues(rows);
+  plannerSheet.setFrozenRows(1);
+  plannerSheet.getRange(1, 1, 1, PLANNER_RSVP_HEADERS.length)
+    .setFontWeight('bold')
+    .setWrap(true)
+    .setBackground('#e8dbba');
+  plannerSheet.autoResizeColumns(1, PLANNER_RSVP_HEADERS.length);
+
+  var extraColumns = plannerSheet.getMaxColumns() - PLANNER_RSVP_HEADERS.length;
+  if (extraColumns > 0) {
+    plannerSheet.deleteColumns(PLANNER_RSVP_HEADERS.length + 1, extraColumns);
+  }
+
+  return {
+    ok: true,
+    plannerSheet: PLANNER_RSVP_SHEET,
+    rowsSynced: rows.length - 1
+  };
+}
+
+function buildPlannerRsvpRows(sourceSheet) {
+  var rows = [PLANNER_RSVP_HEADERS.slice()];
+  if (sourceSheet.getLastRow() < 2 || sourceSheet.getLastColumn() < 1) return rows;
+
+  var values = sourceSheet.getRange(1, 1, sourceSheet.getLastRow(), sourceSheet.getLastColumn()).getDisplayValues();
+  var sourceHeaders = values[0].map(function(value) { return text(value).trim(); });
+  var indexes = {};
+  for (var i = 0; i < sourceHeaders.length; i++) indexes[sourceHeaders[i]] = i;
+  var updatedAtIndex = indexes['Updated At'];
+
+  for (var r = 1; r < values.length; r++) {
+    if (updatedAtIndex == null || !text(values[r][updatedAtIndex]).trim()) continue;
+    rows.push(PLANNER_RSVP_HEADERS.map(function(header) {
+      var index = indexes[header];
+      return index == null ? '' : values[r][index];
+    }));
+  }
+  return rows;
 }
 
 function readObjects(sheetName) {

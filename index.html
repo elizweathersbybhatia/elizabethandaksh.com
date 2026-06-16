@@ -237,9 +237,13 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .phone-row { display:grid; grid-template-columns:minmax(210px,0.9fr) 1.1fr; gap:0.75rem; }
 .rsvp-household { text-align:left; padding:1rem 1.1rem; border:1px solid var(--gold-faint); border-radius:3px; background:rgba(255,253,247,0.65); }
 .rsvp-household-title { font-family:'Montserrat',sans-serif; font-size:0.68rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--navy); margin-bottom:0.75rem; }
-.member-option { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0; border-top:1px solid rgba(184,148,62,0.14); font-family:'Lora',serif; font-size:var(--body-fs); color:var(--charcoal); }
+.member-option { display:grid; grid-template-columns:minmax(130px,1fr) auto; align-items:center; gap:0.75rem; padding:0.65rem 0; border-top:1px solid rgba(184,148,62,0.14); font-family:'Lora',serif; font-size:var(--body-fs); color:var(--charcoal); }
 .member-option:first-of-type { border-top:none; }
-.member-option input { width:18px; height:18px; accent-color:var(--navy); flex:0 0 auto; }
+.member-name { line-height:1.35; }
+.member-status-group { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:0.45rem; }
+.member-status-choice { display:inline-flex; align-items:center; gap:0.35rem; padding:0.35rem 0.55rem; border:1px solid var(--gold-faint); border-radius:999px; background:rgba(255,253,247,0.72); font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:1px; text-transform:uppercase; color:var(--warm-brown); cursor:pointer; }
+.member-status-choice input { width:14px; height:14px; accent-color:var(--navy); margin:0; }
+.member-status-choice:has(input:checked) { border-color:var(--gold); color:var(--navy); background:rgba(184,148,62,0.1); }
 .member-status { margin-left:auto; font-family:'Montserrat',sans-serif; font-size:0.58rem; letter-spacing:1.2px; text-transform:uppercase; color:var(--sage); }
 .guest-fields { display:flex; flex-direction:column; gap:0.8rem; }
 .guest-entry { padding:1rem; border:1px solid var(--gold-faint); border-radius:3px; background:rgba(255,253,247,0.55); }
@@ -1132,6 +1136,8 @@ function renderHouseholdRSVP() {
   var rsvp = window.currentRSVP || {};
   var accepted = {};
   (rsvp.acceptedGuestIds || []).forEach(function(id) { accepted[id] = true; });
+  var declined = {};
+  (rsvp.declinedGuestIds || []).forEach(function(id) { declined[id] = true; });
   var wrap = document.getElementById('rsvp-named-members');
   wrap.innerHTML = '<p class="rsvp-household-title">Named Household Members</p>';
   var members = m.namedMembers.slice().sort(function(a, b) {
@@ -1139,25 +1145,42 @@ function renderHouseholdRSVP() {
     if (b.guestId === m.guestId) return 1;
     return 0;
   });
-  members.forEach(function(member) {
-    var label = document.createElement('label');
-    label.className = 'member-option';
-    var input = document.createElement('input');
-    input.type = 'checkbox';
-    input.className = 'named-member-check';
-    input.value = member.guestId;
-    input.checked = !!accepted[member.guestId] || member.guestId === m.guestId;
-    input.disabled = !!accepted[member.guestId];
-    input.addEventListener('change', updateRSVPSummary);
-    label.appendChild(input);
-    label.appendChild(document.createTextNode(member.fullName));
-    if (accepted[member.guestId]) {
-      var status = document.createElement('span');
-      status.className = 'member-status';
-      status.textContent = 'Already RSVP’d';
-      label.appendChild(status);
-    }
-    wrap.appendChild(label);
+  members.forEach(function(member, index) {
+    var row = document.createElement('div');
+    row.className = 'member-option';
+    var name = document.createElement('span');
+    name.className = 'member-name';
+    name.textContent = member.fullName;
+    row.appendChild(name);
+    var group = document.createElement('span');
+    group.className = 'member-status-group';
+    group.dataset.guestId = member.guestId;
+    group.dataset.guestName = member.fullName;
+    var radioName = 'named-member-status-' + index;
+    [
+      ['accept', 'Attend'],
+      ['decline', 'Decline']
+    ].forEach(function(option) {
+      var label = document.createElement('label');
+      label.className = 'member-status-choice';
+      var input = document.createElement('input');
+      input.type = 'radio';
+      input.name = radioName;
+      input.value = option[0];
+      input.dataset.guestId = member.guestId;
+      if (accepted[member.guestId] || (!rsvp.updatedAt && member.guestId === m.guestId && option[0] === 'accept')) {
+        input.checked = option[0] === 'accept';
+      }
+      if (declined[member.guestId]) {
+        input.checked = option[0] === 'decline';
+      }
+      input.addEventListener('change', updateRSVPSummary);
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(option[1]));
+      group.appendChild(label);
+    });
+    row.appendChild(group);
+    wrap.appendChild(row);
   });
   document.getElementById('rsvp-email').value = rsvp.email || '';
   document.getElementById('rsvp-country-code').value = rsvp.phoneCountry || '+1';
@@ -1171,6 +1194,44 @@ function renderHouseholdRSVP() {
   renderChildFields(rsvp.children || []);
   document.querySelector('.btn-submit').textContent = rsvp.updatedAt ? 'Update RSVP' : 'Send RSVP';
   updateRSVPSummary();
+}
+
+function readNamedGuestStatuses() {
+  var statuses = { acceptedGuestIds: [], declinedGuestIds: [], missingGuestNames: [] };
+  document.querySelectorAll('.member-status-group').forEach(function(group) {
+    var checked = group.querySelector('input:checked');
+    if (!checked) {
+      statuses.missingGuestNames.push(group.dataset.guestName || 'a named guest');
+      return;
+    }
+    if (checked.value === 'accept') {
+      statuses.acceptedGuestIds.push(group.dataset.guestId);
+    } else {
+      statuses.declinedGuestIds.push(group.dataset.guestId);
+    }
+  });
+  return statuses;
+}
+
+function resetAdditionalGuestFields() {
+  var adultCount = document.getElementById('rsvp-adult-count');
+  var childCount = document.getElementById('rsvp-child-count');
+  if (adultCount) adultCount.value = 0;
+  if (childCount) childCount.value = 0;
+  var adultFields = document.getElementById('rsvp-adult-fields');
+  var childFields = document.getElementById('rsvp-child-fields');
+  if (adultFields) adultFields.innerHTML = '';
+  if (childFields) childFields.innerHTML = '';
+}
+
+function updateAdditionalGuestAvailability(attendingNamedCount) {
+  var m = window.currentGuestMember;
+  var allowExtras = attendingNamedCount > 0;
+  var adultsGroup = document.getElementById('rsvp-adults-group');
+  var childrenGroup = document.getElementById('rsvp-children-group');
+  if (!allowExtras) resetAdditionalGuestFields();
+  if (adultsGroup) adultsGroup.style.display = allowExtras && m.unnamedAdultSlots > 0 ? '' : 'none';
+  if (childrenGroup) childrenGroup.style.display = allowExtras && m.childSlots > 0 ? '' : 'none';
 }
 
 var COUNTRY_CODES = [
@@ -1290,13 +1351,18 @@ function escapeAttribute(value) {
 function updateRSVPSummary() {
   var m = window.currentGuestMember;
   if (!m) return;
-  var named = document.querySelectorAll('.named-member-check:checked').length;
+  var statuses = readNamedGuestStatuses();
+  var named = statuses.acceptedGuestIds.length;
+  var declined = statuses.declinedGuestIds.length;
+  updateAdditionalGuestAvailability(named);
   var adults = Number(document.getElementById('rsvp-adult-count').value || 0);
   var children = Number(document.getElementById('rsvp-child-count').value || 0);
   var total = named + adults + children;
-  document.getElementById('guest-note').textContent =
-    total + ' of ' + m.totalGuests + ' invited seat' + (m.totalGuests === 1 ? '' : 's') + ' selected. ' +
-    'You can return later to add remaining invited guests.';
+  var message = total + ' of ' + m.totalGuests + ' invited seat' + (m.totalGuests === 1 ? '' : 's') + ' attending.';
+  if (declined) message += ' ' + declined + ' named guest' + (declined === 1 ? ' is' : 's are') + ' marked not attending.';
+  if (statuses.missingGuestNames.length) message += ' Please choose Attend or Decline for each named guest.';
+  if (!total && declined) message += ' This will record that your household cannot attend.';
+  document.getElementById('guest-note').textContent = message;
 }
 
 function handleRSVP() {
@@ -1305,10 +1371,20 @@ function handleRSVP() {
   var last = document.getElementById('rsvp-last').value.trim();
   var email = document.getElementById('rsvp-email').value.trim();
   if (!first || !last || !email) { alert('Please fill in your name and email.'); return; }
-  var acceptedGuestIds = Array.prototype.map.call(document.querySelectorAll('.named-member-check:checked'), function(input) { return input.value; });
+  var namedStatuses = readNamedGuestStatuses();
+  if (namedStatuses.missingGuestNames.length) {
+    alert('Please choose Attend or Decline for each named guest.');
+    return;
+  }
+  var acceptedGuestIds = namedStatuses.acceptedGuestIds;
+  var declinedGuestIds = namedStatuses.declinedGuestIds;
   var additionalAdults = readGuestFields('rsvp-adult-fields', false);
   var children = readGuestFields('rsvp-child-fields', true);
-  if (!acceptedGuestIds.length) { alert('Please select at least one named household member.'); return; }
+  if (!acceptedGuestIds.length && !declinedGuestIds.length) { alert('Please choose Attend or Decline for each named guest.'); return; }
+  if (!acceptedGuestIds.length && (additionalAdults.length || children.length)) {
+    alert('Additional guests can only be added when at least one named guest is attending.');
+    return;
+  }
   for (var i = 0; i < additionalAdults.length; i++) {
     if (!additionalAdults[i].firstName || !additionalAdults[i].lastName) {
       alert('Please enter the first and last name for each additional guest.');
@@ -1338,12 +1414,13 @@ function handleRSVP() {
     phoneCountry: document.getElementById('rsvp-country-code').value,
     phone: document.getElementById('rsvp-phone').value.trim(),
     acceptedGuestIds: JSON.stringify(acceptedGuestIds),
+    declinedGuestIds: JSON.stringify(declinedGuestIds),
     additionalAdults: JSON.stringify(additionalAdults),
     children: JSON.stringify(children),
     notes: document.getElementById('rsvp-dietary').value.trim(),
     inviteScope: m.inviteScope
   });
-  if (!RSVP_ENDPOINT || String(m.token).indexOf('local-') === 0) { confirmRSVP(b, acceptedGuestIds, additionalAdults, children); return; }
+  if (!RSVP_ENDPOINT || String(m.token).indexOf('local-') === 0) { confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children); return; }
   var rsvpParams = {};
   data.forEach(function(val, key) { rsvpParams[key] = val; });
   apiJsonp('saveRsvp', rsvpParams, function(result) {
@@ -1359,11 +1436,11 @@ function handleRSVP() {
       b.disabled = false;
       return;
     }
-    confirmRSVP(b, acceptedGuestIds, additionalAdults, children);
+    confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children);
   });
 }
 
-function confirmRSVP(b, acceptedGuestIds, additionalAdults, children) {
+function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, additionalAdults, children) {
   window.currentRSVP = {
     updatedAt: new Date().toISOString(),
     email: document.getElementById('rsvp-email').value.trim(),
@@ -1371,14 +1448,20 @@ function confirmRSVP(b, acceptedGuestIds, additionalAdults, children) {
     phone: document.getElementById('rsvp-phone').value.trim(),
     notes: document.getElementById('rsvp-dietary').value.trim(),
     acceptedGuestIds: acceptedGuestIds,
+    declinedGuestIds: declinedGuestIds,
     additionalAdults: additionalAdults,
     children: children
   };
-  if (String(window.currentGuestMember.token).indexOf('local:') === 0) {
+  if (String(window.currentGuestMember.token).indexOf('local-') === 0) {
     localStorage.setItem('wedding-rsvp:' + window.currentGuestMember.householdId, JSON.stringify(window.currentRSVP));
   }
   renderHouseholdRSVP();
-  document.getElementById('rsvp-confirmation').style.display = 'block';
+  var attendingTotal = acceptedGuestIds.length + additionalAdults.length + children.length;
+  var confirmation = document.getElementById('rsvp-confirmation');
+  confirmation.textContent = attendingTotal
+    ? 'Thank you! We can\'t wait to celebrate with you!'
+    : 'We are so sad you cannot make it, but we understand. If your plans change, please update your RSVP by August 31 so we can include you.';
+  confirmation.style.display = 'block';
   b.textContent = 'Update RSVP';
   b.disabled = false;
 }

@@ -121,6 +121,12 @@ The PayPal pool link is set, and the registry filter hides the PayPal block only
 ### D. Apps Script redeploy — COMPLETE (2026-06-14)
 The new deployment returns `guestGroup` correctly and the website `RSVP_ENDPOINT` now points to it. The filtered PayPal registry link is available to eligible buckets.
 
+### D2. Planner RSVP mirror — NEEDS APPS SCRIPT REDEPLOY
+`rsvp-google-apps-script.gs` now keeps `Household_RSVPs` as the website source of truth and adds a one-way `Wedding RSVPs` mirror tab in the separate planner workbook (`1-BR35gFTgLMFKOIzIcFgbj04rYEK7nWJKaJgvn4d_n4`) with only planner-facing columns: Updated At, Submitted By Name, Guest Group, Subgroup, Email, Accepted Named Guests, Declined Named Guests, Additional Adult Names, Child Names and Ages, Notes, Invite Scope, Additional Adult Contacts, Total Number of Guests, Phone. After redeploying Apps Script, run `syncPlannerRsvpsManual` once to backfill existing responses; future RSVP saves refresh the mirror automatically. Optional script property `PLANNER_SPREADSHEET_ID` can override the default destination.
+
+### D3. Named guest declines — LOCAL ONLY / NEEDS WEBSITE + APPS SCRIPT DEPLOY
+RSVP UI now gives each named household member an Attend/Decline choice. Backend adds `Declined Named Guests` and `Declined Guest IDs JSON` while preserving `Accepted Named Guests`; total guest count remains attending-only. Planner mirror includes `Declined Named Guests`.
+
 ### A. Attire illustrations — COMPLETE
 Individual transparent PNGs at `assets/attire/attire-{christian,haldi,sangeet,wedding,baraat}.png`. Source is `final_attire.png` (1536×1024). Old sprite sheet files remain as backup. See item 14 above for crop details.
 

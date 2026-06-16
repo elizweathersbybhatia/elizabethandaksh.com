@@ -34,6 +34,16 @@ The source workbook is not modified.
 The script writes new responses to a separate `Household_RSVPs` tab. It leaves
 the previous `RSVPs` tab untouched.
 
+The script also maintains a planner-facing `Wedding RSVPs` tab in the separate
+planner workbook
+`https://docs.google.com/spreadsheets/d/1-BR35gFTgLMFKOIzIcFgbj04rYEK7nWJKaJgvn4d_n4/edit`.
+This tab is a one-way mirror of `Household_RSVPs` with only the external-facing columns:
+`Updated At`, `Submitted By Name`, `Guest Group`, `Subgroup`, `Email`,
+`Accepted Named Guests`, `Declined Named Guests`, `Additional Adult Names`,
+`Child Names and Ages`, `Notes`, `Invite Scope`, `Additional Adult Contacts`,
+`Total Number of Guests`, and `Phone`. Do not use this tab as the website
+source of truth.
+
 ## 2. Update Apps Script
 
 1. In the Google Sheet, open **Extensions > Apps Script**.
@@ -44,6 +54,15 @@ the previous `RSVPs` tab untouched.
 6. Keep **Execute as: Me** and **Who has access: Anyone**.
 
 The existing `/exec` URL should remain the same.
+
+After deploying the updated script, run `syncPlannerRsvpsManual` once from the
+Apps Script editor to build or refresh the planner-facing tab from existing
+responses in the planner workbook. After that, every new RSVP submission
+refreshes it automatically.
+
+If the planner-facing tab ever needs to move to a different Google Sheet, add a
+script property named `PLANNER_SPREADSHEET_ID` with that sheet's ID before
+running `syncPlannerRsvpsManual`.
 
 ## 3. Verify
 
