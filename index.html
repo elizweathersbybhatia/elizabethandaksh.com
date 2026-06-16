@@ -196,10 +196,12 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .shop-acc-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
 .shop-acc-item.open .shop-acc-body { max-height:400px; }
 .shop-link-grid { display:flex; flex-direction:column; gap:0; padding:0.4rem 0 0.8rem; }
-.shop-link { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 1.4rem; font-family:'Lora',serif; font-size:1rem; color:var(--navy); text-decoration:none; border-bottom:1px solid rgba(184,148,62,0.1); }
+.shop-link { display:flex; justify-content:space-between; align-items:center; gap:0.9rem; padding:0.48rem 1.4rem; font-family:'Lora',serif; font-size:0.78rem; color:var(--navy); text-decoration:none; border-bottom:1px solid rgba(184,148,62,0.1); }
 .shop-link:last-child { border-bottom:none; }
 .shop-link:hover { background:rgba(184,148,62,0.05); color:var(--navy); }
-.shop-link-name { font-weight:400; }
+.shop-link-name { display:inline-flex; align-items:center; gap:0.35rem; font-weight:500; text-decoration:underline; text-decoration-color:rgba(184,148,62,0.5); text-underline-offset:3px; }
+.shop-link-name::after { content:'↗'; display:inline-flex; align-items:center; justify-content:center; width:0.85rem; height:0.85rem; border:1px solid var(--gold-faint); border-radius:50%; font-family:'Montserrat',sans-serif; font-size:0.52rem; line-height:1; color:var(--gold); text-decoration:none; }
+.shop-link:hover .shop-link-name { text-decoration-color:var(--gold); }
 .shop-link-price { font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:1px; color:var(--gold); }
 
 /* INFO CARDS */
