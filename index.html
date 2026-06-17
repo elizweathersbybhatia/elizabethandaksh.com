@@ -256,6 +256,11 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 .rsvp-summary { font-family:'Lora',serif; font-size:0.95rem; color:var(--warm-brown); line-height:1.55; }
 .btn-submit { padding:1rem 3rem; background:var(--navy); color:var(--cream); border:none; border-radius:3px; font-family:'Montserrat',sans-serif; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; margin-top:0.5rem; }
 .btn-submit:hover { background:var(--navy-deep); transform:translateY(-1px); }
+.cal-add-wrap { margin-top:1.5rem; text-align:center; }
+.cal-add-label { font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.85rem; }
+.cal-add-btns { display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; }
+.cal-btn { display:inline-block; padding:0.6rem 1.4rem; border:1px solid var(--navy); border-radius:3px; font-family:'Montserrat',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--navy); text-decoration:none; transition:background 0.2s,color 0.2s; }
+.cal-btn:hover { background:var(--navy); color:var(--cream); }
 
 .accordion { max-width:var(--content-width); margin:0 auto; border:1px solid var(--gold-faint); border-radius:4px; overflow:hidden; background:rgba(255,253,247,0.9); backdrop-filter:blur(6px); }
 .accordion-item { background:none; }
@@ -719,6 +724,13 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="form-group"><label>Notes for the Couple</label><textarea id="rsvp-dietary" placeholder="Dietary requirements, allergies, or anything we should know..."></textarea></div>
     <button class="btn-submit" onclick="handleRSVP()">Send RSVP</button>
     <p id="rsvp-confirmation" style="display:none;margin-top:1rem;color:var(--sage);font-family:'Cormorant Garamond',serif; font-style:italic;font-size:1.6rem">Thank you! We can't wait to celebrate with you!</p>
+    <div id="rsvp-cal-add" class="cal-add-wrap" style="display:none">
+      <p class="cal-add-label">Add to your calendar</p>
+      <div class="cal-add-btns">
+        <a id="cal-google" class="cal-btn" target="_blank" rel="noopener">Google Calendar</a>
+        <a id="cal-ics" class="cal-btn" download="elizabeth-and-daksh-wedding.ics">Apple / Outlook</a>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1558,8 +1570,51 @@ function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, addi
     ? 'Thank you! We can\'t wait to celebrate with you!'
     : 'We are so sad you cannot make it, but we understand. If your plans change, please update your RSVP by August 31 so we can include you.';
   confirmation.style.display = 'block';
+  var calAdd = document.getElementById('rsvp-cal-add');
+  if (calAdd) {
+    if (attendingTotal) {
+      var links = buildCalendarLinks(window.currentGuestMember.invitedMonday);
+      document.getElementById('cal-google').href = links.google;
+      var icsEl = document.getElementById('cal-ics');
+      icsEl.href = links.ics;
+      calAdd.style.display = 'block';
+    } else {
+      calAdd.style.display = 'none';
+    }
+  }
   b.textContent = 'Update RSVP';
   b.disabled = false;
+}
+
+function buildCalendarLinks(invitedMonday) {
+  var title = 'Elizabeth & Daksh Wedding';
+  var location = 'The Riverview Retreat, Zero Garjia, Corbett National Park, Dhikuli, Ramnagar, Nainital, Uttarakhand 244715, India';
+  var description = 'Join us for the wedding celebrations at The Riverview Retreat, Corbett National Park. All times are in IST (UTC+5:30).';
+  // 3-day: Mon 22 Feb 5:00 PM IST = 11:30 UTC; 2-day: Tue 23 Feb 8:00 AM IST = 02:30 UTC
+  // End: Thu 25 Feb 11:00 AM IST = 05:30 UTC (hotel checkout)
+  var startUtc = invitedMonday ? '20270222T113000Z' : '20270223T023000Z';
+  var endUtc = '20270225T053000Z';
+  var googleUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent(title)
+    + '&dates=' + startUtc + '/' + endUtc
+    + '&location=' + encodeURIComponent(location)
+    + '&details=' + encodeURIComponent(description);
+  var icsLines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Elizabeth & Daksh Wedding//EN',
+    'BEGIN:VEVENT',
+    'UID:elizabethandaksh-wedding-2027@elizabethandaksh.com',
+    'DTSTART:' + startUtc,
+    'DTEND:' + endUtc,
+    'SUMMARY:' + title,
+    'LOCATION:' + location.replace(/[,;\\]/g, function(c){ return '\\' + c; }),
+    'DESCRIPTION:' + description.replace(/[,;\\]/g, function(c){ return '\\' + c; }),
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ];
+  var icsBlob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  return { google: googleUrl, ics: URL.createObjectURL(icsBlob) };
 }
 
 setupCountryCodes();
