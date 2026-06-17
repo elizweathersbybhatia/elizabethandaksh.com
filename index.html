@@ -733,6 +733,13 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     </div>
     </div>
   </div>
+  <div id="rsvp-cal-static" class="cal-add-wrap" style="display:none;margin-top:1.5rem">
+    <p class="cal-add-label">Add the wedding to your calendar</p>
+    <div class="cal-add-btns">
+      <a id="cal-google-static" class="cal-btn" target="_blank" rel="noopener">Google Calendar</a>
+      <a id="cal-ics-static" class="cal-btn" download="elizabeth-and-daksh-wedding.ics">Apple / Outlook</a>
+    </div>
+  </div>
 </section>
 
 <section id="info">
@@ -1015,6 +1022,13 @@ function enterWebsite(m) {
     window.dispatchEvent(new Event('story-carousel-visible'));
     window.dispatchEvent(new Event('hero-carousel-visible'));
   });
+  var calStatic = document.getElementById('rsvp-cal-static');
+  if (calStatic) {
+    var staticLinks = buildCalendarLinks(m.invitedMonday);
+    document.getElementById('cal-google-static').href = staticLinks.google;
+    document.getElementById('cal-ics-static').href = staticLinks.ics;
+    calStatic.style.display = 'block';
+  }
 }
 function initEventsCarousel() {
   var carousel = document.querySelector('.events-carousel');
