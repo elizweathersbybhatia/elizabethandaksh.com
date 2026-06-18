@@ -17,6 +17,7 @@ var DEFAULT_PLANNER_SPREADSHEET_ID = '1-BR35gFTgLMFKOIzIcFgbj04rYEK7nWJKaJgvn4d_
 var LOGIN_SHEET = 'Login_Master';
 var HOUSEHOLD_SHEET = 'Household_Master';
 var RSVP_SHEET = 'Household_RSVPs';
+var LOGIN_LOG_SHEET = 'Login_Log';
 var PLANNER_RSVP_SHEET = 'Wedding RSVPs';
 var TOKEN_DAYS = 30;
 var RSVP_ACCEPT_DEADLINE = new Date('2026-09-01T03:59:59.999Z'); // Aug 31, 2026 EOD New York.
@@ -101,6 +102,7 @@ function loginGuest(firstName, lastName) {
   var capacities = deriveCapacities(household, namedMembers);
   var token = issueToken(login.guest_id, login.household_id);
 
+  logLogin(login.guest_id, text(login.full_name), login.household_id);
   return {
     ok: true,
     guest: {
@@ -627,6 +629,21 @@ function number(value) {
 
 function bool(value) {
   return value === true || /^(true|yes|1)$/i.test(text(value).trim());
+}
+
+function logLogin(guestId, fullName, householdId) {
+  try {
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var sheet = ss.getSheetByName(LOGIN_LOG_SHEET);
+    if (!sheet) {
+      sheet = ss.insertSheet(LOGIN_LOG_SHEET);
+      sheet.appendRow(['Timestamp', 'Guest ID', 'Full Name', 'Household ID']);
+      sheet.setFrozenRows(1);
+    }
+    sheet.appendRow([new Date(), text(guestId), text(fullName), text(householdId)]);
+  } catch (e) {
+    Logger.log('Login log failed: ' + e.message);
+  }
 }
 
 function friendlyError(err) {
