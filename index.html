@@ -474,9 +474,13 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <p style="font-family:'Lora',serif;font-size:1rem;color:var(--warm-brown);margin-bottom:1.5rem">Please enter your first and last name</p>
     <div class="gate-name-fields">
       <input type="text" class="gate-input" id="gate-first-name" placeholder="First name" autocomplete="given-name">
-      <input type="text" class="gate-input" id="gate-last-name" placeholder="Last name" autocomplete="family-name" onkeydown="if(event.key==='Enter')attemptLogin()">
+      <input type="text" class="gate-input" id="gate-last-name" placeholder="Last name" autocomplete="family-name" onkeydown="if(event.key==='Enter')checkPasswordGate()">
     </div>
-    <br><button class="gate-btn" id="gate-submit" onclick="attemptLogin()">Enter</button>
+    <div id="gate-extra-pw" style="display:none;margin-top:0.75rem">
+      <input type="password" class="gate-input" id="gate-extra-pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPasswordGate()">
+      <p class="gate-error" id="gate-extra-pw-error" style="display:none;margin-top:0.5rem"></p>
+    </div>
+    <br><button class="gate-btn" id="gate-submit" onclick="checkPasswordGate()">Enter</button>
     <p class="gate-error" id="gate-error">We could not find that name on the invitation list. Please try again.</p>
   </div>
 </div>
@@ -686,7 +690,7 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="info-card fade-in"><h4>🚗 Ground Transport</h4><ul><li>From Delhi airport: ~5–6 hr drive</li><li>From Pantnagar airport: ~2 hr drive</li></ul><p style="margin-top:0.75rem">For guests requiring transport, our planning team will share trusted local options that may be reserved directly by guests.</p></div>
     <div class="info-card fade-in"><h4>🛂 Visa</h4><p>International guests need an <strong>Indian tourist visa</strong>. Apply 4–6 weeks ahead.</p><p style="margin-top:0.8rem"><a href="https://indianvisaonline.gov.in" target="_blank">Apply for e-Visa →</a></p></div>
   </div>
-  <div class="accom-box fade-in"><h4>Accommodation</h4><p>We are looking forward to hosting you at the Riverview Retreat for the duration of the wedding celebrations.</p><div style="margin:1.1rem auto 0;max-width:520px;padding:1rem 1.25rem;border:1px solid var(--gold-faint);border-radius:4px;background:rgba(255,253,247,0.55)"><p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);font-weight:600;margin-bottom:0.4rem">The Riverview Retreat, Corbett</p><p style="font-size:0.98rem;line-height:1.65;margin-bottom:0.55rem">Zero Garjia, Corbett National Park, Dhikuli,<br>Ramnagar, Nainital, Uttarakhand 244715</p><p style="font-size:0.95rem;line-height:1.75;margin-bottom:0.55rem"><strong>Hotel:</strong> <a href="tel:+919760090821" style="color:var(--navy);text-decoration:none">+91 97600 90821</a><br><strong>Reservations:</strong> <a href="tel:+919555088000" style="color:var(--navy);text-decoration:none">+91 95550 88000</a></p><p style="font-size:0.92rem"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px">Visit the hotel website →</a></p><div class="stay-times"><div><span>Check-In</span><strong id="checkin-date-text">Tuesday, Feb 23rd</strong><small>2:00 PM</small></div><div><span>Check-Out</span><strong>Thursday, Feb 25th</strong><small>11:00 AM</small></div></div></div><div class="accom-periods"><div><h5>Arriving Before</h5><p>For guests extending their journey before the celebrations, our wedding planner will be delighted to share a selection of lovely nearby hotels and retreats for you to book directly.</p></div><div><h5>Staying After</h5><p>For those wishing to linger a little longer after the wedding, you may reserve directly with the hotel by calling <a href="tel:+919555088000">+91 95550 88000</a>, or speak with our wedding planner for assistance.</p></div></div></div>
+  <div class="accom-box fade-in"><h4>Accommodation</h4><p>We are looking forward to hosting you at the Riverview Retreat for the duration of the wedding celebrations.</p><div style="margin:1.1rem auto 0;max-width:520px;padding:1rem 1.25rem;border:1px solid var(--gold-faint);border-radius:4px;background:rgba(255,253,247,0.55)"><p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--navy);font-weight:600;margin-bottom:0.4rem">The Riverview Retreat, Corbett</p><p style="font-size:0.98rem;line-height:1.65;margin-bottom:0.55rem">Zero Garjia, Corbett National Park, Dhikuli,<br>Ramnagar, Nainital, Uttarakhand 244715</p><p style="font-size:0.95rem;line-height:1.75;margin-bottom:0.55rem"><strong>Hotel:</strong> <a href="tel:+919760090821" style="color:var(--navy);text-decoration:none">+91 97600 90821</a><br><strong>Reservations:</strong> <a href="tel:+919555088000" style="color:var(--navy);text-decoration:none">+91 95550 88000</a></p><p style="font-size:0.92rem"><a href="https://www.leisurehotels.co.in/corbett/riverview-retreat/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:3px">Visit the hotel website →</a></p><div class="stay-times"><div><span>Check-In</span><strong id="checkin-date-text">Tuesday, Feb 23rd</strong><small>2:00 PM</small></div><div><span>Check-Out</span><strong>Thursday, Feb 25th</strong><small>11:00 AM</small></div></div></div><div class="accom-periods"><div><h5>Arriving Before</h5><p>For guests extending their journey before the celebrations, our planning team, Silver Slate Events, will be delighted to suggest nearby options, including hotels in Delhi. For direct bookings, email <a href="mailto:celebrations@leisurehotels.in" style="color:var(--navy);text-decoration:none">celebrations@leisurehotels.in</a> and reference <em>Bhatia Wedding Feb 2027</em> for special rates.</p></div><div><h5>Staying After</h5><p>For those wishing to linger a little longer after the celebrations, you're welcome to reserve directly with the hotel by calling <a href="tel:+919555088000">+91 95550 88000</a> or emailing <a href="mailto:celebrations@leisurehotels.in" style="color:var(--navy);text-decoration:none">celebrations@leisurehotels.in</a>. Please reference <em>Bhatia Wedding Feb 2027</em> for special rates.</p></div></div></div>
   <div class="travel-extras fade-in">
     <h3 class="travel-extras-title">More Helpful Travel Details</h3>
     <div class="accordion">
@@ -765,9 +769,11 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <div class="faq-support-card">
       <h3>Wedding Planners</h3>
       <p class="faq-support-script">We're in good hands.</p>
-      <p>For questions about travel, accommodation, or celebrations, our planning team will be in touch after you RSVP and is also available to help in the meantime.</p>
+      <p>For questions about travel, accommodation, or celebrations, our planning team will be in touch after you RSVP and is also available to help in the meantime. For accommodation enquiries or extended stays, you may also reach Leisure Hotels directly — please reference <em>Bhatia Wedding Feb 2027</em> for special rates.</p>
       <p class="faq-contact-name">Silver Slate Events</p>
       <div class="faq-contact-lines"><a href="tel:+918882688816">Phone &amp; WhatsApp: +91 88826 88816</a><a href="mailto:silverslateevents.wedding@gmail.com">silverslateevents.wedding@gmail.com</a></div>
+      <p class="faq-contact-name">Leisure Hotels</p>
+      <div class="faq-contact-lines"><a href="mailto:celebrations@leisurehotels.in">celebrations@leisurehotels.in</a></div>
     </div>
   </div>
 </section>
@@ -905,6 +911,36 @@ document.querySelectorAll('.tl-row').forEach(function(row) {
     link.onclick = function(event) { event.preventDefault(); openModal('pheras-modal'); };
   }
 });
+
+function checkPasswordGate() {
+  var firstVal = document.getElementById('gate-first-name').value.trim().toLowerCase();
+  var pwStep = document.getElementById('gate-extra-pw');
+  var pwInput = document.getElementById('gate-extra-pw-input');
+  var pwError = document.getElementById('gate-extra-pw-error');
+  var isProtected = ['elizabeth','daksh','sonali','bipin','vir'].indexOf(firstVal) !== -1;
+  if (!isProtected) {
+    pwStep.style.display = 'none';
+    pwInput.value = '';
+    pwError.style.display = 'none';
+    attemptLogin();
+    return;
+  }
+  if (pwStep.style.display !== 'block') {
+    document.getElementById('gate-error').style.display = 'none';
+    pwStep.style.display = 'block';
+    pwInput.focus();
+    return;
+  }
+  if (pwInput.value !== 'bhatiajc2027') {
+    pwError.textContent = 'Incorrect password. Please try again.';
+    pwError.style.display = 'block';
+    pwInput.value = '';
+    pwInput.focus();
+    return;
+  }
+  pwError.style.display = 'none';
+  attemptLogin();
+}
 
 function attemptLogin() {
   var first = document.getElementById('gate-first-name');
