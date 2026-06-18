@@ -508,9 +508,9 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
 <section class="hero" id="hero">
   <div class="hero-carousel-bg" id="hero-carousel-bg">
     <img class="hero-carousel-base" src="assets/photos/engagement-web/DSC02483.jpg" alt="" fetchpriority="high" decoding="sync">
+    <div class="hero-slide active" style="background-image:url('assets/photos/engagement-web/DSC02548.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02483.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02536.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02548.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02562.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02563.jpg')"></div>
     <div class="hero-slide" style="background-image:url('assets/photos/engagement-web/DSC02600.jpg')"></div>
@@ -1940,7 +1940,7 @@ setupCountryCodes();
         previous.classList.remove('active');
         current = nextIndex;
         preloadSlide((current + 1) % slides.length, function() {});
-        scheduleNext(5000);
+        scheduleNext(1900);
       }, fadeDuration);
     });
   }
@@ -1949,8 +1949,9 @@ setupCountryCodes();
     current = 0;
     slides.forEach(function(slide) { slide.classList.remove('active'); });
     slides[0].dataset.ready = '1';
+    slides[0].classList.add('active');
     preloadSlide(1, function() {});
-    scheduleNext(5000);
+    scheduleNext(1900);
   });
 })();
 
