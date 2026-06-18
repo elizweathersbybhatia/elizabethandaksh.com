@@ -779,6 +779,23 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
   </div>
 </section>
 
+<div class="modal" id="decline-warning-modal" role="dialog" aria-modal="true" onclick="closeModalOnBackdrop(event)">
+  <div class="modal-dialog" style="max-width:480px;text-align:center">
+    <button class="modal-close" onclick="closeModal('decline-warning-modal')" aria-label="Close">&times;</button>
+    <h3 class="modal-title" style="text-align:center;margin-right:0">One more step required</h3>
+    <p>We're sad you can't make it, but we completely understand that plans change. After October 31st, cancellations must be coordinated directly with our wedding planners. Please submit your changes here and then reach out to Silver Slate Events to ensure your cancellation is confirmed and accounted for.</p>
+    <p style="margin-top:1.1rem;font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--navy);margin-bottom:0.3rem">Silver Slate Events</p>
+    <p style="margin-top:0;line-height:1.9">
+      <a href="tel:+918882688816" style="color:var(--navy);text-decoration:none">Phone &amp; WhatsApp: +91 88826 88816</a><br>
+      <a href="mailto:silverslateevents.wedding@gmail.com" style="color:var(--navy);text-decoration:none">silverslateevents.wedding@gmail.com</a>
+    </p>
+    <div style="display:flex;gap:0.85rem;margin-top:1.5rem;justify-content:center">
+      <button onclick="closeModal('decline-warning-modal')" style="flex:1;max-width:140px;padding:0.7rem 1rem;background:transparent;color:var(--navy);border:1px solid var(--navy);border-radius:3px;font-family:'Montserrat',sans-serif;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer">Cancel</button>
+      <button onclick="confirmDeclineWarning()" style="flex:1;max-width:260px;padding:0.7rem 1rem;background:var(--navy);color:var(--cream);border:none;border-radius:3px;font-family:'Montserrat',sans-serif;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer">I understand — submit my changes</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal" id="mehndi-modal" role="dialog" aria-modal="true" aria-labelledby="mehndi-title" onclick="closeModalOnBackdrop(event)">
   <div class="modal-dialog">
     <button class="modal-close" onclick="closeModal('mehndi-modal')" aria-label="Close details">&times;</button>
@@ -1500,24 +1517,6 @@ function attendingTotalForRsvp(rsvp) {
   return (rsvp.acceptedGuestIds || []).length + (rsvp.additionalAdults || []).length + (rsvp.children || []).length;
 }
 
-function validateRsvpDeadline(acceptedGuestIds, additionalAdults, children) {
-  var now = new Date();
-  var current = window.currentRSVP || {};
-  var previousAccepted = {};
-  (current.acceptedGuestIds || []).forEach(function(id) { previousAccepted[id] = true; });
-  var nextAccepted = {};
-  acceptedGuestIds.forEach(function(id) { nextAccepted[id] = true; });
-  var addsNamedAcceptance = acceptedGuestIds.some(function(id) { return !previousAccepted[id]; });
-  var previousTotal = attendingTotalForRsvp(current);
-  var nextTotal = acceptedGuestIds.length + additionalAdults.length + children.length;
-  if (now > RSVP_DECLINE_CHANGE_DEADLINE) {
-    return 'RSVP changes are now closed. Please contact us directly if you need help.';
-  }
-  if (now > RSVP_ACCEPT_DEADLINE && (nextTotal > previousTotal || addsNamedAcceptance)) {
-    return 'The RSVP deadline for adding attendees was August 31. Please contact us directly if you need help.';
-  }
-  return '';
-}
 
 function handleRSVP() {
   var m = window.currentGuestMember;
@@ -1556,11 +1555,34 @@ function handleRSVP() {
     alert('This RSVP exceeds the number of seats assigned to your household.');
     return;
   }
-  var deadlineError = validateRsvpDeadline(acceptedGuestIds, additionalAdults, children);
-  if (deadlineError) {
-    alert(deadlineError);
-    return;
+  var now = new Date();
+  if (now > RSVP_DECLINE_CHANGE_DEADLINE) {
+    var prevAccepted = {};
+    ((window.currentRSVP || {}).acceptedGuestIds || []).forEach(function(id) { prevAccepted[id] = true; });
+    var hasNewDecline = declinedGuestIds.some(function(id) { return prevAccepted[id]; });
+    if (hasNewDecline) {
+      window._rsvpPendingConfirm = (function(aIds, dIds, ncAges, addAdults, kids) {
+        return function() {
+          closeModal('decline-warning-modal');
+          _doRsvpSubmit(aIds, dIds, ncAges, addAdults, kids);
+        };
+      })(acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children);
+      openModal('decline-warning-modal');
+      return;
+    }
   }
+  _doRsvpSubmit(acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children);
+}
+
+function confirmDeclineWarning() {
+  if (window._rsvpPendingConfirm) { window._rsvpPendingConfirm(); window._rsvpPendingConfirm = null; }
+}
+
+function _doRsvpSubmit(acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children) {
+  var m = window.currentGuestMember;
+  var first = document.getElementById('rsvp-first').value.trim();
+  var last = document.getElementById('rsvp-last').value.trim();
+  var email = document.getElementById('rsvp-email').value.trim();
   var b = document.querySelector('.btn-submit');
   b.textContent = 'Sending...'; b.disabled = true;
   var data = new URLSearchParams({
@@ -1602,6 +1624,7 @@ function handleRSVP() {
 }
 
 function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, additionalAdults, children) {
+  var wasExistingRsvp = !!(window.currentRSVP && window.currentRSVP.updatedAt);
   window.currentRSVP = {
     updatedAt: new Date().toISOString(),
     email: document.getElementById('rsvp-email').value.trim(),
@@ -1620,9 +1643,20 @@ function confirmRSVP(b, acceptedGuestIds, declinedGuestIds, namedChildAges, addi
   renderHouseholdRSVP();
   var attendingTotal = acceptedGuestIds.length + additionalAdults.length + children.length;
   var confirmation = document.getElementById('rsvp-confirmation');
-  confirmation.textContent = attendingTotal
-    ? 'Thank you! We can\'t wait to celebrate with you!'
-    : 'We are so sad you cannot make it, but we understand. If your plans change, please update your RSVP by August 31 so we can include you.';
+  var now = new Date();
+  var confirmMsg;
+  if (attendingTotal) {
+    confirmMsg = 'Thank you! We cannot wait to celebrate with you.';
+  } else if (!wasExistingRsvp) {
+    confirmMsg = now < RSVP_ACCEPT_DEADLINE
+      ? 'Thank you for letting us know. We\'re sad you won\'t be able to make it, but we completely understand. If your plans change, please update your RSVP by no later than August 31st.'
+      : 'Thank you for letting us know. We\'re sad you won\'t be able to make it, but we completely understand.';
+  } else {
+    confirmMsg = now < RSVP_DECLINE_CHANGE_DEADLINE
+      ? 'Your RSVP has been updated. We\'re sad to hear your plans have changed, but we completely understand. If things shift again, please update your RSVP by no later than October 31st.'
+      : 'Your RSVP has been updated. We\'re sad to hear your plans have changed, but we completely understand.';
+  }
+  confirmation.textContent = confirmMsg;
   confirmation.style.display = 'block';
   var calAdd = document.getElementById('rsvp-cal-add');
   if (calAdd) {

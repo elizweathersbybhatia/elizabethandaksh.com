@@ -20,10 +20,9 @@ var RSVP_SHEET = 'Household_RSVPs';
 var LOGIN_LOG_SHEET = 'Login_Log';
 var PLANNER_RSVP_SHEET = 'Wedding RSVPs';
 var TOKEN_DAYS = 30;
-var RSVP_ACCEPT_DEADLINE = new Date('2026-09-01T03:59:59.999Z'); // Aug 31, 2026 EOD New York.
-var RSVP_DECLINE_CHANGE_DEADLINE = new Date('2026-11-01T03:59:59.999Z'); // Oct 31, 2026 EOD New York.
+var RSVP_DECLINE_CHANGE_DEADLINE = new Date('2026-11-01T03:59:59.999Z'); // Oct 31, 2026 EOD New York — used for late-decline popup only.
 var RSVP_HEADERS = [
-  'Updated At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
+  'Updated At', 'Created At', 'Household ID', 'Submitted By Guest ID', 'Submitted By Name',
   'Accepted Named Guests', 'Declined Named Guests',
   'Additional Adult Names', 'Additional Adult Contacts',
   'Child Names and Ages', 'Total Number of Guests',
@@ -181,7 +180,6 @@ function saveRsvp(p) {
   var sheet = getOrCreateRsvpSheet();
   var existingRow = findRsvpRow(sheet, auth.householdId);
   var existingRsvp = existingRow ? rsvpFromRow(sheet, existingRow) : null;
-  validateRsvpDeadline(existingRsvp, accepted, additionalAdults, children);
 
   var namesById = {};
   for (var k = 0; k < members.length; k++) namesById[members[k].guestId] = members[k].fullName;
@@ -208,8 +206,10 @@ function saveRsvp(p) {
     return (namesById[child.guestId] || child.fullName || child.guestId) + ' (age ' + child.age + ')';
   });
   var totalGuests = accepted.length + additionalAdults.length + children.length;
+  var now = new Date();
   var valuesByHeader = {
-    'Updated At': new Date(),
+    'Updated At': now,
+    'Created At': existingRow ? (existingRsvp && existingRsvp.createdAt ? existingRsvp.createdAt : '') : now,
     'Household ID': auth.householdId,
     'Submitted By Guest ID': auth.guestId,
     'Submitted By Name': submittedByName,
@@ -329,6 +329,7 @@ function rsvpFromRow(sheet, row) {
   for (var i = 0; i < headers.length; i++) record[headers[i]] = values[i];
   return {
     updatedAt: record['Updated At'],
+    createdAt: record['Created At'] || null,
     householdId: record['Household ID'],
     submittedByGuestId: record['Submitted By Guest ID'],
     email: record['Email'],
@@ -507,28 +508,6 @@ function validateNamedChildAges(namedChildAges, acceptedMap, memberMap) {
   }
 }
 
-function validateRsvpDeadline(existingRsvp, accepted, additionalAdults, children) {
-  var now = new Date();
-  if (now > RSVP_DECLINE_CHANGE_DEADLINE) {
-    throw new Error('RSVP changes are now closed. Please contact us directly if you need help.');
-  }
-  if (now <= RSVP_ACCEPT_DEADLINE) return;
-
-  var previousAccepted = {};
-  if (existingRsvp && existingRsvp.acceptedGuestIds) {
-    for (var i = 0; i < existingRsvp.acceptedGuestIds.length; i++) {
-      previousAccepted[text(existingRsvp.acceptedGuestIds[i])] = true;
-    }
-  }
-  var addsNamedAcceptance = accepted.some(function(id) {
-    return !previousAccepted[text(id)];
-  });
-  var previousTotal = attendingTotal(existingRsvp);
-  var nextTotal = accepted.length + additionalAdults.length + children.length;
-  if (nextTotal > previousTotal || addsNamedAcceptance) {
-    throw new Error('The RSVP deadline for adding attendees was August 31. Please contact us directly if you need help.');
-  }
-}
 
 function attendingTotal(rsvp) {
   if (!rsvp) return 0;
