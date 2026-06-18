@@ -637,10 +637,25 @@ function logLogin(guestId, fullName, householdId) {
     var sheet = ss.getSheetByName(LOGIN_LOG_SHEET);
     if (!sheet) {
       sheet = ss.insertSheet(LOGIN_LOG_SHEET);
-      sheet.appendRow(['Timestamp', 'Guest ID', 'Full Name', 'Household ID']);
+      sheet.appendRow(['Guest ID', 'Full Name', 'Household ID', 'Login Count', 'First Login', 'Last Login']);
       sheet.setFrozenRows(1);
     }
-    sheet.appendRow([new Date(), text(guestId), text(fullName), text(householdId)]);
+    var id = text(guestId);
+    var now = new Date();
+    var lastRow = sheet.getLastRow();
+    if (lastRow >= 2) {
+      var ids = sheet.getRange(2, 1, lastRow - 1, 1).getDisplayValues();
+      for (var i = 0; i < ids.length; i++) {
+        if (text(ids[i][0]) === id) {
+          var row = i + 2;
+          var count = Number(sheet.getRange(row, 4).getValue()) || 0;
+          sheet.getRange(row, 4).setValue(count + 1);
+          sheet.getRange(row, 6).setValue(now);
+          return;
+        }
+      }
+    }
+    sheet.appendRow([id, text(fullName), text(householdId), 1, now, now]);
   } catch (e) {
     Logger.log('Login log failed: ' + e.message);
   }
