@@ -278,6 +278,13 @@ section { padding:clamp(1.75rem,4vw,2.75rem) var(--page-pad); position:relative;
 #travel .info-card li { padding:0.12rem 0; }
 #travel .accom-box { padding:1.45rem 1.7rem; }
 #travel .accom-box > p { font-size:var(--body-fs); line-height:1.7; }
+.transport-form-box { max-width:var(--content-width); margin:0 auto 1rem; padding:1.45rem 1.7rem 1.6rem; background:rgba(255,253,247,0.9); border:1px solid var(--gold-faint); border-radius:4px; text-align:center; backdrop-filter:blur(6px); position:relative; }
+.transport-form-box::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:40px; height:2px; background:linear-gradient(to right,transparent,var(--gold),transparent); }
+.transport-form-box h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:600; color:var(--navy); margin-bottom:0.6rem; }
+.transport-form-box p { font-family:'Lora',serif; font-size:var(--body-fs); color:var(--text-body); line-height:1.7; max-width:640px; margin:0 auto; }
+.transport-form-box .transport-form-note { margin-top:0.6rem; font-size:0.88rem; color:var(--warm-brown); font-style:italic; }
+.transport-form-box .cal-btn { margin-top:1.1rem; }
+.transport-form-box .transport-form-cost { margin-top:0.6rem; }
 #info .section-heading { margin-bottom:2.35rem; }
 .accordion-header { padding:1.3rem 1.8rem; cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:600; color:var(--navy); user-select:none; }
 .accordion-header:hover { background:rgba(184,148,62,0.04); }
@@ -683,6 +690,13 @@ nav ul.open .nav-rsvp-pill { background:transparent !important; color:var(--gold
     <p class="section-label">Getting There</p>
     <h2 class="section-title">Travel &amp; Stay</h2>
     <p class="section-subtitle">Everything you need for your journey to Corbett</p>
+  </div>
+  <div class="transport-form-box fade-in">
+    <h4>Arranging Your Transfers</h4>
+    <p>We're happy to help arrange transport while you're in India, especially getting to and from the Riverview Retreat. Please share your travel plans using the form below so we can coordinate your transfers.</p>
+    <p class="transport-form-cost">Please note that transport costs are covered by each guest. We're simply here to help coordinate, so your journey to the celebrations is as smooth and stress-free as possible.</p>
+    <p class="transport-form-note">Booking your own accommodation and travel? No need to fill out the form.</p>
+    <a href="https://forms.gle/Qt5PiLJJUHNkracf8" class="cal-btn" target="_blank" rel="noopener">Share Your Travel Plans</a>
   </div>
   <div class="info-cards">
     <div class="info-card fade-in"><h4>✈️ Flights</h4><p><strong>Best-connected:</strong> Delhi (DEL), ~260 km.<br><strong>Nearest:</strong> Pantnagar (PGH), ~80 km.</p><p style="margin-top:0.75rem;font-size:0.84rem;color:var(--warm-brown)">For international travelers, if you can swing it, we highly recommend arriving in India a day or two early. Spend some time in Delhi, eat everything, see the sights, and let your body catch up before the celebrations begin. Your future dancing self will thank you.</p></div>
